@@ -2,6 +2,8 @@
  * Created by ShreyashPatodia on 18/03/17.
  */
 
+
+
 import java.util.ArrayList;
 
 public abstract class Agent {
@@ -13,6 +15,7 @@ public abstract class Agent {
 
         this.myCells = new ArrayList<>(N);
         this.legalDirections = new ArrayList<>();
+        this.setAllDirections();
     }
 
     public void addLegalDirection(String direction) {
@@ -42,9 +45,14 @@ public abstract class Agent {
         int legalMoves = 0;
 
         for(Cell myCell : this.myCells) {
-            for(String legaldirection : this.legalDirections) {
-
-                char value = myCell.getNeighbour(legaldirection).getValue();
+            for(String legalDirection : this.legalDirections) {
+                char value;
+                if(myCell.neighbours.containsKey(legalDirection)) {
+                    value = myCell.getNeighbour(legalDirection).getValue();
+                }
+                else {
+                    value = '-';
+                }
 
                 if(value == '+') {
 
