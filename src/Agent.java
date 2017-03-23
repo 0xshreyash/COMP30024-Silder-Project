@@ -1,9 +1,6 @@
 /**
  * Created by ShreyashPatodia on 18/03/17.
  */
-
-
-
 import java.util.ArrayList;
 
 public abstract class Agent {

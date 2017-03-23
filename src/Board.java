@@ -53,8 +53,8 @@ public class Board {
                 column++;
             }
         }
-        
-        printBoard(board, N);
+
+        //printBoard(board, N);
 
         System.out.println(vertical.getLegalMoves());
         System.out.println(horizontal.getLegalMoves());
