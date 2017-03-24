@@ -56,8 +56,9 @@ public class Board {
 
         //printBoard(board, N);
 
-        System.out.println(vertical.getLegalMoves());
+
         System.out.println(horizontal.getLegalMoves());
+        System.out.println(vertical.getLegalMoves());
     }
 
     public static void createCells(Cell[][] board, int N) {

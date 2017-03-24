@@ -1,5 +1,9 @@
 /**
- * Created by ShreyashPatodia on 18/03/17.
+ * Created by Shreyash Patodia and Ho Suk Lee.
+ * Student numbers: Shreyash - 767336, Hoe - Add student number here.
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2016.
+ *
  */
 import java.util.ArrayList;
 
