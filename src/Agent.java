@@ -56,10 +56,10 @@ public abstract class Agent {
                     value = myCell.getNeighbour(legalDirection).getValue();
                 } else {
 
-                    value = Board.UNKNOWN_CELL;
+                    value = Board.CELL_UNKNOWN;
                 }
 
-                if (value == Board.EMPTY_CELL) {
+                if (value == Board.CELL_EMPTY) {
 
                     legalMoves++;
 

@@ -23,16 +23,15 @@ public class Board {
      * Constants values that defines the game
      * This information should be available to every class
      */
-    public static final char HORIZONTAL_CHAR = 'H';
-    public static final char VERTICAL_CHAR = 'V';
-
     public static final String DIR_UP = "up";
     public static final String DIR_DOWN = "down";
     public static final String DIR_LEFT = "left";
     public static final String DIR_RIGHT = "right";
 
-    public static final char EMPTY_CELL = '+';
-    public static final char UNKNOWN_CELL = '-';
+    public static final char CELL_EMPTY = '+';
+    public static final char CELL_UNKNOWN = '-';
+    public static final char CELL_HORIZONTAL = 'H';
+    public static final char CELL_VERTICAL = 'V';
 
     private Cell[][] board;
     private Vertical vertical;
@@ -85,10 +84,10 @@ public class Board {
                 board[row][column].setValue(value);
                 addNeighbours(row, column);
 
-                if (value == HORIZONTAL_CHAR) {
+                if (value == CELL_HORIZONTAL) {
                     horizontal.addCell(board[row][column]);
                 }
-                if (value == VERTICAL_CHAR) {
+                if (value == CELL_VERTICAL) {
                     vertical.addCell(board[row][column]);
                 }
 
