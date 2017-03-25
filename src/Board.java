@@ -2,8 +2,6 @@
  * Created by ShreyashPatodia on 18/03/17.
  */
 
-import org.jdesktop.swingx.VerticalLayout;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
