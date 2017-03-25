@@ -10,7 +10,6 @@ public class Vector2 {
 
         this.x = xPos;
         this.y = yPos;
-
     }
 
     public boolean equals(Vector2 other) {
@@ -19,26 +18,32 @@ public class Vector2 {
     }
 
     public int getX() {
+
         return this.x;
     }
 
-    public int getY() {
-        return this.y;
-    }
-
-    public Vector2 getPos() {
-        return this;
-    }
-
     public void setX(int xPos) {
+
         this.x = xPos;
     }
 
+    public int getY() {
+
+        return this.y;
+    }
+
     public void setY(int yPos) {
+
         this.y = yPos;
     }
 
+    public Vector2 getPos() {
+
+        return this;
+    }
+
     public void setPos(Vector2 other) {
+
         setX(other.getX());
         setY(other.getY());
     }

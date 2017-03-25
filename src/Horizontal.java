@@ -3,22 +3,23 @@
  */
 public class Horizontal extends Agent {
 
-    public Horizontal(int N) {
+    private String[] directions = {
+            Board.DIR_UP,
+            Board.DIR_DOWN,
+            Board.DIR_RIGHT
+    };
 
-        super(N);
+    public Horizontal(int size) {
+
+        super(size);
     }
 
     @Override
     public void setAllDirections() {
 
-        String []directions = {"up", "down", "right"};
-
-        for(String direction : directions) {
+        for (String direction : directions) {
 
             this.addLegalDirection(direction);
         }
-
-        return;
-
     }
 }

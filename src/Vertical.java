@@ -3,18 +3,21 @@
  */
 public class Vertical extends Agent {
 
+    private String[] directions = {
+            Board.DIR_UP,
+            Board.DIR_LEFT,
+            Board.DIR_RIGHT
+    };
 
-    public Vertical(int N) {
+    public Vertical(int size) {
 
-        super(N);
+        super(size);
     }
 
     @Override
     public void setAllDirections() {
 
-        String []directions = {"up", "left", "right"};
-
-        for(String direction : directions) {
+        for (String direction : directions) {
 
             this.addLegalDirection(direction);
         }

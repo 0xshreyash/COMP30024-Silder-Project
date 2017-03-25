@@ -3,18 +3,18 @@
  * Student numbers: Shreyash - 767336, Hoe - Add student number here.
  * Subject: COMP30024 Artificial Intelligence.
  * Semester 1, 2016.
- *
  */
+
 import java.util.ArrayList;
 
 public abstract class Agent {
-
     ArrayList<Cell> myCells;
     ArrayList<String> legalDirections;
 
-    public Agent(int N) {
+    public Agent(int size) {
 
-        this.myCells = new ArrayList<>(N);
+        // cells that I control
+        this.myCells = new ArrayList<>(size);
         this.legalDirections = new ArrayList<>();
         this.setAllDirections();
     }
@@ -45,17 +45,21 @@ public abstract class Agent {
 
         int legalMoves = 0;
 
-        for(Cell myCell : this.myCells) {
-            for(String legalDirection : this.legalDirections) {
+        for (Cell myCell : this.myCells) {
+
+            for (String legalDirection : this.legalDirections) {
+
                 char value;
-                if(myCell.neighbours.containsKey(legalDirection)) {
+
+                if (myCell.neighbours.containsKey(legalDirection)) {
+
                     value = myCell.getNeighbour(legalDirection).getValue();
-                }
-                else {
-                    value = '-';
+                } else {
+
+                    value = Board.UNKNOWN_CELL;
                 }
 
-                if(value == '+') {
+                if (value == Board.EMPTY_CELL) {
 
                     legalMoves++;
 

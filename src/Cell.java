@@ -12,26 +12,34 @@ public class Cell {
 
     HashMap<String, Cell> neighbours;
 
-    public Cell(Vector2 Position)
-    {
+    public Cell(Vector2 Position) {
+
         this.pos = Position;
         this.neighbours = new HashMap<>();
-
     }
 
     public Cell(Vector2 Position, char initialValue) {
+
         this.value = initialValue;
         this.pos = Position;
         this.neighbours = new HashMap<>();
     }
 
     public char getValue() {
+
         return this.value;
     }
 
+    public void setValue(char val) {
+
+        this.value = val;
+    }
+
     public Vector2 getPos() {
+
         return this.pos;
     }
+
     public void setNeighbour(String key, Cell neighbour) {
 
         this.neighbours.put(key, neighbour);
@@ -42,11 +50,9 @@ public class Cell {
         return this.neighbours.get(key);
     }
 
-    public void setValue(char val) {
+    @Override
+    public String toString() {
 
-        this.value = val;
+        return String.valueOf(value);
     }
-
-
-
 }

@@ -11,71 +11,84 @@ import java.io.InputStreamReader;
  * hardcoded into the classes.
  */
 
-/** The driver class for the game, takes input from standard input, stores the input as an
- *  array of cells, adds the cells belonging to Horizontal and Vertical players to array lists
- *  of cells in the players themselves, and then goes through the Array list in order to count
- *  the number of possible legal moves each player can make.
- *
+/**
+ * The driver class for the game, takes input from standard input, stores the input as an
+ * array of cells, adds the cells belonging to Horizontal and Vertical players to array lists
+ * of cells in the players themselves, and then goes through the Array list in order to count
+ * the number of possible legal moves each player can make.
  */
 public class Board {
+
+    /**
+     * Constants values that defines the game
+     * This information should be available to every class
+     */
+    public static final char HORIZONTAL_CHAR = 'H';
+    public static final char VERTICAL_CHAR = 'V';
+
+    public static final String DIR_UP = "up";
+    public static final String DIR_DOWN = "down";
+    public static final String DIR_LEFT = "left";
+    public static final String DIR_RIGHT = "right";
+
+    public static final char EMPTY_CELL = '+';
+    public static final char UNKNOWN_CELL = '-';
 
     private Cell[][] board;
     private Vertical vertical;
     private Horizontal horizontal;
-    private Integer N;
+    private Integer size;
 
     /**
      * function that takes input from the user.
      */
-     public void getInput() {
+    public void getInput() {
 
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
 
-        this.N = 0;
+        this.size = 0;
         try {
-            this.N = Integer.parseInt(buffer.readLine());
-        }
-        catch(IOException e) {
+
+            this.size = Integer.parseInt(buffer.readLine());
+        } catch (IOException e) {
 
             System.err.println(e);
         }
 
+        this.board = new Cell[this.size][];
+        this.vertical = new Vertical(this.size);
+        this.horizontal = new Horizontal(this.size);
 
-         this.board = new Cell[this.N][];
-         this.vertical = new Vertical(this.N);
-         this.horizontal = new Horizontal(this.N);
-
-        /* Creating all the cells first so that we don't have any issues when setting
-         * the neighbours for each cell
-         */
+         /* Creating all the cells first so that we don't have any issues when setting
+          * the neighbours for each cell
+          */
         createCells();
 
         char[] rowValues;
 
-        for(int row = this.N - 1; row >= 0; row--) {
+        for (int row = this.size - 1; row >= 0; row--) {
 
             String line = "";
             try {
                 line = buffer.readLine();
-            }
-            catch(IOException e) {
+            } catch (IOException e) {
 
                 System.err.println(e);
             }
 
-            line = line.replaceAll("\\s","");
+            line = line.replaceAll("\\s", "");
             rowValues = line.toCharArray();
 
             int column = 0;
-            for(char value : rowValues) {
+            for (char value : rowValues) {
 
                 board[row][column].setValue(value);
                 addNeighbours(row, column);
 
-                if(value == 'H') {
+                if (value == HORIZONTAL_CHAR) {
                     horizontal.addCell(board[row][column]);
                 }
-                if(value == 'V') {
+                if (value == VERTICAL_CHAR) {
                     vertical.addCell(board[row][column]);
                 }
 
@@ -89,7 +102,7 @@ public class Board {
     }
 
     public void printLegalMoves() {
-        
+
         System.out.println(this.horizontal.getLegalMoves());
         System.out.println(this.vertical.getLegalMoves());
 
@@ -102,11 +115,11 @@ public class Board {
      */
     public void createCells() {
 
-        for(int row = this.N - 1; row >= 0; row --) {
+        for (int row = this.size - 1; row >= 0; row--) {
 
-            this.board[row] = new Cell[this.N];
+            this.board[row] = new Cell[this.size];
 
-            for(int column = 0; column < this.N; column++) {
+            for (int column = 0; column < this.size; column++) {
 
                 this.board[row][column] = new Cell(new Vector2(row, column));
             }
@@ -121,21 +134,21 @@ public class Board {
      */
     public void addNeighbours(int row, int column) {
 
-        if(row != this.N - 1) {
+        if (row != this.size - 1) {
 
-            this.board[row][column].setNeighbour("up", this.board[row + 1][column]);
+            this.board[row][column].setNeighbour(DIR_UP, this.board[row + 1][column]);
         }
-        if(row != 0) {
+        if (row != 0) {
 
-            this.board[row][column].setNeighbour("down", this.board[row - 1][column]);
+            this.board[row][column].setNeighbour(DIR_DOWN, this.board[row - 1][column]);
         }
-        if(column != N - 1) {
+        if (column != size - 1) {
 
-            this.board[row][column].setNeighbour("right", this.board[row][column + 1]);
+            this.board[row][column].setNeighbour(DIR_RIGHT, this.board[row][column + 1]);
         }
-        if(column != 0) {
+        if (column != 0) {
 
-            this.board[row][column].setNeighbour("left", this.board[row][column - 1]);
+            this.board[row][column].setNeighbour(DIR_LEFT, this.board[row][column - 1]);
         }
     }
 
@@ -143,17 +156,22 @@ public class Board {
      * Function used in development to print the contents of the board, so as to
      * aid program testing and debugging.
      */
-    public void printBoard() {
+    @Override
+    public String toString() {
 
-        for (int row = this.N - 1; row >= 0; row--) {
-            for (int column = 0; column < this.N; column++) {
+        String boardString = "";
 
-                System.out.print(this.board[row][column].getValue() + " ");
+        for (int row = this.size - 1; row >= 0; row--) {
+            for (int column = 0; column < this.size; column++) {
+
+                boardString += this.board[row][column] + " ";
 
             }
 
-            System.out.println();
+            boardString += "\n";
         }
+
+        return boardString;
     }
 
 
