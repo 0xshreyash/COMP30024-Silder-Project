@@ -7,6 +7,7 @@
 package com.teammaxine.game.elements;
 
 import com.teammaxine.game.helpers.Vector2;
+
 import java.util.HashMap;
 
 /**

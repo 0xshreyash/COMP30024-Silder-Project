@@ -22,6 +22,7 @@ public abstract class Agent {
 
     /**
      * Agent that plays out the game
+     *
      * @param size size of the board the agent is in
      */
     public Agent(int size) {
@@ -33,6 +34,7 @@ public abstract class Agent {
 
     /**
      * directions it is allowed to move
+     *
      * @param direction
      */
     public void addLegalDirection(String direction) {
@@ -41,6 +43,7 @@ public abstract class Agent {
 
     /**
      * add a cell that the agent controls
+     *
      * @param newCell
      */
     public void addCell(Cell newCell) {
@@ -51,6 +54,7 @@ public abstract class Agent {
 
     /**
      * remove a cell that agent controls
+     *
      * @param oldCell
      */
     public void removeCell(Cell oldCell) {
@@ -59,6 +63,7 @@ public abstract class Agent {
 
     /**
      * check if agent controls the cell
+     *
      * @param cell
      * @return true if the cell is being controled by agent
      */
@@ -68,6 +73,7 @@ public abstract class Agent {
 
     /**
      * get all the legal moves possible
+     *
      * @return array list of agent actions
      */
     public ArrayList<AgentAction> getLegalMoves() {

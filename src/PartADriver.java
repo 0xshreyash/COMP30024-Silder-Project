@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class PartADriver {
 
-    public static void main(String []args) {
+    public static void main(String[] args) {
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
 
         int size = 0;

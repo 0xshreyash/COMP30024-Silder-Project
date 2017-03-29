@@ -6,13 +6,14 @@
  */
 
 package com.teammaxine.game.elements;
+
 import com.teammaxine.game.helpers.Vector2;
 
 import java.util.ArrayList;
 
 /**
  * Board class - the environment of the game
- *
+ * <p>
  * NOTE: All directions are absolute i.e. they are from the point of view of the viewer.
  * So vertical cannot move "down" and horizontal cannot move to the "left", this has been
  * hardcoded into the classes.
@@ -40,6 +41,7 @@ public class Board {
 
     /**
      * function that takes input from the user.
+     *
      * @param boardMapping array list of strings that maps the board
      */
     public Board(ArrayList<String> boardMapping) {
@@ -55,9 +57,9 @@ public class Board {
         */
         createCells();
 
-        for(int row = 0; row < size; row++) {
+        for (int row = 0; row < size; row++) {
             String line = boardMapping.get(row);
-            char [] rowValues = line.toCharArray();
+            char[] rowValues = line.toCharArray();
 
             int column = 0;
             for (char value : rowValues) {
@@ -103,7 +105,8 @@ public class Board {
      * Adds neighbours to the cells "neighbour" hash table, with "up", "down",
      * "right" or "left" keys depending on the neighbours existence and relative
      * position from the players cell.
-     * @param row row number of the cell
+     *
+     * @param row    row number of the cell
      * @param column column number of the cell
      */
     public void addNeighbours(int row, int column) {

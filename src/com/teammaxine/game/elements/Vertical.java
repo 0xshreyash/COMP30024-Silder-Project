@@ -21,10 +21,10 @@ public class Vertical extends Agent {
     }
 
     @Override
-   public void setAllDirections() {
-       for (String direction : Vertical.directions) {
-           this.addLegalDirection(direction);
-       }
-   }
+    public void setAllDirections() {
+        for (String direction : Vertical.directions) {
+            this.addLegalDirection(direction);
+        }
+    }
 
 }
