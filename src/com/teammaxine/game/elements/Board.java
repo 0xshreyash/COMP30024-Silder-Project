@@ -1,21 +1,21 @@
 /**
- * Created by ShreyashPatodia on 18/03/17.
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2016.
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+package com.teammaxine.game.elements;
+import com.teammaxine.game.helpers.Vector2;
 
-/* NOTE: All directions are absolute i.e. they are from the point of view of the viewer.
- * So vertical cannot move "down" and horizontal cannot move to the "left", this has been
- * hardcoded into the classes.
- */
+import java.util.ArrayList;
 
 /**
- * The driver class for the game, takes input from standard input, stores the input as an
- * array of cells, adds the cells belonging to Horizontal and Vertical players to array lists
- * of cells in the players themselves, and then goes through the Array list in order to count
- * the number of possible legal moves each player can make.
+ * Board class - the environment of the game
+ *
+ * NOTE: All directions are absolute i.e. they are from the point of view of the viewer.
+ * So vertical cannot move "down" and horizontal cannot move to the "left", this has been
+ * hardcoded into the classes.
  */
 public class Board {
 
@@ -40,71 +40,48 @@ public class Board {
 
     /**
      * function that takes input from the user.
+     * @param boardMapping array list of strings that maps the board
      */
-    public void getInput() {
+    public Board(ArrayList<String> boardMapping) {
+        size = boardMapping.size();
 
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
+        vertical = new Vertical(size);
+        horizontal = new Horizontal(size);
+        board = new Cell[this.size][];
 
-        this.size = 0;
-        try {
-
-            this.size = Integer.parseInt(buffer.readLine());
-        } catch (IOException e) {
-
-            System.err.println(e);
-        }
-
-        this.board = new Cell[this.size][];
-        this.vertical = new Vertical(this.size);
-        this.horizontal = new Horizontal(this.size);
-
-         /* Creating all the cells first so that we don't have any issues when setting
-          * the neighbours for each cell
-          */
+        /*
+        Creating all the cells first so that we don't have any issues when setting
+        the neighbours for each cell
+        */
         createCells();
 
-        char[] rowValues;
-
-        for (int row = this.size - 1; row >= 0; row--) {
-
-            String line = "";
-            try {
-                line = buffer.readLine();
-            } catch (IOException e) {
-
-                System.err.println(e);
-            }
-
-            line = line.replaceAll("\\s", "");
-            rowValues = line.toCharArray();
+        for(int row = 0; row < size; row++) {
+            String line = boardMapping.get(row);
+            char [] rowValues = line.toCharArray();
 
             int column = 0;
             for (char value : rowValues) {
-
                 board[row][column].setValue(value);
                 addNeighbours(row, column);
 
-                if (value == CELL_HORIZONTAL) {
+                if (value == CELL_HORIZONTAL)
                     horizontal.addCell(board[row][column]);
-                }
-                if (value == CELL_VERTICAL) {
+
+                if (value == CELL_VERTICAL)
                     vertical.addCell(board[row][column]);
-                }
 
                 column++;
             }
         }
-
-        this.printLegalMoves();
-
-
     }
 
+    /**
+     * Print legal moves for Horizontal and Vertical according to Part A
+     * specifications
+     */
     public void printLegalMoves() {
-
-        System.out.println(this.horizontal.getLegalMoves());
-        System.out.println(this.vertical.getLegalMoves());
-
+        System.out.println(this.horizontal.getLegalMoves().size());
+        System.out.println(this.vertical.getLegalMoves().size());
     }
 
     /**
@@ -113,42 +90,34 @@ public class Board {
      * input.
      */
     public void createCells() {
-
         for (int row = this.size - 1; row >= 0; row--) {
-
             this.board[row] = new Cell[this.size];
 
             for (int column = 0; column < this.size; column++) {
-
                 this.board[row][column] = new Cell(new Vector2(row, column));
             }
         }
-
     }
 
     /**
      * Adds neighbours to the cells "neighbour" hash table, with "up", "down",
      * "right" or "left" keys depending on the neighbours existence and relative
      * position from the players cell.
+     * @param row row number of the cell
+     * @param column column number of the cell
      */
     public void addNeighbours(int row, int column) {
-
-        if (row != this.size - 1) {
-
+        if (row != this.size - 1)
             this.board[row][column].setNeighbour(DIR_UP, this.board[row + 1][column]);
-        }
-        if (row != 0) {
 
+        if (row != 0)
             this.board[row][column].setNeighbour(DIR_DOWN, this.board[row - 1][column]);
-        }
-        if (column != size - 1) {
 
+        if (column != size - 1)
             this.board[row][column].setNeighbour(DIR_RIGHT, this.board[row][column + 1]);
-        }
-        if (column != 0) {
 
+        if (column != 0)
             this.board[row][column].setNeighbour(DIR_LEFT, this.board[row][column - 1]);
-        }
     }
 
     /**
@@ -157,21 +126,15 @@ public class Board {
      */
     @Override
     public String toString() {
-
         String boardString = "";
 
         for (int row = this.size - 1; row >= 0; row--) {
             for (int column = 0; column < this.size; column++) {
-
                 boardString += this.board[row][column] + " ";
-
             }
-
             boardString += "\n";
         }
 
         return boardString;
     }
-
-
 }
