@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 /**
  * Board class - the environment of the game
- * <p>
  * NOTE: All directions are absolute i.e. they are from the point of view of the viewer.
  * So vertical cannot move "down" and horizontal cannot move to the "left", this has been
  * hardcoded into the classes.
@@ -43,6 +42,7 @@ public class Board {
      * function that takes input from the user.
      *
      * @param boardMapping array list of strings that maps the board
+     *                     1st string = bottom row
      */
     public Board(ArrayList<String> boardMapping) {
         size = boardMapping.size();
@@ -91,7 +91,7 @@ public class Board {
      * order to be able to add the neighbours to the cells when we are taking
      * input.
      */
-    public void createCells() {
+    private void createCells() {
         for (int row = this.size - 1; row >= 0; row--) {
             this.board[row] = new Cell[this.size];
 
@@ -109,7 +109,7 @@ public class Board {
      * @param row    row number of the cell
      * @param column column number of the cell
      */
-    public void addNeighbours(int row, int column) {
+    private void addNeighbours(int row, int column) {
         if (row != this.size - 1)
             this.board[row][column].setNeighbour(DIR_UP, this.board[row + 1][column]);
 
@@ -131,6 +131,7 @@ public class Board {
     public String toString() {
         String boardString = "";
 
+        // print from top row
         for (int row = this.size - 1; row >= 0; row--) {
             for (int column = 0; column < this.size; column++) {
                 boardString += this.board[row][column] + " ";

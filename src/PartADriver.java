@@ -26,7 +26,7 @@ public class PartADriver {
         // setting of the board
         ArrayList<String> boardMapping = new ArrayList<>();
 
-        for (int row = size - 1; row >= 0; row--) {
+        for (int row = 0; row < size; row++) {
             String line = "";
             try {
                 line = buffer.readLine();
@@ -39,8 +39,10 @@ public class PartADriver {
             boardMapping.add(0, line);
         }
 
+        // board mapping is now bottom row = 1st element
         Board board = new Board(boardMapping);
 
+        System.out.println(board.toString());
         board.printLegalMoves();
     }
 }
