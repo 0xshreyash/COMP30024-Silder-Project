@@ -45,10 +45,10 @@ public class Board {
      * @param boardMapping array list of strings that maps the board
      */
     public Board(ArrayList<String> boardMapping) {
-        size = boardMapping.size();
+        this.size = boardMapping.size();
 
-        vertical = new Vertical(size);
-        horizontal = new Horizontal(size);
+        vertical = new Vertical(this.size);
+        horizontal = new Horizontal(this.size);
         board = new Cell[this.size][];
 
         /*
@@ -57,7 +57,7 @@ public class Board {
         */
         createCells();
 
-        for (int row = 0; row < size; row++) {
+        for (int row = 0; row < this.size; row++) {
             String line = boardMapping.get(row);
             char[] rowValues = line.toCharArray();
 
@@ -116,7 +116,7 @@ public class Board {
         if (row != 0)
             this.board[row][column].setNeighbour(DIR_DOWN, this.board[row - 1][column]);
 
-        if (column != size - 1)
+        if (column != this.size - 1)
             this.board[row][column].setNeighbour(DIR_RIGHT, this.board[row][column + 1]);
 
         if (column != 0)
