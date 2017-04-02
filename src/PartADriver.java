@@ -42,7 +42,6 @@ public class PartADriver {
         // board mapping is now bottom row = 1st element
         Board board = new Board(boardMapping);
 
-        System.out.println(board.toString());
         board.printLegalMoves();
     }
 }
