@@ -25,7 +25,7 @@ src
      |__ Vertical.java
   |__ helpers
      |__ Vector2.java
-  |__ PartADriver.java 
+  |__ PartADriver.java
 
 Our package for our game is called com.teammaxine.game, in folder action we have ActionMove which will allow us to move a 'H'
 or a 'V' piece from one Vector2 location (x, y coordinate) to another, AgentAction will be the action the agent may take for each move.
@@ -37,7 +37,7 @@ from Agent and have their legal directions for movement set at the time of creat
 are and can thus, easily find the number of legal moves for it's pieces. The Vector2 class is our coordinate system which
 we will use for the purpose of having a sense of position in our game and this class is contianed in the helpers folder. 
 
-The class PartADriver, as the name suggests drives the program and takes input from the user, we used BufferedReader instead
+The class com.teammaxine.game.PartADriver, as the name suggests drives the program and takes input from the user, we used BufferedReader instead
 of Scanner for input due to minor performance perks of BufferedReader. 
  
 Libraries: 

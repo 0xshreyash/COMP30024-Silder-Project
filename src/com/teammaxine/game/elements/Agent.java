@@ -27,7 +27,7 @@ public abstract class Agent {
      */
     public Agent(int size) {
         // cells that agent controls
-        this.myCells = new HashMap(size);
+        this.myCells = new HashMap<>(size);
         this.legalDirections = new ArrayList<>();
         this.setAllDirections();
     }

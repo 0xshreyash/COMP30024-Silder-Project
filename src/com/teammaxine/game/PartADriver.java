@@ -1,3 +1,5 @@
+package com.teammaxine.game;
+
 import com.teammaxine.game.elements.Board;
 
 import java.io.BufferedReader;
