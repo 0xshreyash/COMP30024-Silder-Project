@@ -1,3 +1,10 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hlee39
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
 package com.teammaxine.game;
 
 import com.teammaxine.game.elements.Board;
@@ -8,15 +15,19 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- * The driver class for the game, takes input from standard input, stores the input as an
- * array of cells, adds the cells belonging to com.teammaxine.game.elements.Horizontal and com.teammaxine.game.elements.Vertical players to array lists
- * of cells in the players themselves, and then goes through the Array list in order to count
- * the number of possible legal moves each player can make.
+ * The driver class for the game, takes input from standard input, stores the
+ * input as an array of cells, adds the cells belonging to
+ * com.teammaxine.game.elements.Horizontal
+ * and com.teammaxine.game.elements.Vertical players to array lists
+ * of cells in the players themselves, and then goes through the Array
+ * list in order to count the number of possible legal moves each player
+ * can make.
  */
 public class PartADriver {
 
     public static void main(String[] args) {
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader buffer = new BufferedReader(
+                                        new InputStreamReader(System.in));
 
         int size = 0;
         try {

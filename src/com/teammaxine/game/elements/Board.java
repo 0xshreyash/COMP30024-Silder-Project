@@ -1,10 +1,10 @@
 /**
  * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
  * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hlee39
  * Subject: COMP30024 Artificial Intelligence.
- * Semester 1, 2016.
+ * Semester 1, 2017.
  */
-
 package com.teammaxine.game.elements;
 
 import com.teammaxine.game.helpers.Vector2;
@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 /**
  * Board class - the environment of the game
- * NOTE: All directions are absolute i.e. they are from the point of view of the viewer.
- * So vertical cannot move "down" and horizontal cannot move to the "left", this has been
- * hardcoded into the classes.
+ * NOTE: All directions are absolute i.e. they are from the point of view
+ * of the viewer. So vertical cannot move "down" and horizontal cannot move
+ * to the "left".
  */
 public class Board {
 
@@ -52,8 +52,8 @@ public class Board {
         board = new Cell[this.size][];
 
         /*
-        Creating all the cells first so that we don't have any issues when setting
-        the neighbours for each cell
+        Creating all the cells first so that we don't have any issues when
+        setting the neighbours for each cell
         */
         createCells();
 
@@ -111,16 +111,20 @@ public class Board {
      */
     private void addNeighbours(int row, int column) {
         if (row != this.size - 1)
-            this.board[row][column].setNeighbour(DIR_UP, this.board[row + 1][column]);
+            this.board[row][column].setNeighbour(DIR_UP,
+                                        this.board[row + 1][column]);
 
         if (row != 0)
-            this.board[row][column].setNeighbour(DIR_DOWN, this.board[row - 1][column]);
+            this.board[row][column].setNeighbour(DIR_DOWN,
+                                        this.board[row - 1][column]);
 
         if (column != this.size - 1)
-            this.board[row][column].setNeighbour(DIR_RIGHT, this.board[row][column + 1]);
+            this.board[row][column].setNeighbour(DIR_RIGHT,
+                                        this.board[row][column + 1]);
 
         if (column != 0)
-            this.board[row][column].setNeighbour(DIR_LEFT, this.board[row][column - 1]);
+            this.board[row][column].setNeighbour(DIR_LEFT,
+                                        this.board[row][column - 1]);
     }
 
     /**
