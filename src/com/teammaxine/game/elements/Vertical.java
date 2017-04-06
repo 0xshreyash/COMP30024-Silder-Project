@@ -1,8 +1,9 @@
 /**
  * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
  * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hlee39
  * Subject: COMP30024 Artificial Intelligence.
- * Semester 1, 2016.
+ * Semester 1, 2017.
  */
 package com.teammaxine.game.elements;
 
@@ -10,6 +11,10 @@ package com.teammaxine.game.elements;
  * Vertical agent of the game
  */
 public class Vertical extends Agent {
+
+    /**
+     * Valid directions for the vertical.
+     */
     public static String[] directions = {
             Board.DIR_UP,
             Board.DIR_LEFT,
@@ -20,6 +25,9 @@ public class Vertical extends Agent {
         super(size);
     }
 
+    /**
+     * Sets the legal directions for the vertical agent.
+     */
     @Override
     public void setAllDirections() {
         for (String direction : Vertical.directions) {
@@ -27,6 +35,14 @@ public class Vertical extends Agent {
         }
     }
 
+    /**
+     * Checks for the edge case when the the vertical can
+     * go off the board from the top.
+     *
+     * @param cell to consider
+     * @return true if the cell is on the edge and can go off
+     * the top.
+     */
     @Override
     public boolean edgeCheck(Cell cell) {
         return cell.getPos().getY() == size - 1;

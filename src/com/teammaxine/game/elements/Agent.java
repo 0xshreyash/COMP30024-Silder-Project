@@ -1,8 +1,9 @@
 /**
  * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
  * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hlee39
  * Subject: COMP30024 Artificial Intelligence.
- * Semester 1, 2016.
+ * Semester 1, 2017.
  */
 package com.teammaxine.game.elements;
 
@@ -51,7 +52,7 @@ public abstract class Agent {
     /**
      * directions it is allowed to move
      *
-     * @param direction
+     * @param direction the direction to be added to the legal directions.
      */
     public void addLegalDirection(String direction) {
         this.legalDirections.add(direction);
@@ -60,7 +61,8 @@ public abstract class Agent {
     /**
      * add a cell that the agent controls
      *
-     * @param newCell
+     * @param newCell the new cell belonging to the agent i.e. a cell that
+     * contains the agent's piece.
      */
     public void addCell(Cell newCell) {
 
@@ -71,7 +73,7 @@ public abstract class Agent {
     /**
      * remove a cell that agent controls
      *
-     * @param oldCell
+     * @param oldCell the cell that is not longer belonging to the agent.
      */
     public void removeCell(Cell oldCell) {
         this.myCells.remove(oldCell);
@@ -80,7 +82,7 @@ public abstract class Agent {
     /**
      * check if agent controls the cell
      *
-     * @param cell
+     * @param cell the cell who's possession is to be checked for the agent
      * @return true if the cell is being controled by agent
      */
     public boolean hasCell(Cell cell) {
@@ -102,17 +104,17 @@ public abstract class Agent {
 
             for (String legalDirection : this.legalDirections) {
                 char value;
-                Vector2 neighourPos = null;
+                Vector2 neighbourPos = null;
 
                 if (myCell.getNeighbours().containsKey(legalDirection)) {
                     value = myCell.getNeighbour(legalDirection).getValue();
-                    neighourPos = myCell.getNeighbour(legalDirection).getPos();
+                    neighbourPos = myCell.getNeighbour(legalDirection).getPos();
                 } else {
                     value = Board.CELL_UNKNOWN;
                 }
 
                 if (value == Board.CELL_EMPTY) {
-                    moves.add(new ActionMove(myCell.getPos(), neighourPos));
+                    moves.add(new ActionMove(myCell.getPos(), neighbourPos));
                 }
             }
         }
