@@ -26,4 +26,14 @@ public class Horizontal extends Agent {
             this.addLegalDirection(direction);
         }
     }
+
+    @Override
+    public boolean edgeCheck(Cell cell) {
+        return cell.getPos().getX() == size - 1;
+    }
+
+    @Override
+    public String toString() {
+        return "Horizontal Agent";
+    }
 }

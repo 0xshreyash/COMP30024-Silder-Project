@@ -14,10 +14,10 @@ import java.util.HashMap;
  * Cell class that forms the board
  */
 public class Cell {
-    Vector2 pos;
-    char value;
+    private Vector2 pos;
+    private char value;
 
-    HashMap<String, Cell> neighbours;
+    private HashMap<String, Cell> neighbours;
 
     public Cell(Vector2 Position) {
         this.pos = Position;
@@ -48,6 +48,10 @@ public class Cell {
 
     public Cell getNeighbour(String key) {
         return this.neighbours.get(key);
+    }
+
+    public HashMap<String,Cell> getNeighbours() {
+        return neighbours;
     }
 
     @Override

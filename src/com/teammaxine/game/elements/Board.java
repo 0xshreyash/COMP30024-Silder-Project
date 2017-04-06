@@ -96,7 +96,7 @@ public class Board {
             this.board[row] = new Cell[this.size];
 
             for (int column = 0; column < this.size; column++) {
-                this.board[row][column] = new Cell(new Vector2(row, column));
+                this.board[row][column] = new Cell(new Vector2(column, row));
             }
         }
     }

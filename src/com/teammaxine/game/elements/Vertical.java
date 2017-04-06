@@ -27,4 +27,13 @@ public class Vertical extends Agent {
         }
     }
 
+    @Override
+    public boolean edgeCheck(Cell cell) {
+        return cell.getPos().getY() == size - 1;
+    }
+
+    @Override
+    public String toString() {
+        return "Vertical Agent";
+    }
 }
