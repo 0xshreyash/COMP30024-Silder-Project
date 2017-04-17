@@ -5,22 +5,22 @@
  * Subject: COMP30024 Artificial Intelligence.
  * Semester 1, 2017.
  */
-package com.teammaxine.game.actions;
+package com.teammaxine.board.actions;
 
-import com.teammaxine.game.elements.Agent;
-import com.teammaxine.game.helpers.Vector2;
+import com.teammaxine.board.elements.BoardAgent;
+import com.teammaxine.board.helpers.Vector2;
 
 /**
  * Contains the location of a cell that is on the edge, close to
- * finishing for a certain agent, i.e. an action that might lead to
+ * finishing for a certain boardAgent, i.e. an action that might lead to
  * a finish for that piece.
  */
 public class ActionFinisher extends AgentAction {
     Vector2 location;
-    Agent agent;
+    BoardAgent boardAgent;
 
-    public ActionFinisher(Vector2 location, Agent agent) {
+    public ActionFinisher(Vector2 location, BoardAgent boardAgent) {
         this.location = location;
-        this.agent = agent;
+        this.boardAgent = boardAgent;
     }
 }

@@ -13,7 +13,7 @@
 package aiproj.slider;
 
 /**
- * Helper class for representing and communicating a move in the game of Slider.
+ * Helper class for representing and communicating a move in the board of Slider.
  */
 public class Move {
 

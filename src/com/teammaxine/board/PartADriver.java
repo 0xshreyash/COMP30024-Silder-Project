@@ -5,9 +5,9 @@
  * Subject: COMP30024 Artificial Intelligence.
  * Semester 1, 2017.
  */
-package com.teammaxine.game;
+package com.teammaxine.board;
 
-import com.teammaxine.game.elements.Board;
+import com.teammaxine.board.elements.Board;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,10 +15,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- * The driver class for the game, takes input from standard input, stores the
+ * The driver class for the board, takes input from standard input, stores the
  * input as an array of cells, adds the cells belonging to
- * com.teammaxine.game.elements.Horizontal
- * and com.teammaxine.game.elements.Vertical players to array lists
+ * com.teammaxine.board.elements.Horizontal
+ * and com.teammaxine.board.elements.Vertical players to array lists
  * of cells in the players themselves, and then goes through the Array
  * list in order to count the number of possible legal moves each player
  * can make.

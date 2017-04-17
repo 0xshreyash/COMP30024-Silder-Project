@@ -10,7 +10,7 @@
 package aiproj.slider;
 
 /** 
- * Referee class: Driver for a game of Slider
+ * Referee class: Driver for a board of Slider
  * Run this class on the command line using a command like:
  * java aiproj.slider.Referee 6 your.package.PlayerName your.package.PlayerName
  * to play your program PlayerName against itself on a board of size N=6
@@ -18,7 +18,7 @@ package aiproj.slider;
  */
 public class Referee {
 
-	/** Load provided classes, and play a game of Slider */
+	/** Load provided classes, and play a board of Slider */
 	public static void main(String[] args) {
 
 		/* * * *
@@ -57,7 +57,7 @@ public class Referee {
 		
 
 		/* * * *
-		 * now, play the game!
+		 * now, play the board!
 		 */
 
 		int turn = Player.H;
@@ -66,7 +66,7 @@ public class Referee {
 		
 		render(board);
 
-		// game loop
+		// board loop
 		while (!board.finished()) {
 
 			// delay
@@ -82,7 +82,7 @@ public class Referee {
 			try {
 				board.move(previousMove, Player.pieces[turn]);
 			} catch (IllegalMoveException e) {
-				// exit game due to violation, leading to loss for players[turn]
+				// exit board due to violation, leading to loss for players[turn]
 				message = e.getMessage();
 				break;
 			}
@@ -95,7 +95,7 @@ public class Referee {
 		
 
 		/* * * *
-		 * game over! finally, display the results
+		 * board over! finally, display the results
 		 */
 
 		if(board.finished()) {
@@ -181,7 +181,7 @@ public class Referee {
 		}
 	}
 
-	/** Collection of game helper functions and constants */
+	/** Collection of board helper functions and constants */
 	private static interface Player {
 		static final int H = 0, V = 1;
 		static final Piece[] pieces = new Piece[]{Piece.HSLIDER, Piece.VSLIDER};

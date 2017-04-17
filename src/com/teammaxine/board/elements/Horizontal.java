@@ -5,51 +5,47 @@
  * Subject: COMP30024 Artificial Intelligence.
  * Semester 1, 2017.
  */
-package com.teammaxine.game.elements;
+package com.teammaxine.board.elements;
 
 /**
- * Vertical agent of the game
+ * Horizontal agent of the board
  */
-public class Vertical extends Agent {
-
-    /**
-     * Valid directions for the vertical.
-     */
+public class Horizontal extends BoardAgent {
     public static String[] directions = {
             Board.DIR_UP,
-            Board.DIR_LEFT,
+            Board.DIR_DOWN,
             Board.DIR_RIGHT
     };
 
-    public Vertical(int size) {
+    public Horizontal(int size) {
         super(size);
     }
 
     /**
-     * Sets the legal directions for the vertical agent.
+     * Sets the legal directions for the horizontal agent.
      */
     @Override
     public void setAllDirections() {
-        for (String direction : Vertical.directions) {
+        for (String direction : Horizontal.directions) {
             this.addLegalDirection(direction);
         }
     }
 
     /**
-     * Checks for the edge case when the the vertical can
-     * go off the board from the top.
+     * Checks for the edge case when the the horizontal can
+     * go off the board from the right.
      *
      * @param cell to consider
      * @return true if the cell is on the edge and can go off
-     * the top.
+     * the right.
      */
     @Override
     public boolean edgeCheck(Cell cell) {
-        return cell.getPos().getY() == size - 1;
+        return cell.getPos().getX() == size - 1;
     }
 
     @Override
     public String toString() {
-        return "Vertical Agent";
+        return "Horizontal BoardAgent";
     }
 }

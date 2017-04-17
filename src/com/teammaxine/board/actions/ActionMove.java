@@ -5,14 +5,14 @@
  * Subject: COMP30024 Artificial Intelligence.
  * Semester 1, 2017.
  */
-package com.teammaxine.game.actions;
+package com.teammaxine.board.actions;
 
-import com.teammaxine.game.helpers.Vector2;
+import com.teammaxine.board.helpers.Vector2;
 
 /**
  * Contains a possible move action from one position to
  * another, will help us keep track of possible moves of
- * the agent in future parts.
+ * the boardAgent in future parts.
  */
 public class ActionMove extends AgentAction {
     Vector2 from, to;

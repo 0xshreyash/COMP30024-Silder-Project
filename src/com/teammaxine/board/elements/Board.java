@@ -5,14 +5,14 @@
  * Subject: COMP30024 Artificial Intelligence.
  * Semester 1, 2017.
  */
-package com.teammaxine.game.elements;
+package com.teammaxine.board.elements;
 
-import com.teammaxine.game.helpers.Vector2;
+import com.teammaxine.board.helpers.Vector2;
 
 import java.util.ArrayList;
 
 /**
- * Board class - the environment of the game
+ * Board class - the environment of the board
  * NOTE: All directions are absolute i.e. they are from the point of view
  * of the viewer. So vertical cannot move "down" and horizontal cannot move
  * to the "left".
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Board {
 
     /**
-     * Constants values that defines the game
+     * Constants values that defines the board
      * This information should be available to every class
      */
     public static final String DIR_UP = "up";
@@ -144,5 +144,17 @@ public class Board {
         }
 
         return boardString;
+    }
+
+    public Vertical getVertical() {
+        return vertical;
+    }
+
+    public Horizontal getHorizontal() {
+        return horizontal;
+    }
+
+    public Integer getSize() {
+        return size;
     }
 }

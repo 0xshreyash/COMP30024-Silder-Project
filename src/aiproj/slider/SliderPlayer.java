@@ -12,20 +12,20 @@
 package aiproj.slider;
 
 /**
- * Slider game player interface specification. Your program should implement
- * this interface so that the Referee can conduct it to play a game of Slider.
+ * Slider board player interface specification. Your program should implement
+ * this interface so that the Referee can conduct it to play a board of Slider.
  */
 public interface SliderPlayer {
 
 	/** 
-	 * Prepare a newly created SliderPlayer to play a game of Slideron a given
+	 * Prepare a newly created SliderPlayer to play a board of Slideron a given
 	 * board, as a given player.
 	 * 
 	 * @param dimension The width and height of the board in cells
 	 * @param board A string representation of the initial state of the board,
 	 * as described in the part B specification
 	 * @param player 'H' or 'V', corresponding to which pieces the player will
-	 * control for this game ('H' = Horizontal, 'V' = Vertical)
+	 * control for this board ('H' = Horizontal, 'V' = Vertical)
 	 */
 	public void init(int dimension, String board, char player);
 
@@ -36,7 +36,7 @@ public interface SliderPlayer {
 	 *
 	 * @param move A Move object representing the previous move made by the 
 	 * opponent, which may be null (indicating a pass). Also, before the first
-	 * move at the beginning of the game, move = null.
+	 * move at the beginning of the board, move = null.
 	 */
 	public void update(Move move);
 
@@ -47,14 +47,14 @@ public interface SliderPlayer {
 	 * developed.
 	 * 
 	 * The move returned must be a legal move based on the current
-	 * state of the game. If there are no legal moves, return null (pass).
+	 * state of the board. If there are no legal moves, return null (pass).
 	 *
 	 * Before returning your move, you should also update your internal
 	 * representation of the board to reflect the result of the move you are
 	 * about to make.
 	 *
 	 * @return a Move object representing the move you would like to make
-	 * at this point of the game, or null if there are no legal moves.
+	 * at this point of the board, or null if there are no legal moves.
 	 */
 	public Move move();
 }

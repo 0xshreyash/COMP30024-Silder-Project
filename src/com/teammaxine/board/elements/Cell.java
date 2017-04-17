@@ -5,9 +5,9 @@
  * Subject: COMP30024 Artificial Intelligence.
  * Semester 1, 2017.
  */
-package com.teammaxine.game.elements;
+package com.teammaxine.board.elements;
 
-import com.teammaxine.game.helpers.Vector2;
+import com.teammaxine.board.helpers.Vector2;
 
 import java.util.HashMap;
 

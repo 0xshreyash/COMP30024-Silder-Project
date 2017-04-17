@@ -5,30 +5,30 @@
  * Subject: COMP30024 Artificial Intelligence.
  * Semester 1, 2017.
  */
-package com.teammaxine.game.elements;
+package com.teammaxine.board.elements;
 
-import com.teammaxine.game.actions.ActionFinisher;
-import com.teammaxine.game.actions.ActionMove;
-import com.teammaxine.game.actions.AgentAction;
-import com.teammaxine.game.helpers.Vector2;
+import com.teammaxine.board.actions.ActionFinisher;
+import com.teammaxine.board.actions.ActionMove;
+import com.teammaxine.board.actions.AgentAction;
+import com.teammaxine.board.helpers.Vector2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * AI agent in the game
+ * AI agent in the board
  */
-public abstract class Agent {
+public abstract class BoardAgent {
     private HashMap<Vector2, Cell> myCells;
     private ArrayList<String> legalDirections;
     int size;
 
     /**
-     * Agent that plays out the game
+     * BoardAgent that plays out the board
      *
      * @param size size of the board the agent is in
      */
-    public Agent(int size) {
+    public BoardAgent(int size) {
         // cells that agent controls
         this.size = size;
         this.myCells = new HashMap<>(size);
