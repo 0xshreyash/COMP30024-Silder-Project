@@ -21,10 +21,23 @@ import java.util.Scanner;
  * fails to fire a missile)
  */
 public class JungEun implements SliderPlayer {
+
+    private Board myBoard;
+    private int dimension;
+    private char player;
+
+    public JungEun() {
+
+        myBoard = null;
+        dimension = -1;
+        player = Board.CELL_UNKNOWN;
+    }
     @Override
     public void init(int dimension, String board, char player) {
 
-        Board myBoard = createBoard(dimension, board);
+        this.myBoard = createBoard(dimension, board);
+        this.dimension = dimension;
+        this.player = player;
         //System.out.println(myBoard);
     }
 
@@ -50,6 +63,7 @@ public class JungEun implements SliderPlayer {
 
     @Override
     public void update(Move move) {
+
 
     }
 
