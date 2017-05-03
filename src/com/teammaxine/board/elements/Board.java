@@ -7,6 +7,7 @@
  */
 package com.teammaxine.board.elements;
 
+import aiproj.slider.Move;
 import com.teammaxine.board.helpers.Vector2;
 
 import java.util.ArrayList;
@@ -45,10 +46,8 @@ public class Board {
      *                     1st string = bottom row
      */
     public Board(ArrayList<String> boardMapping) {
-        this.size = boardMapping.size();
 
-        vertical = new Vertical(this.size);
-        horizontal = new Horizontal(this.size);
+        this.size = boardMapping.size();
         board = new Cell[this.size][];
 
         /*
@@ -65,13 +64,6 @@ public class Board {
             for (char value : rowValues) {
                 board[row][column].setValue(value);
                 addNeighbours(row, column);
-
-                if (value == CELL_HORIZONTAL)
-                    horizontal.addCell(board[row][column]);
-
-                if (value == CELL_VERTICAL)
-                    vertical.addCell(board[row][column]);
-
                 column++;
             }
         }
@@ -80,6 +72,8 @@ public class Board {
     /**
      * Print legal moves for Horizontal and Vertical according to Part A
      * specifications
+     *
+     * PROBABLY NOT NEEDED FOR PART-2 OF THE ASSIGNMENT.
      */
     public void printLegalMoves() {
         System.out.println(this.horizontal.getLegalMoves().size());
@@ -111,19 +105,19 @@ public class Board {
      */
     private void addNeighbours(int row, int column) {
         if (row != this.size - 1)
-            this.board[row][column].setNeighbour(DIR_UP,
+            this.board[row][column].setNeighbour(Move.Direction.UP,
                                         this.board[row + 1][column]);
 
         if (row != 0)
-            this.board[row][column].setNeighbour(DIR_DOWN,
+            this.board[row][column].setNeighbour(Move.Direction.DOWN,
                                         this.board[row - 1][column]);
 
         if (column != this.size - 1)
-            this.board[row][column].setNeighbour(DIR_RIGHT,
+            this.board[row][column].setNeighbour(Move.Direction.RIGHT,
                                         this.board[row][column + 1]);
 
         if (column != 0)
-            this.board[row][column].setNeighbour(DIR_LEFT,
+            this.board[row][column].setNeighbour(Move.Direction.LEFT,
                                         this.board[row][column - 1]);
     }
 

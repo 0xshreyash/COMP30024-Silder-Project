@@ -7,6 +7,8 @@
  */
 package com.teammaxine.board.elements;
 
+import aiproj.slider.Move;
+
 /**
  * Vertical agent of the board
  */
@@ -15,10 +17,10 @@ public class Vertical extends BoardAgent {
     /**
      * Valid directions for the vertical.
      */
-    public static String[] directions = {
-            Board.DIR_UP,
-            Board.DIR_LEFT,
-            Board.DIR_RIGHT
+    public static Move.Direction[] directions  = {
+            Move.Direction.UP,
+            Move.Direction.LEFT,
+            Move.Direction.RIGHT
     };
 
     public Vertical(int size) {
@@ -30,7 +32,7 @@ public class Vertical extends BoardAgent {
      */
     @Override
     public void setAllDirections() {
-        for (String direction : Vertical.directions) {
+        for (Move.Direction direction : Vertical.directions) {
             this.addLegalDirection(direction);
         }
     }
