@@ -161,8 +161,8 @@ public class Board {
         return cells;
     }
 
-    public void changeCellValue(Vector2 oldPos, char newValue) {
-        board[oldPos.getX()][oldPos.getY()].setValue(newValue);
+    public void changeCellValue(int x, int y, char newValue) {
+        board[x][y].setValue(newValue);
     }
     public Vertical getVertical() {
         return vertical;

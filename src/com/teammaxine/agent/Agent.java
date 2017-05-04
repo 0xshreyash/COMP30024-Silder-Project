@@ -254,8 +254,20 @@ public abstract class Agent {
         return moves;
     }
 
+    // Update covers the case where the other player may move to win the game. 
     public void update(Move move) {
-
+        if(move != null) {
+            myBoard.changeCellValue(move.i, move.j, Board.CELL_EMPTY);
+            if (move.d == Move.Direction.LEFT) {
+                myBoard.changeCellValue(move.i, move.j - 1, player);
+            } else if (move.d == Move.Direction.RIGHT && move.j != dimension - 1) {
+                myBoard.changeCellValue(move.i, move.j + 1, player);
+            } else if (move.d == Move.Direction.UP && move.i != dimension - 1) {
+                myBoard.changeCellValue(move.i + 1, move.j, player);
+            } else if (move.d == Move.Direction.DOWN) {
+                myBoard.changeCellValue(move.i - 1, move.j, player);
+            }
+        }
         return;
     }
 }
