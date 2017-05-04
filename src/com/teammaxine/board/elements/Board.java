@@ -11,6 +11,7 @@ import aiproj.slider.Move;
 import com.teammaxine.board.helpers.Vector2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Board class - the environment of the board
@@ -63,6 +64,7 @@ public class Board {
             int column = 0;
             for (char value : rowValues) {
                 board[row][column].setValue(value);
+                //System.out.println(board[row][column].getPos() + " " + value);
                 addNeighbours(row, column);
                 column++;
             }
@@ -90,7 +92,8 @@ public class Board {
             this.board[row] = new Cell[this.size];
 
             for (int column = 0; column < this.size; column++) {
-                this.board[row][column] = new Cell(new Vector2(column, row));
+                this.board[row][column] = new Cell(new Vector2(row, column));
+                //System.out.println(board[row][column].getPos());
             }
         }
     }
@@ -106,7 +109,7 @@ public class Board {
     private void addNeighbours(int row, int column) {
         if (row != this.size - 1)
             this.board[row][column].setNeighbour(Move.Direction.UP,
-                                        this.board[row + 1][column]);
+                                        this.board[row  + 1][column]);
 
         if (row != 0)
             this.board[row][column].setNeighbour(Move.Direction.DOWN,
@@ -140,6 +143,27 @@ public class Board {
         return boardString;
     }
 
+    /**
+     * Returns all the cells of a certain type to the calling function
+     * for easy usage.
+     * @param type the type of cell to find
+     * @return a HashMap containing all the cells of the type
+     */
+    public HashMap<Vector2, Cell> getCellsOfType(char type) {
+        HashMap<Vector2, Cell> cells = new HashMap<>();
+        for(int row = 0; row < this.size; row++) {
+            for(int column = 0; column < this.size; column++) {
+                if(board[row][column].getValue() == type)
+                    cells.put(new Vector2(row, column), board[row][column]);
+            }
+        }
+
+        return cells;
+    }
+
+    public void changeCellValue(Vector2 oldPos, char newValue) {
+        board[oldPos.getX()][oldPos.getY()].setValue(newValue);
+    }
     public Vertical getVertical() {
         return vertical;
     }

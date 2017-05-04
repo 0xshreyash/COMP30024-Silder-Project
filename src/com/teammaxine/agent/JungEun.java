@@ -6,12 +6,15 @@ package com.teammaxine.agent;
 import aiproj.slider.Move;
 import aiproj.slider.SliderPlayer;
 import com.teammaxine.board.elements.Board;
+import com.teammaxine.board.elements.Cell;
+import com.teammaxine.board.helpers.Vector2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -20,52 +23,12 @@ import java.util.Scanner;
  * (dictates everything,
  * fails to fire a missile)
  */
-public class JungEun implements SliderPlayer {
+public class JungEun extends Agent implements SliderPlayer {
 
     private Board myBoard;
     private int dimension;
     private char player;
-
-    public JungEun() {
-
-        myBoard = null;
-        dimension = -1;
-        player = Board.CELL_UNKNOWN;
-    }
-    @Override
-    public void init(int dimension, String board, char player) {
-
-        this.myBoard = createBoard(dimension, board);
-        this.dimension = dimension;
-        this.player = player;
-        //System.out.println(myBoard);
-    }
-
-    public Board createBoard(int dimension, String board) {
-
-        ArrayList<String> boardMapping = new ArrayList<>();
-        BufferedReader buffer = new BufferedReader(new StringReader(board));
-        for (int row = 0; row < dimension; row++) {
-            String line = "";
-            try {
-                line = buffer.readLine();
-            }
-            catch(IOException e) {
-                System.err.println(e);
-            }
-            // remove spaces and add to the head of the list
-            line = line.replaceAll("\\s", "");
-            boardMapping.add(0, line);
-        }
-
-        return new Board(boardMapping);
-    }
-
-    @Override
-    public void update(Move move) {
-
-
-    }
+    private HashMap<Vector2, Cell> myCells;
 
     @Override
     public Move move() {
