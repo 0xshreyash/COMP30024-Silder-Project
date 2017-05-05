@@ -12,54 +12,39 @@ import java.util.HashMap;
  */
 public class Scorer {
     // score += cell property * this
+    private static final boolean showDebug = false;
     private static final double DISTANCE_SCORE = -1;
     private static final double MOVE_SIDE_SCORE = 1;
     private static final double MOVE_FORWARD_SCORE = 2;
 
-    // score += opponent cell property * this
-    private static final double OPPONENT_DISTANCE_SCORE = 1;
-    private static final double OPPONENT_MOVE_SIDE_SCORE = -1;
-    private static final double OPPONENT_MOVE_FORWARD_SCORE = -2;
-
     public static double scoreBoard(Board board, char playerPiece) {
-        double score = 0;
+        double horizontalScore = scoreBoardHorizontal(board),
+               verticalScore = scoreBoardVertical(board);
+
         boolean playerIsHorizontal = playerPiece == 'H';
-        BoardAgent player, opponent;
 
         if(playerIsHorizontal) {
-            // score board for h
-            player = board.getHorizontal();
-            opponent = board.getVertical();
-
+            return horizontalScore - verticalScore;
         } else {
-            // score board for v
-            player = board.getVertical();
-            opponent = board.getHorizontal();
+            return verticalScore - horizontalScore;
         }
+    }
 
-        if(playerIsHorizontal) {
-            // distance score
-            score += DISTANCE_SCORE * sumHorizontalDistance(board);
-            score += OPPONENT_DISTANCE_SCORE * sumVerticalDistance(board);
+    private static double scoreBoardVertical(Board board) {
+        double score = 0;
 
-            // move score
-            score += MOVE_SIDE_SCORE * sumHorizontalSideMoves(board);
-            score += MOVE_FORWARD_SCORE * sumHorizontalForwardMoves(board);
+        score += DISTANCE_SCORE * sumVerticalDistance(board);
+        score += MOVE_SIDE_SCORE * sumVerticalSideMoves(board);
+        score += MOVE_FORWARD_SCORE * sumVerticalFowardMoves(board);
 
-            score += OPPONENT_MOVE_SIDE_SCORE * sumVerticalSideMoves(board);
-            score += OPPONENT_MOVE_FORWARD_SCORE * sumVerticalFowardMoves(board);
+        return score;
+    }
+    private static double scoreBoardHorizontal(Board board) {
+        double score = 0;
 
-        } else {
-            // distance score
-            score += DISTANCE_SCORE * sumVerticalDistance(board);
-
-            // move score
-            score += MOVE_SIDE_SCORE * sumVerticalSideMoves(board);
-            score += MOVE_FORWARD_SCORE * sumVerticalFowardMoves(board);
-
-            score += OPPONENT_MOVE_SIDE_SCORE * sumHorizontalSideMoves(board);
-            score += OPPONENT_MOVE_FORWARD_SCORE * sumHorizontalForwardMoves(board);
-        }
+        score += DISTANCE_SCORE * sumHorizontalDistance(board);
+        score += MOVE_SIDE_SCORE * sumHorizontalSideMoves(board);
+        score += MOVE_FORWARD_SCORE * sumHorizontalForwardMoves(board);
 
         return score;
     }
@@ -69,12 +54,11 @@ public class Scorer {
 
         ArrayList<AgentAction> moves = b.getVertical().getLegalMoves();
         for(AgentAction a : moves) {
-            if(a.getType() == AgentAction.ActionType.MOVE) {
-                sum += (a.d == Move.Direction.UP)? 1 : 0;
-            }
+            sum += (a.d == Move.Direction.UP)? 1 : 0;
         }
 
-        System.out.println("Vertical Forward " + sum);
+        if(showDebug)
+            System.out.println("Vertical Forward " + sum);
 
         return sum;
     }
@@ -84,11 +68,10 @@ public class Scorer {
 
         ArrayList<AgentAction> moves = b.getVertical().getLegalMoves();
         for(AgentAction a : moves) {
-            if(a.getType() == AgentAction.ActionType.MOVE) {
-                sum += (a.d == Move.Direction.LEFT || a.d == Move.Direction.RIGHT)? 1 : 0;
-            }
+            sum += (a.d == Move.Direction.LEFT || a.d == Move.Direction.RIGHT)? 1 : 0;
         }
-        System.out.println("Vertical Side " + sum);
+        if(showDebug)
+            System.out.println("Vertical Side " + sum);
 
         return sum;
     }
@@ -98,11 +81,10 @@ public class Scorer {
 
         ArrayList<AgentAction> moves = b.getHorizontal().getLegalMoves();
         for(AgentAction a : moves) {
-            if(a.getType() == AgentAction.ActionType.MOVE) {
-                sum += (a.d == Move.Direction.UP || a.d == Move.Direction.DOWN)? 1 : 0;
-            }
+            sum += (a.d == Move.Direction.UP || a.d == Move.Direction.DOWN)? 1 : 0;
         }
-        System.out.println("Horizontal Side " + sum);
+        if(showDebug)
+            System.out.println("Horizontal Side " + sum);
 
         return sum;
     }
@@ -112,11 +94,10 @@ public class Scorer {
 
         ArrayList<AgentAction> moves = b.getHorizontal().getLegalMoves();
         for(AgentAction a : moves) {
-            if(a.getType() == AgentAction.ActionType.MOVE) {
-                sum += (a.d == Move.Direction.RIGHT)? 1 : 0;
-            }
+            sum += (a.d == Move.Direction.RIGHT)? 1 : 0;
         }
-        System.out.println("Horizontal Forward " + sum);
+        if(showDebug)
+            System.out.println("Horizontal Forward " + sum);
 
         return sum;
     }
@@ -129,7 +110,8 @@ public class Scorer {
         for(Cell c : cells) {
             sum += b.getSize() - c.getPos().getX();
         }
-        System.out.println("Horizontal Distance " + sum);
+        if(showDebug)
+            System.out.println("Horizontal Distance " + sum);
 
         return sum;
     }
@@ -142,7 +124,8 @@ public class Scorer {
         for(Cell c : cells) {
             sum += b.getSize() - c.getPos().getY();
         }
-        System.out.println("Vertical Distance " + sum);
+        if(showDebug)
+            System.out.println("Vertical Distance " + sum);
 
         return sum;
     }
