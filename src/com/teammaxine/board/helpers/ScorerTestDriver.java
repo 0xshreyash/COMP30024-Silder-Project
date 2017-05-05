@@ -12,9 +12,6 @@ public class ScorerTestDriver {
         double h = Scorer.scoreBoard(b, 'H');
         double v = Scorer.scoreBoard(b, 'V');
 
-        System.out.println("Horizontal Score: ");
-        System.out.println(h);
-        System.out.println("Vertical Score: ");
-        System.out.println(v);
+        System.out.println("Horizontal Score: " + h);
     }
 }
