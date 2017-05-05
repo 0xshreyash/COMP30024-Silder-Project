@@ -74,6 +74,8 @@ public class Scorer {
             }
         }
 
+        System.out.println("Vertical Forward " + sum);
+
         return sum;
     }
 
@@ -86,6 +88,7 @@ public class Scorer {
                 sum += (a.d == Move.Direction.LEFT || a.d == Move.Direction.RIGHT)? 1 : 0;
             }
         }
+        System.out.println("Vertical Side " + sum);
 
         return sum;
     }
@@ -99,6 +102,7 @@ public class Scorer {
                 sum += (a.d == Move.Direction.UP || a.d == Move.Direction.DOWN)? 1 : 0;
             }
         }
+        System.out.println("Horizontal Side " + sum);
 
         return sum;
     }
@@ -112,6 +116,7 @@ public class Scorer {
                 sum += (a.d == Move.Direction.RIGHT)? 1 : 0;
             }
         }
+        System.out.println("Horizontal Forward " + sum);
 
         return sum;
     }
@@ -124,6 +129,7 @@ public class Scorer {
         for(Cell c : cells) {
             sum += b.getSize() - c.getPos().getX();
         }
+        System.out.println("Horizontal Distance " + sum);
 
         return sum;
     }
@@ -136,6 +142,7 @@ public class Scorer {
         for(Cell c : cells) {
             sum += b.getSize() - c.getPos().getY();
         }
+        System.out.println("Vertical Distance " + sum);
 
         return sum;
     }
