@@ -16,6 +16,7 @@ public class Horizontal extends BoardAgent {
     public static Move.Direction[] directions = {
             Move.Direction.UP,
             Move.Direction.RIGHT,
+            Move.Direction.DOWN,
 
     };
 
