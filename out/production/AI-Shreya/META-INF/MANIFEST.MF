@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: com.teammaxine.game.PartADriver
+Main-Class: com.teammaxine.board.PartADriver
 

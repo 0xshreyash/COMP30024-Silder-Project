@@ -7,8 +7,25 @@
  */
 package com.teammaxine.board.actions;
 
+import aiproj.slider.Move;
+import com.teammaxine.board.helpers.Vector2;
+
 /**
  * Placeholder for part B
  */
-public class AgentAction {
+public class AgentAction extends Move {
+    public enum ActionType {
+        MOVE,
+        FINISH
+    }
+    private ActionType type;
+
+    public AgentAction(ActionType type, Vector2 location, Move.Direction d) {
+        super(location.getX(), location.getY(), d);
+        this.type = type;
+    }
+
+    public ActionType getType() {
+        return type;
+    }
 }

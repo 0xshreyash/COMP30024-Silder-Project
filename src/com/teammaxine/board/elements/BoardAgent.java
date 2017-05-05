@@ -8,8 +8,6 @@
 package com.teammaxine.board.elements;
 
 import aiproj.slider.Move;
-import com.teammaxine.board.actions.ActionFinisher;
-import com.teammaxine.board.actions.ActionMove;
 import com.teammaxine.board.actions.AgentAction;
 import com.teammaxine.board.helpers.Vector2;
 
@@ -71,6 +69,10 @@ public abstract class BoardAgent {
 
     }
 
+    public HashMap<Vector2, Cell> getMyCells() {
+        return myCells;
+    }
+
     /**
      * remove a cell that agent controls
      *
@@ -100,26 +102,25 @@ public abstract class BoardAgent {
 
         for (Cell myCell : this.myCells.values()) {
             if(edgeCheck(myCell)) {
-                moves.add(new ActionFinisher(myCell.getPos(), this));
+                moves.add(new AgentAction(AgentAction.ActionType.FINISH, myCell.getPos(), getForward()));
             }
 
             for (Move.Direction legalDirection : this.legalDirections) {
                 char value;
-                Vector2 neighbourPos = null;
-
                 if (myCell.getNeighbours().containsKey(legalDirection)) {
                     value = myCell.getNeighbour(legalDirection).getValue();
-                    neighbourPos = myCell.getNeighbour(legalDirection).getPos();
                 } else {
                     value = Board.CELL_UNKNOWN;
                 }
 
                 if (value == Board.CELL_EMPTY) {
-                    moves.add(new ActionMove(myCell.getPos(), neighbourPos));
+                    moves.add(new AgentAction(AgentAction.ActionType.MOVE, myCell.getPos(), legalDirection));
                 }
             }
         }
 
         return moves;
     }
+
+    public abstract Move.Direction getForward();
 }
