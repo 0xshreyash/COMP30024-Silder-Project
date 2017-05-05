@@ -18,15 +18,12 @@ public class Scorer {
     private static final double MOVE_FORWARD_SCORE = 2;
 
     public static double scoreBoard(Board board, char playerPiece) {
-        double horizontalScore = scoreBoardHorizontal(board),
-               verticalScore = scoreBoardVertical(board);
-
         boolean playerIsHorizontal = playerPiece == 'H';
 
         if(playerIsHorizontal) {
-            return horizontalScore - verticalScore;
+            return scoreBoardHorizontal(board);
         } else {
-            return verticalScore - horizontalScore;
+            return scoreBoardVertical(board);
         }
     }
 
