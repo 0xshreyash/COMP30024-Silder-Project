@@ -4,7 +4,7 @@ import aiproj.slider.Move;
 import com.teammaxine.agent.Agent;
 import com.teammaxine.board.elements.Board;
 import com.teammaxine.board.helpers.Vector2;
-import javafx.scene.control.Cell;
+import com.teammaxine.board.elements.Cell;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +39,7 @@ public abstract class AlphaBeta implements Strategy {
     private Move[] minimax(int depth, Board board, char currPlayer) {
 
         HashMap<Vector2, Cell> cells = board.getCellsOfType(currPlayer);
-        ArrayList<Move> legalMoves = board.getLegalMoves()
+        ArrayList<? extends Move> legalMoves = board.getLegalMoves(currPlayer);
         return null;
     }
 }

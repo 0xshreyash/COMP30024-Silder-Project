@@ -8,6 +8,7 @@
 package com.teammaxine.board.elements;
 
 import aiproj.slider.Move;
+import com.teammaxine.board.actions.AgentAction;
 import com.teammaxine.board.helpers.Vector2;
 
 import java.util.ArrayList;
@@ -175,6 +176,13 @@ public class Board {
         }
 
         return cells;
+    }
+
+    public ArrayList<AgentAction> getLegalMoves(char type) {
+
+        if(type == Board.CELL_HORIZONTAL)
+            return horizontal.getLegalMoves();
+        return vertical.getLegalMoves();
     }
 
     public void changeCellValue(int x, int y, char newValue) {

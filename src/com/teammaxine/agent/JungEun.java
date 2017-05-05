@@ -24,7 +24,7 @@ public class JungEun extends Agent implements SliderPlayer {
     @Override
     public Move move() {
         System.out.println(this.getPlayer());
-        ArrayList<Move> moves = getLegalMoves();
+        ArrayList<? extends Move> moves = this.getMyBoard().getLegalMoves(this.getPlayer());
         if(moves.size() == 0)
             return null;
         HashMap<Vector2, Cell> myCells = this.getMyCells();
