@@ -36,6 +36,11 @@ public class Cell {
         this.neighbours = new HashMap<>();
     }
 
+    public Cell(Cell other) {
+        this.value = other.getValue();
+        this.pos = new Vector2(other.getPos());
+    }
+
     /**
      * Gives the value of a cell which is the char representation
      * of the piece on the board.

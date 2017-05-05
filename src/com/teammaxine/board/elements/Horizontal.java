@@ -24,6 +24,10 @@ public class Horizontal extends BoardAgent {
         super(size);
     }
 
+    public Horizontal(Horizontal other) {
+        super(other);
+    }
+
     /**
      * Sets the legal directions for the horizontal agent.
      */

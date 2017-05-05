@@ -26,6 +26,15 @@ public class Vector2 {
     }
 
     /**
+     * Copy constructor for Vector2
+     * @param other the vector who's contents we need to copy
+     */
+    public Vector2(Vector2 other) {
+        this.x = other.getX();
+        this.y = other.getY();
+    }
+
+    /**
      * Checks for equality of vectors
      *
      * @param other the vector to compare with

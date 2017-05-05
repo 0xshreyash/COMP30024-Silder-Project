@@ -27,6 +27,11 @@ public class Vertical extends BoardAgent {
         super(size);
     }
 
+
+    public Vertical(Vertical other) {
+        super(other);
+    }
+
     /**
      * Sets the legal directions for the vertical agent.
      */

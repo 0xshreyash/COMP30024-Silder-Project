@@ -7,16 +7,7 @@ import aiproj.slider.SliderPlayer;
  * Created by noxm on 17/04/17.
  * our main ai
  */
-public class Shreya implements SliderPlayer {
-    @Override
-    public void init(int dimension, String board, char player) {
-
-    }
-
-    @Override
-    public void update(Move move) {
-
-    }
+public class Shreya extends Agent implements SliderPlayer {
 
     @Override
     public Move move() {

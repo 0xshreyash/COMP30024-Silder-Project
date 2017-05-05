@@ -35,6 +35,12 @@ public abstract class BoardAgent {
         this.setAllDirections();
     }
 
+    public BoardAgent(BoardAgent other) {
+        this.size = other.getSize();
+        this.legalDirections = new ArrayList<>(other.getLegalDirections());
+        this.myCells = new HashMap<>(size);
+    }
+
     /**
      * agents should be initialized with this function
      */
@@ -120,6 +126,14 @@ public abstract class BoardAgent {
         }
 
         return moves;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public ArrayList<Move.Direction> getLegalDirections() {
+        return legalDirections;
     }
 
     public abstract Move.Direction getForward();

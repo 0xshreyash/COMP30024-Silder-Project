@@ -76,6 +76,30 @@ public class Board {
         }
     }
 
+    public Board(Board other) {
+
+        this.board = new Cell[this.size][];
+        this.size = other.getSize();
+        this.horizontal = new Horizontal(other.getHorizontal());
+        this.vertical = new Vertical(other.getVertical());
+        // Deep copying the board array
+        for(int row = 0; row < this.size; row++) {
+            this.board[row] = new Cell[this.size];
+            for(int column = 0; column < this.size; column++) {
+                this.board[row][column] = new Cell(other.getBoard()[row][column]);
+                if (board[row][column].getValue() == CELL_HORIZONTAL)
+                    horizontal.addCell(board[row][column]);
+
+                if (board[row][column].getValue() == CELL_VERTICAL)
+                    vertical.addCell(board[row][column]);
+            }
+        }
+    }
+
+    public Cell[][] getBoard() {
+        return board;
+    }
+
     /**
      * Print legal moves for Horizontal and Vertical according to Part A
      * specifications
