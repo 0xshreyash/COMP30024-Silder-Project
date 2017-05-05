@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class Scorer {
     // score += cell property * this
     private static final boolean showDebug = false;
-    private static final double DISTANCE_SCORE = -1;
+    private static final double DISTANCE_SCORE = -2;
     private static final double MOVE_SIDE_SCORE = 1;
     private static final double MOVE_FORWARD_SCORE = 2;
 
