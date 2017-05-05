@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -42,6 +43,12 @@ public abstract class Agent {
 
     public ArrayList<Move.Direction> getLegalDirections() {
         return legalDirections;
+    }
+
+    public ArrayList<Move.Direction> getLegalDirections(char player) {
+        if(player == Board.CELL_HORIZONTAL)
+            return new ArrayList(Arrays.asList(HORIZONTAL_DIRECTIONS));
+        return new ArrayList(Arrays.asList(VERTICAL_DIRECTIONS));
     }
 
     public void setLegalDirections(ArrayList<Move.Direction> legalDirections) {
@@ -291,43 +298,48 @@ public abstract class Agent {
      *
      * @return array list of agent actions
      */
-    public ArrayList<Move> getLegalMoves() {
+    public ArrayList<Move> getLegalMoves(HashMap<Vector2, Cell> cells, char player) {
         ArrayList<Move> moves = new ArrayList<>();
         //System.out.println("Num myCells: " + this.myCells.size());
-        for (Cell myCell : this.myCells.values()) {
-            if(edgeCheck(myCell)) {
+        for (Cell cell : cells.values()) {
+            if(edgeCheck(cell)) {
 
                 /** Check for edge moves and then add the possible moves to the Arraylist of
                  *  moves the player can make
                  */
 
-                if(this.player == Board.CELL_HORIZONTAL) {
-                    moves.add(new Move(myCell.getPos().getX(), myCell.getPos().getY(), Move.Direction.RIGHT));
+                if(player == Board.CELL_HORIZONTAL) {
+                    moves.add(new Move(cell.getPos().getX(), cell.getPos().getY(), Move.Direction.RIGHT));
                 }
                 else
-                    moves.add(new Move(myCell.getPos().getX(), myCell.getPos().getY(), Move.Direction.UP));
+                    moves.add(new Move(cell.getPos().getX(), cell.getPos().getY(), Move.Direction.UP));
 
             }
 
             /** Moves other than the edge move */
-            for (Move.Direction legalDirection : this.legalDirections) {
+            for (Move.Direction legalDirection : this.getLegalDirections(player)) {
                 char value;
 
-                if (myCell.getNeighbours().containsKey(legalDirection)) {
-                    value = myCell.getNeighbour(legalDirection).getValue();
+                if (cell.getNeighbours().containsKey(legalDirection)) {
+                    value = cell.getNeighbour(legalDirection).getValue();
 
                 } else {
                     value = Board.CELL_UNKNOWN;
                 }
 
                 if (value == Board.CELL_EMPTY) {
-                    moves.add(new Move(myCell.getPos().getX(), myCell.getPos().getY(), legalDirection));
+                    moves.add(new Move(cell.getPos().getX(), cell.getPos().getY(), legalDirection));
                 }
             }
         }
-        //System.out.println(moves.size());
         return moves;
     }
+
+    public ArrayList<Move> getLegalMoves() {
+
+        return getLegalMoves(myCells, player);
+    }
+
 
     // Update covers the case where the other player may move to win the game.
     public void update(Move move) {
@@ -347,8 +359,6 @@ public abstract class Agent {
         this.myCells = this.myBoard.getCellsOfType(player);
         return;
     }
-
-
 
     public void updateCellValues(Move move, char type) {
 
