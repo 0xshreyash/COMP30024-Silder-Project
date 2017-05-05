@@ -51,6 +51,11 @@ public class Vertical extends BoardAgent {
     }
 
     @Override
+    public Move.Direction getForward() {
+        return Move.Direction.UP;
+    }
+
+    @Override
     public String toString() {
         return "Vertical BoardAgent";
     }

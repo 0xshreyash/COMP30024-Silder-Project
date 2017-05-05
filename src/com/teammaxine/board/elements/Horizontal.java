@@ -47,6 +47,11 @@ public class Horizontal extends BoardAgent {
     }
 
     @Override
+    public Move.Direction getForward() {
+        return Move.Direction.RIGHT;
+    }
+
+    @Override
     public String toString() {
         return "Horizontal BoardAgent";
     }
