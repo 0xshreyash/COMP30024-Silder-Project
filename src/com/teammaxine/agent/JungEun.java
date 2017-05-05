@@ -25,14 +25,15 @@ public class JungEun extends Agent implements SliderPlayer {
     public Move move() {
         System.out.println(this.getPlayer());
         ArrayList<Move> moves = getLegalMoves();
+        if(moves.size() == 0)
+            return null;
         HashMap<Vector2, Cell> myCells = this.getMyCells();
+
         this.update(moves.get(0), this.getPlayer());
         /*for(Vector2 pos : myCells.keySet()) {
             System.out.println(pos);
         }*/
         //System.out.println(moves.get(0).i + " " + moves.get(0).j);
-        if(moves.size() == 0)
-            return null; 
         return moves.get(0);
     }
 
