@@ -7,6 +7,7 @@
  */
 package com.teammaxine.board.elements;
 
+import aiproj.slider.Move;
 import com.teammaxine.board.actions.ActionFinisher;
 import com.teammaxine.board.actions.ActionMove;
 import com.teammaxine.board.actions.AgentAction;
@@ -20,7 +21,7 @@ import java.util.HashMap;
  */
 public abstract class BoardAgent {
     private HashMap<Vector2, Cell> myCells;
-    private ArrayList<String> legalDirections;
+    private ArrayList<Move.Direction> legalDirections;
     int size;
 
     /**
@@ -54,7 +55,7 @@ public abstract class BoardAgent {
      *
      * @param direction the direction to be added to the legal directions.
      */
-    public void addLegalDirection(String direction) {
+    public void addLegalDirection(Move.Direction direction) {
         this.legalDirections.add(direction);
     }
 
@@ -102,7 +103,7 @@ public abstract class BoardAgent {
                 moves.add(new ActionFinisher(myCell.getPos(), this));
             }
 
-            for (String legalDirection : this.legalDirections) {
+            for (Move.Direction legalDirection : this.legalDirections) {
                 char value;
                 Vector2 neighbourPos = null;
 

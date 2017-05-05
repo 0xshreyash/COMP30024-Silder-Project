@@ -7,6 +7,7 @@
  */
 package com.teammaxine.board.elements;
 
+import aiproj.slider.Move;
 import com.teammaxine.board.helpers.Vector2;
 
 import java.util.HashMap;
@@ -22,7 +23,7 @@ public class Cell {
      * Neighbours of the cell, stored with keys "up", "down",
      * "right" and "left".
      */
-    private HashMap<String, Cell> neighbours;
+    private HashMap<Move.Direction, Cell> neighbours;
 
     public Cell(Vector2 Position) {
         this.pos = Position;
@@ -70,7 +71,7 @@ public class Cell {
      * @param key the key of this neighbour wrt to the hashmap of neighbours.
      * @param neighbour the neighbour to be added to the cell.
      */
-    public void setNeighbour(String key, Cell neighbour) {
+    public void setNeighbour(Move.Direction key, Cell neighbour) {
         this.neighbours.put(key, neighbour);
     }
 
@@ -80,7 +81,7 @@ public class Cell {
      * @param key the key of the neighbour to be found.
      * @return the Cell with the key passes as argument.
      */
-    public Cell getNeighbour(String key) {
+    public Cell getNeighbour(Move.Direction key) {
         return this.neighbours.get(key);
     }
 
@@ -89,7 +90,7 @@ public class Cell {
      *
      * @return the hashmap containing the cell's neighbours.
      */
-    public HashMap<String,Cell> getNeighbours() {
+    public HashMap<Move.Direction,Cell> getNeighbours() {
         return neighbours;
     }
 

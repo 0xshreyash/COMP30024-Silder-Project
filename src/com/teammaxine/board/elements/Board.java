@@ -7,9 +7,11 @@
  */
 package com.teammaxine.board.elements;
 
+import aiproj.slider.Move;
 import com.teammaxine.board.helpers.Vector2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Board class - the environment of the board
@@ -45,10 +47,8 @@ public class Board {
      *                     1st string = bottom row
      */
     public Board(ArrayList<String> boardMapping) {
-        this.size = boardMapping.size();
 
-        vertical = new Vertical(this.size);
-        horizontal = new Horizontal(this.size);
+        this.size = boardMapping.size();
         board = new Cell[this.size][];
 
         /*
@@ -64,14 +64,8 @@ public class Board {
             int column = 0;
             for (char value : rowValues) {
                 board[row][column].setValue(value);
+                //System.out.println(board[row][column].getPos() + " " + value);
                 addNeighbours(row, column);
-
-                if (value == CELL_HORIZONTAL)
-                    horizontal.addCell(board[row][column]);
-
-                if (value == CELL_VERTICAL)
-                    vertical.addCell(board[row][column]);
-
                 column++;
             }
         }
@@ -80,6 +74,8 @@ public class Board {
     /**
      * Print legal moves for Horizontal and Vertical according to Part A
      * specifications
+     *
+     * PROBABLY NOT NEEDED FOR PART-2 OF THE ASSIGNMENT.
      */
     public void printLegalMoves() {
         System.out.println(this.horizontal.getLegalMoves().size());
@@ -97,6 +93,7 @@ public class Board {
 
             for (int column = 0; column < this.size; column++) {
                 this.board[row][column] = new Cell(new Vector2(column, row));
+                //System.out.println(board[row][column].getPos());
             }
         }
     }
@@ -111,19 +108,19 @@ public class Board {
      */
     private void addNeighbours(int row, int column) {
         if (row != this.size - 1)
-            this.board[row][column].setNeighbour(DIR_UP,
-                                        this.board[row + 1][column]);
+            this.board[row][column].setNeighbour(Move.Direction.UP,
+                                        this.board[row  + 1][column]);
 
         if (row != 0)
-            this.board[row][column].setNeighbour(DIR_DOWN,
+            this.board[row][column].setNeighbour(Move.Direction.DOWN,
                                         this.board[row - 1][column]);
 
         if (column != this.size - 1)
-            this.board[row][column].setNeighbour(DIR_RIGHT,
+            this.board[row][column].setNeighbour(Move.Direction.RIGHT,
                                         this.board[row][column + 1]);
 
         if (column != 0)
-            this.board[row][column].setNeighbour(DIR_LEFT,
+            this.board[row][column].setNeighbour(Move.Direction.LEFT,
                                         this.board[row][column - 1]);
     }
 
@@ -146,6 +143,30 @@ public class Board {
         return boardString;
     }
 
+    /**
+     * Returns all the cells of a certain type to the calling function
+     * for easy usage.
+     * @param type the type of cell to find
+     * @return a HashMap containing all the cells of the type
+     */
+    public HashMap<Vector2, Cell> getCellsOfType(char type) {
+        HashMap<Vector2, Cell> cells = new HashMap<>();
+        for(int row = 0; row < this.size; row++) {
+            for(int column = 0; column < this.size; column++) {
+                if(board[row][column].getValue() == type) {
+                    cells.put(new Vector2(column, row), board[row][column]);
+                }
+
+
+            }
+        }
+
+        return cells;
+    }
+
+    public void changeCellValue(int x, int y, char newValue) {
+        board[x][y].setValue(newValue);
+    }
     public Vertical getVertical() {
         return vertical;
     }

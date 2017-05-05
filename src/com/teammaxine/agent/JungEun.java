@@ -5,6 +5,12 @@ package com.teammaxine.agent;
 
 import aiproj.slider.Move;
 import aiproj.slider.SliderPlayer;
+import com.teammaxine.board.elements.Board;
+import com.teammaxine.board.elements.Cell;
+import com.teammaxine.board.helpers.Vector2;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by noxm on 17/04/17.
@@ -12,21 +18,24 @@ import aiproj.slider.SliderPlayer;
  * (dictates everything,
  * fails to fire a missile)
  */
-public class JungEun implements SliderPlayer {
-    @Override
-    public void init(int dimension, String board, char player) {
+public class JungEun extends Agent implements SliderPlayer {
 
-
-    }
-
-    @Override
-    public void update(Move move) {
-
-    }
 
     @Override
     public Move move() {
-        return null;
+        System.out.println(this.getPlayer());
+        ArrayList<Move> moves = getLegalMoves();
+        if(moves.size() == 0)
+            return null;
+        HashMap<Vector2, Cell> myCells = this.getMyCells();
+
+        this.update(moves.get(0), this.getPlayer());
+        /*for(Vector2 pos : myCells.keySet()) {
+            System.out.println(pos);
+        }*/
+        //System.out.println(moves.get(0).i + " " + moves.get(0).j);
+        return moves.get(0);
     }
+
 }
 

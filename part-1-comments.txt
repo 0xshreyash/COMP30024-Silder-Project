@@ -1,0 +1,98 @@
+Introduction: 
+
+In this part of the project we were given the task of taking as input a given
+state of the slider game we are going to implement an boardAgent for and count the
+number of legal moves for either player in the game.
+
+Our team and AI:
+
+We will be calling ourselves team maxine and our AI, Shreya in the honour of
+the tradition in computing of naming inanimate objects with female names
+seemingly to make up for the lack of females in the field.
+
+Project Structure and description: 
+
+We believe our project is very well-structured and a brief description of the
+structure and project is below:
+
+src
+|__ com.teammaxine.board
+  |__ actions
+     |__ ActionMove.java
+     |__ AgentAction.java
+     |__ ActionFinisher.java
+  |__ elements
+     |__ Agent.java	
+     |__ Board.java
+     |__ Cell.java
+     |__ Horizontal.java
+     |__ Vertical.java
+  |__ helpers
+     |__ Vector2.java
+  |__ PartADriver.java
+
+Our package for our game is called com.teammaxine.board, in folder "action" we
+have  AgentAction will be the action the boardAgent may take for each move,
+ActionMove which will allow us to move a 'H' or a 'V' piece from one Vector2
+location (x, y coordinate) to another (it's a child of AgentAction),
+similarly ActionFinisher will have cells that can be moved off the board to
+win them. (these are primarily for Part-b of the project)
+
+"elements" contains the different elements in the game i.e. our Board which is
+the playing field made up of cells, the cells have a value which is described
+by a char determining whether there is a piece on the cell or not (the value
+can be 'H', 'V', 'B', '+' or '-', the '-' signifies an unknown value and will
+not be needed in the case of a valid board). The Agent class are the Agents
+that control the H and V pieces and know the cells that they currently occupy,
+Horizontal and Vertical derive from Agent and have their legal directions for
+movement set at the time of creation. The Agents know where each of it's pieces
+are and can thus, easily find the number of legal moves for it's pieces.
+Note: We count the move that may an boardAgent's piece off the board meaning that
+piece is "home" as an additional move.
+
+The Vector2 class is our coordinate system which we will use for the purpose of
+having a sense of position in our game and this class is contained in the
+"helpers" folder.
+
+The class com.teammaxine.board.PartADriver, as the name suggests drives the
+program and takes input from the user, we used BufferedReader instead
+of Scanner for input due to minor performance perks of BufferedReader. 
+ 
+Libraries: 
+
+We aren't using any libraries at this point, but we do plan to use the AIMA
+library for future versions of the project.
+
+Algorithms and Complexity:
+
+Input:
+For input we just take every line as input, and then add the cells of the board
+to the appropriate row and column on the board following the convention provided
+in the spec. We take each line as input which is O(n) and then splitting each
+line to a char array (also removing white spaces) is O(n) as well, where n is
+the number of rows/columns. Overall, our input is O(n^2) like it is expected
+to be.
+
+Finding legal moves:
+Our agents know what are the possible legal directions for that boardAgent and they
+also know what position their pieces are on meaning that finding the number of
+legal moves for each boardAgent is just the number of operations to look around each
+of the agents cell.
+
+Pseudo-code for finding each boardAgent's legal moves is:
+
+			legalmoves = 0
+			for all cells belonging to an boardAgent
+				for all legal directions for the cell
+				    // counting the move that takes the boardAgent off the board
+				    // as one legal move (off the top for 'V' and off the right
+				    // for 'H'.
+					if the neighbour_cell in that direction is free
+						legalmoves = legalmoves + 1
+
+The above algorithm goes through each of the n -1 cells for each boardAgent and
+checks all 3 of it's legal directions so, it does 3n - 3 operations for each
+boardAgent, since we have two agents we will be doing 6n - 6 operations in all
+giving us a complexity of O(6n - 6). Removing additive and multiplicative
+constants we get a complexity of O(n).
+

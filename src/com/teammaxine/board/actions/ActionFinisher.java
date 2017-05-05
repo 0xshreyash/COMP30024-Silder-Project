@@ -7,6 +7,7 @@
  */
 package com.teammaxine.board.actions;
 
+import com.teammaxine.agent.Agent;
 import com.teammaxine.board.elements.BoardAgent;
 import com.teammaxine.board.helpers.Vector2;
 
