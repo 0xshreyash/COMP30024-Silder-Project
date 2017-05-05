@@ -33,6 +33,71 @@ public abstract class Agent {
     private int dimension;
     /** The type of player we control, either 'H' or 'V' */
     private char player;
+
+    public void setMyCells(HashMap<Vector2, Cell> myCells) {
+        this.myCells = myCells;
+    }
+
+    public ArrayList<Move.Direction> getLegalDirections() {
+        return legalDirections;
+    }
+
+    public void setLegalDirections(ArrayList<Move.Direction> legalDirections) {
+        this.legalDirections = legalDirections;
+    }
+
+    public int getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(int dimension) {
+        this.dimension = dimension;
+    }
+
+    public char getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(char player) {
+        this.player = player;
+    }
+
+    public Board getMyBoard() {
+        return myBoard;
+    }
+
+    public void setMyBoard(Board myBoard) {
+        this.myBoard = myBoard;
+    }
+
+    public ArrayList<Move> getMoves() {
+        return moves;
+    }
+
+    public void setMoves(ArrayList<Move> moves) {
+        this.moves = moves;
+    }
+
+    public static Move.Direction[] getHorizontalDirections() {
+        return HORIZONTAL_DIRECTIONS;
+    }
+
+    public static void setHorizontalDirections(Move.Direction[] horizontalDirections) {
+        HORIZONTAL_DIRECTIONS = horizontalDirections;
+    }
+
+    public static Move.Direction[] getVerticalDirections() {
+        return VERTICAL_DIRECTIONS;
+    }
+
+    public static void setVerticalDirections(Move.Direction[] verticalDirections) {
+        VERTICAL_DIRECTIONS = verticalDirections;
+    }
+
+    public HashMap<Vector2, Cell> getMyCells() {
+        return myCells;
+    }
+
     /** The board representation */
     private Board myBoard;
     /** The possible moves for the player */
@@ -102,9 +167,9 @@ public abstract class Agent {
     public boolean edgeCheck(Cell cell) {
 
         if(this.player == Board.CELL_HORIZONTAL)
-            return cell.getPos().getY() == (dimension - 1);
-        else if(this.player == Board.CELL_VERTICAL)
             return cell.getPos().getX() == (dimension - 1);
+        else if(this.player == Board.CELL_VERTICAL)
+            return cell.getPos().getY() == (dimension - 1);
         return false;
     }
 
@@ -126,13 +191,14 @@ public abstract class Agent {
          */
         this.createBoard(dimension, board);
         this.setLegalDirections();
-        this.getMyCells();
+        this.setMyCells();
         this.moves = getLegalMoves();
-        System.out.println("Player");
+        /*System.out.println("Player");
         System.out.println(myBoard);
+        System.out.println("Printing legal moves for:" + player);
         for(Move move: moves) {
             System.out.println(move);
-        }
+        }*/
     }
 
     /**
@@ -165,7 +231,7 @@ public abstract class Agent {
     /**
      * Gets all the cells of the type player for the player to use.
      */
-    public void getMyCells() {
+    public void setMyCells() {
 
         myCells = myBoard.getCellsOfType(this.player);
 
@@ -218,7 +284,7 @@ public abstract class Agent {
      */
     public ArrayList<Move> getLegalMoves() {
         ArrayList<Move> moves = new ArrayList<>();
-        System.out.println("Num myCells: " + this.myCells.size());
+        //System.out.println("Num myCells: " + this.myCells.size());
         for (Cell myCell : this.myCells.values()) {
             if(edgeCheck(myCell)) {
 
@@ -250,24 +316,26 @@ public abstract class Agent {
                 }
             }
         }
-        System.out.println(moves.size());
+        //System.out.println(moves.size());
         return moves;
     }
 
-    // Update covers the case where the other player may move to win the game. 
+    // Update covers the case where the other player may move to win the game.
     public void update(Move move) {
         if(move != null) {
             myBoard.changeCellValue(move.i, move.j, Board.CELL_EMPTY);
             if (move.d == Move.Direction.LEFT) {
-                myBoard.changeCellValue(move.i, move.j - 1, player);
-            } else if (move.d == Move.Direction.RIGHT && move.j != dimension - 1) {
-                myBoard.changeCellValue(move.i, move.j + 1, player);
-            } else if (move.d == Move.Direction.UP && move.i != dimension - 1) {
-                myBoard.changeCellValue(move.i + 1, move.j, player);
-            } else if (move.d == Move.Direction.DOWN) {
                 myBoard.changeCellValue(move.i - 1, move.j, player);
+            } else if (move.d == Move.Direction.RIGHT && move.j != dimension - 1) {
+                myBoard.changeCellValue(move.i + 1, move.j, player);
+            } else if (move.d == Move.Direction.UP && move.i != dimension - 1) {
+                myBoard.changeCellValue(move.i, move.j + 1, player);
+            } else if (move.d == Move.Direction.DOWN) {
+                myBoard.changeCellValue(move.i, move.j - 1, player);
             }
         }
+        this.myCells = this.myBoard.getCellsOfType(player);
+        //System.out.println(myBoard);
         return;
     }
 }

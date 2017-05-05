@@ -285,6 +285,9 @@ public class Referee {
 
 			// where's the piece?
 			Piece piece = grid[move.i][move.j];
+			System.out.println(piece);
+			System.out.println(turn);
+
 
 			// is it the right type of piece?
 			if (piece != turn) {

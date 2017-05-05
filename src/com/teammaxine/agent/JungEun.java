@@ -9,13 +9,8 @@ import com.teammaxine.board.elements.Board;
 import com.teammaxine.board.elements.Cell;
 import com.teammaxine.board.helpers.Vector2;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 /**
  * Created by noxm on 17/04/17.
@@ -25,14 +20,18 @@ import java.util.Scanner;
  */
 public class JungEun extends Agent implements SliderPlayer {
 
-    private Board myBoard;
-    private int dimension;
-    private char player;
-    private HashMap<Vector2, Cell> myCells;
 
     @Override
     public Move move() {
-        return null;
+        System.out.println(this.getPlayer());
+        ArrayList<Move> moves = getLegalMoves();
+        HashMap<Vector2, Cell> myCells = this.getMyCells();
+        for(Vector2 pos : myCells.keySet()) {
+            System.out.println(pos);
+        }
+        //System.out.println(moves.get(0).i + " " + moves.get(0).j);
+        return moves.get(0);
     }
+
 }
 

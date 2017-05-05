@@ -92,7 +92,7 @@ public class Board {
             this.board[row] = new Cell[this.size];
 
             for (int column = 0; column < this.size; column++) {
-                this.board[row][column] = new Cell(new Vector2(row, column));
+                this.board[row][column] = new Cell(new Vector2(column, row));
                 //System.out.println(board[row][column].getPos());
             }
         }
@@ -153,8 +153,13 @@ public class Board {
         HashMap<Vector2, Cell> cells = new HashMap<>();
         for(int row = 0; row < this.size; row++) {
             for(int column = 0; column < this.size; column++) {
-                if(board[row][column].getValue() == type)
-                    cells.put(new Vector2(row, column), board[row][column]);
+                if(board[row][column].getValue() == type) {
+                    cells.put(new Vector2(column, row), board[row][column]);
+                    System.out.println(column + "," + row);
+                    System.out.println(board[row][column].getValue() + " " + type);
+                }
+
+
             }
         }
 
