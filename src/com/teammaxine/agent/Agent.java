@@ -33,6 +33,8 @@ public abstract class Agent {
     private int dimension;
     /** The type of player we control, either 'H' or 'V' */
     private char player;
+    /** The character of the other player */
+    private char otherPlayer;
 
     public void setMyCells(HashMap<Vector2, Cell> myCells) {
         this.myCells = myCells;
@@ -122,6 +124,7 @@ public abstract class Agent {
         this.myCells = new HashMap<>();
         this.legalDirections = new ArrayList<>();
         this.moves = new ArrayList<>();
+        this.otherPlayer = Board.CELL_UNKNOWN;
     }
 
     /**
@@ -184,6 +187,12 @@ public abstract class Agent {
     public void init(int dimension, String board, char player) {
 
         this.player = player;
+        if(player == Board.CELL_HORIZONTAL) {
+            otherPlayer = Board.CELL_VERTICAL;
+        }
+        else {
+            otherPlayer = Board.CELL_HORIZONTAL;
+        }
         this.dimension = dimension;
         /*
            Creates the board and also adds the appropriate cells to the player's
@@ -323,19 +332,36 @@ public abstract class Agent {
     // Update covers the case where the other player may move to win the game.
     public void update(Move move) {
         if(move != null) {
-            myBoard.changeCellValue(move.i, move.j, Board.CELL_EMPTY);
-            if (move.d == Move.Direction.LEFT) {
-                myBoard.changeCellValue(move.i - 1, move.j, player);
-            } else if (move.d == Move.Direction.RIGHT && move.j != dimension - 1) {
-                myBoard.changeCellValue(move.i + 1, move.j, player);
-            } else if (move.d == Move.Direction.UP && move.i != dimension - 1) {
-                myBoard.changeCellValue(move.i, move.j + 1, player);
-            } else if (move.d == Move.Direction.DOWN) {
-                myBoard.changeCellValue(move.i, move.j - 1, player);
-            }
+            updateCellValues(move, otherPlayer);
         }
+
         this.myCells = this.myBoard.getCellsOfType(player);
-        //System.out.println(myBoard);
         return;
+    }
+
+    public void update(Move move, char type) {
+        if(move != null) {
+            updateCellValues(move, type);
+        }
+
+        this.myCells = this.myBoard.getCellsOfType(player);
+        return;
+    }
+
+
+
+    public void updateCellValues(Move move, char type) {
+
+        myBoard.changeCellValue(move.j, move.i, Board.CELL_EMPTY);
+        System.out.println(move.i + " " + move.j);
+        if (move.d == Move.Direction.LEFT) {
+            myBoard.changeCellValue(move.j, move.i - 1, type);
+        } else if (move.d == Move.Direction.RIGHT && move.i != dimension - 1) {
+            myBoard.changeCellValue(move.j, move.i + 1, type);
+        } else if (move.d == Move.Direction.UP && move.j != dimension - 1) {
+            myBoard.changeCellValue(move.j + 1 , move.i, type);
+        } else if (move.d == Move.Direction.DOWN) {
+            myBoard.changeCellValue(move.j - 1, move.i, type);
+        }
     }
 }

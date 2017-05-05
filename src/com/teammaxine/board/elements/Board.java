@@ -155,8 +155,6 @@ public class Board {
             for(int column = 0; column < this.size; column++) {
                 if(board[row][column].getValue() == type) {
                     cells.put(new Vector2(column, row), board[row][column]);
-                    System.out.println(column + "," + row);
-                    System.out.println(board[row][column].getValue() + " " + type);
                 }
 
 
