@@ -77,9 +77,8 @@ public class Board {
     }
 
     public Board(Board other) {
-
-        this.board = new Cell[this.size][];
         this.size = other.getSize();
+        this.board = new Cell[this.size][];
         this.horizontal = new Horizontal(other.getHorizontal());
         this.vertical = new Vertical(other.getVertical());
         // Deep copying the board array
