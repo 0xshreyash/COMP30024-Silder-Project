@@ -12,7 +12,7 @@ import java.util.HashMap;
 /**
  * Created by shreyashpatodia on 05/05/17.
  */
-public abstract class AlphaBeta implements Strategy {
+public class AlphaBeta implements Strategy {
 
     private char player;
     private char otherPlayer;
@@ -24,10 +24,11 @@ public abstract class AlphaBeta implements Strategy {
                 Board.CELL_HORIZONTAL: Board.CELL_VERTICAL;
     }
 
-    public Move findMove(Board board) {
-        int depth = 5;
+    public Move findMove(Board board, int depth) {
+        Move bestMove = null;
+
         minimax(depth, board, this.player);
-        return null;
+        return bestMove;
     }
 
     /**
@@ -37,7 +38,6 @@ public abstract class AlphaBeta implements Strategy {
      * @return
      */
     private Move[] minimax(int depth, Board board, char currPlayer) {
-
         HashMap<Vector2, Cell> cells = board.getCellsOfType(currPlayer);
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(currPlayer);
         return null;

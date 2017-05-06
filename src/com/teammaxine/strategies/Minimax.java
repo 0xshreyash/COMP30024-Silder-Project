@@ -17,22 +17,58 @@ import java.util.HashMap;
  * move -> move by both players
  * ply -> half-move, "move" by just one player
  */
-public class Minimax {
+public class Minimax implements Strategy{
 
     private char myPlayer;
     private char otherPlayer;
     private Scorer scorer;
 
+    /**
+     * Sets the player and the scoring function for the minimax
+     * @param myPlayer the player which is the maximizing player
+     * @param scorer   the scoring function for evaluation of minimax
+     */
     public Minimax(char myPlayer, Scorer scorer) {
         this.myPlayer = myPlayer;
         this.scorer = scorer;
         this.otherPlayer = myPlayer == Board.CELL_HORIZONTAL?Board.CELL_VERTICAL:Board.CELL_HORIZONTAL;
     }
+
+    /**
+     * The function we have to implement to implement strategy
+     * @param currentBoard
+     * @param depth
+     * @return
+     */
+    public Move findMove(Board currentBoard, int depth) {
+
+        ArrayList<? extends Move> legalMoves = currentBoard.getLegalMoves(myPlayer);
+        Move bestMove = null;
+        double maxValue = Double.NEGATIVE_INFINITY;
+        for(Move move: legalMoves) {
+            Board newBoard = new Board(currentBoard);
+            simulateMove(move, newBoard, myPlayer);
+            double val = minimax(newBoard, depth, otherPlayer);
+            maxValue = Math.max(val, maxValue);
+            if(maxValue == val)
+                bestMove = move;
+        }
+
+        return bestMove;
+    }
+    /**
+     *
+     * @param board
+     * @param depth
+     * @param player
+     * @return
+     */
     private double minimax(Board board, int depth, char player) {
 
         double bestScore = (player == myPlayer)?Double.NEGATIVE_INFINITY:Double.POSITIVE_INFINITY;
         ArrayList<? extends Move> moves = board.getLegalMoves(player);
-
+        if(depth == 0) // The board aligns with the end game policy.
+            return scorer.scoreBoard(board, player);
         for (Move move : moves) {
             Board newBoard = new Board(board);
             simulateMove(move, newBoard, player);

@@ -10,5 +10,5 @@ import java.util.ArrayList;
  */
 public interface Strategy {
 
-    public Move findMove(Board currentBoard, char player, ArrayList<Move> legalMoves);
+    public Move findMove(Board currentBoard, int depth);
 }
