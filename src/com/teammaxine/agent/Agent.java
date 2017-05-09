@@ -296,7 +296,7 @@ public abstract class Agent {
     // Update covers the case where the other player may move to win the game.
     public void update(Move move) {
         if(move != null) {
-            updateCellValues(move, otherPlayer);
+            this.myBoard.makeMove(move, otherPlayer);
         }
 
         this.myCells = this.myBoard.getCellsOfType(player);
@@ -305,25 +305,11 @@ public abstract class Agent {
 
     public void update(Move move, char type) {
         if(move != null) {
-            updateCellValues(move, type);
+            this.myBoard.makeMove(move, type);
         }
 
         this.myCells = this.myBoard.getCellsOfType(player);
         return;
     }
 
-    public void updateCellValues(Move move, char type) {
-
-        myBoard.changeCellValue(move.j, move.i, Board.CELL_EMPTY);
-        System.out.println(move.i + " " + move.j);
-        if (move.d == Move.Direction.LEFT) {
-            myBoard.changeCellValue(move.j, move.i - 1, type);
-        } else if (move.d == Move.Direction.RIGHT && move.i != dimension - 1) {
-            myBoard.changeCellValue(move.j, move.i + 1, type);
-        } else if (move.d == Move.Direction.UP && move.j != dimension - 1) {
-            myBoard.changeCellValue(move.j + 1 , move.i, type);
-        } else if (move.d == Move.Direction.DOWN) {
-            myBoard.changeCellValue(move.j - 1, move.i, type);
-        }
-    }
 }

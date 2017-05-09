@@ -84,9 +84,11 @@ public abstract class BoardAgent {
      *
      * @param oldCell the cell that is not longer belonging to the agent.
      */
+
     public void removeCell(Cell oldCell) {
-        this.myCells.remove(oldCell);
+        this.myCells.remove(oldCell.getPos(), oldCell);
     }
+
 
     /**
      * check if agent controls the cell
@@ -110,9 +112,9 @@ public abstract class BoardAgent {
             if(edgeCheck(myCell)) {
                 moves.add(new AgentAction(AgentAction.ActionType.FINISH, myCell.getPos(), getForward()));
             }
-
             for (Move.Direction legalDirection : this.legalDirections) {
                 char value;
+
                 if (myCell.getNeighbours().containsKey(legalDirection)) {
                     value = myCell.getNeighbour(legalDirection).getValue();
                 } else {

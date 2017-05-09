@@ -39,6 +39,8 @@ public class Cell {
     public Cell(Cell other) {
         this.value = other.getValue();
         this.pos = new Vector2(other.getPos());
+        this.neighbours = new HashMap<>(other.getNeighbours());
+
     }
 
     /**

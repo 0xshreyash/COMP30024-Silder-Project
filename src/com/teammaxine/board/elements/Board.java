@@ -86,6 +86,7 @@ public class Board {
             this.board[row] = new Cell[this.size];
             for(int column = 0; column < this.size; column++) {
                 this.board[row][column] = new Cell(other.getBoard()[row][column]);
+                //this.addNeighbours(row, column);
                 if (board[row][column].getValue() == CELL_HORIZONTAL)
                     horizontal.addCell(board[row][column]);
 
@@ -206,6 +207,50 @@ public class Board {
         if(type == Board.CELL_HORIZONTAL)
             return horizontal.getLegalMoves();
         return vertical.getLegalMoves();
+    }
+
+    /**
+     * Change the board according to how the move would change the board in order to
+     * allow us to recurse down the tree.
+     * @param move The move to be made on the new Board
+     * @param player The type of player to be moved
+     */
+    public void makeMove(Move move, char player) {
+        //System.out.println(move.i + " " + move.j);
+        this.changeCellValue(move.j, move.i, Board.CELL_EMPTY);
+
+        if(player == Board.CELL_HORIZONTAL)
+            this.horizontal.removeCell(board[move.j][move.i]);
+        else
+            this.vertical.removeCell(board[move.j][move.i]);
+
+        if (move.d == Move.Direction.LEFT) {
+            this.changeCellValue(move.j, move.i - 1, player);
+            if(player == Board.CELL_HORIZONTAL)
+                this.horizontal.addCell(board[move.j][move.i - 1]);
+            else
+                this.vertical.addCell(board[move.j][move.i - 1]);
+
+        } else if (move.d == Move.Direction.RIGHT && move.i != this.getSize() - 1) {
+            this.changeCellValue(move.j, move.i + 1, player);
+            if(player == Board.CELL_HORIZONTAL)
+                this.horizontal.addCell(board[move.j][move.i + 1]);
+            else
+                 this.vertical.addCell(board[move.j][move.i + 1]);
+
+        } else if (move.d == Move.Direction.UP && move.j != this.getSize() - 1) {
+            this.changeCellValue(move.j + 1 , move.i, player);
+            if(player == Board.CELL_HORIZONTAL)
+                this.horizontal.addCell(board[move.j + 1][move.i]);
+            else
+                this.vertical.addCell(board[move.j + 1][move.i]);
+        } else if (move.d == Move.Direction.DOWN) {
+            this.changeCellValue(move.j - 1, move.i, player);
+            if(player == Board.CELL_HORIZONTAL)
+                this.horizontal.addCell(board[move.j - 1][move.i]);
+            else
+                this.vertical.addCell(board[move.j - 1][move.i]);
+        }
     }
 
     public void changeCellValue(int x, int y, char newValue) {
