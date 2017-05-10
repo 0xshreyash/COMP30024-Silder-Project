@@ -9,6 +9,7 @@ package com.teammaxine.board.elements;
 
 import aiproj.slider.Move;
 import com.teammaxine.board.actions.AgentAction;
+import com.teammaxine.board.helpers.Scorer;
 import com.teammaxine.board.helpers.Vector2;
 
 import java.util.ArrayList;
@@ -165,6 +166,9 @@ public class Board {
             }
             boardString += "\n";
         }
+
+        boardString += "Horizontal Score: " + Scorer.scoreBoard(this, 'H') + "\n";
+        boardString += "Vertical   Score: " + Scorer.scoreBoard(this, 'V') + "\n";
 
         return boardString;
     }

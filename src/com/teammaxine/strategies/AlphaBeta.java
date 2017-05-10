@@ -38,22 +38,28 @@ public class AlphaBeta implements Strategy {
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(currPlayer);
         Move bestMove = null;
         double bestVal = Double.NEGATIVE_INFINITY;
+        System.out.println("++++++++++++++++++++");
+        System.out.println(board);
+        System.out.println("     possibles     ");
         for(Move move : legalMoves) {
             Board newBoard = new Board(board);
             //System.out.println(move);
             newBoard.makeMove(move, myPlayer);
 
+            System.out.println("--------------------");
+            System.out.println(newBoard);
+
             //System.out.println("New board\n" + newBoard);
             // Check if depth - 1 should be here or not
             double val = minValue(newBoard, alpha, beta, depth - 1);
             bestVal = Math.max(bestVal, val);
+
             if(bestVal == val) {
-                System.out.println("Updating bestVal");
-                System.out.println("New score :" + bestVal);
-                System.out.println(move);
                 bestMove = move;
             }
+
         }
+        System.out.println("++++++++++++++++++++");
         return bestMove;
     }
 
@@ -86,7 +92,7 @@ public class AlphaBeta implements Strategy {
             newBoard.makeMove(move, otherPlayer);
             bestVal = Math.min(bestVal, maxValue(newBoard, alpha, beta, depth - 1));
             beta = Math.min(bestVal, beta);
-            if(beta <= alpha)
+            if(bestVal <= alpha)
                 break;
         }
         return bestVal;
