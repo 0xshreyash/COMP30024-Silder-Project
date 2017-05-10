@@ -17,6 +17,10 @@ public class Xena extends Agent {
         this.s = s;
     }
 
+    public Scorer getScorer() {
+        return s;
+    }
+
     @Override
     public Move move() {
         Scorer scorer;
