@@ -38,7 +38,7 @@ public class Scorer {
         score += MOVE_SIDE_SCORE * sumVerticalSideMoves(board);
         score += MOVE_FORWARD_SCORE * sumVerticalForwardMoves(board);
         score += COUNT_SCORE * (board.getSize() - sumVerticalPieces(board));
-        score += BLOCK_SCORE * (board.getSize() - sumHorizontalForwardMoves(board));
+        score += BLOCK_SCORE * (board.getHorizontal().getMyCells().size() - sumHorizontalForwardMoves(board));
 
         return score;
     }
@@ -52,7 +52,7 @@ public class Scorer {
         score += MOVE_SIDE_SCORE * sumHorizontalSideMoves(board);
         score += MOVE_FORWARD_SCORE * sumHorizontalForwardMoves(board);
         score += COUNT_SCORE * (board.getSize() - sumHorizontalPieces(board));
-        score += BLOCK_SCORE * (board.getSize() - sumVerticalForwardMoves(board));
+        score += BLOCK_SCORE * (board.getVertical().getMyCells().size() - sumHorizontalForwardMoves(board));
 
         return score;
     }
