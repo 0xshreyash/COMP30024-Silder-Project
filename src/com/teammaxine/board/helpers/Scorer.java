@@ -15,7 +15,7 @@ public class Scorer {
     private static final boolean showDebug = false;
     private static final double DISTANCE_SCORE = -2;
     private static final double MOVE_SIDE_SCORE = 0.5;
-    private static final double MOVE_FORWARD_SCORE = 2;
+    private static final double MOVE_FORWARD_SCORE = 5;
 
     public static double scoreBoard(Board board, char playerPiece) {
         boolean playerIsHorizontal = playerPiece == 'H';

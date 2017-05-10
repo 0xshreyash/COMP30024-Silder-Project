@@ -1,14 +1,9 @@
 package com.teammaxine.strategies;
 
 import aiproj.slider.Move;
-import com.teammaxine.agent.Agent;
 import com.teammaxine.board.elements.Board;
 import com.teammaxine.board.helpers.Scorer;
-import com.teammaxine.board.helpers.Vector2;
-import com.teammaxine.board.elements.Cell;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by shreyashpatodia on 05/05/17.
@@ -47,12 +42,15 @@ public class AlphaBeta implements Strategy {
             Board newBoard = new Board(board);
             //System.out.println(move);
             newBoard.makeMove(move, myPlayer);
+
             //System.out.println("New board\n" + newBoard);
             // Check if depth - 1 should be here or not
             double val = minValue(newBoard, alpha, beta, depth - 1);
             bestVal = Math.max(bestVal, val);
             if(bestVal == val) {
-                //System.out.println("Updating bestVal");
+                System.out.println("Updating bestVal");
+                System.out.println("New score :" + bestVal);
+                System.out.println(move);
                 bestMove = move;
             }
         }
