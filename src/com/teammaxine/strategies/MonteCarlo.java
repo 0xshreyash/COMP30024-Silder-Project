@@ -16,7 +16,7 @@ public class MonteCarlo implements Strategy {
     private char player;
     private Scorer scorer;
     private Random random;
-    private static final int TRIES = 5000;
+    private static final int TRIES = 5; //5k
     private static final int MAX_DEPTH = 150;
 
     private static Move prevMove;

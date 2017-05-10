@@ -12,12 +12,25 @@ import java.util.HashMap;
  */
 public class Scorer {
     // score += cell property * this
-    private static final boolean showDebug = false;
-    private static final double DISTANCE_SCORE = 10;
-    private static final double COUNT_SCORE = 5;
-    private static final double BLOCK_SCORE = 10;
-    private static final double MOVE_SIDE_SCORE = 0;
-    private static final double MOVE_FORWARD_SCORE = 3;
+    private boolean showDebug = false;
+
+    double distance_score = 10;
+    double count_score = 5;
+    double block_score = 10;
+    double move_side_score = 0;
+    double move_forward_score = 3;
+
+    public Scorer() {
+
+    }
+
+    Scorer(double dist, double count, double block, double side, double forward) {
+        distance_score = dist;
+        count_score = count;
+        block_score = block;
+        move_side_score = side;
+        move_forward_score = forward;
+    }
 
     public double scoreBoard(Board board, char playerPiece) {
         boolean playerIsHorizontal = playerPiece == 'H';
@@ -29,35 +42,35 @@ public class Scorer {
         }
     }
 
-    private double scoreBoardVertical(Board board) {
+     double scoreBoardVertical(Board board) {
         double score = 0;
 
         int maxDist = board.getSize() - 1;
         int count = board.getVertical().getMyCells().size();
-        score += DISTANCE_SCORE * (maxDist * count - sumVerticalDistance(board));
-        score += MOVE_SIDE_SCORE * sumVerticalSideMoves(board);
-        score += MOVE_FORWARD_SCORE * sumVerticalForwardMoves(board);
-        score += COUNT_SCORE * (board.getSize() - sumVerticalPieces(board));
-        score += BLOCK_SCORE * (board.getHorizontal().getMyCells().size() - sumHorizontalForwardMoves(board));
+        score += distance_score * (maxDist * count - sumVerticalDistance(board));
+        score += move_side_score * sumVerticalSideMoves(board);
+        score += move_forward_score * sumVerticalForwardMoves(board);
+        score += count_score * (board.getSize() - sumVerticalPieces(board));
+        score += block_score * (board.getHorizontal().getMyCells().size() - sumHorizontalForwardMoves(board));
 
         return score;
     }
 
-    private double scoreBoardHorizontal(Board board) {
+    double scoreBoardHorizontal(Board board) {
         double score = 0;
 
         int maxDist = board.getSize() - 1;
         int count = board.getVertical().getMyCells().size();
-        score += DISTANCE_SCORE * (maxDist * count - sumHorizontalDistance(board));
-        score += MOVE_SIDE_SCORE * sumHorizontalSideMoves(board);
-        score += MOVE_FORWARD_SCORE * sumHorizontalForwardMoves(board);
-        score += COUNT_SCORE * (board.getSize() - sumHorizontalPieces(board));
-        score += BLOCK_SCORE * (board.getVertical().getMyCells().size() - sumHorizontalForwardMoves(board));
+        score += distance_score * (maxDist * count - sumHorizontalDistance(board));
+        score += move_side_score * sumHorizontalSideMoves(board);
+        score += move_forward_score * sumHorizontalForwardMoves(board);
+        score += count_score * (board.getSize() - sumHorizontalPieces(board));
+        score += block_score * (board.getVertical().getMyCells().size() - sumHorizontalForwardMoves(board));
 
         return score;
     }
 
-    private int sumVerticalForwardMoves(Board b) {
+    final int sumVerticalForwardMoves(Board b) {
         int sum = 0;
 
         ArrayList<AgentAction> moves = b.getVertical().getLegalMoves();
@@ -71,7 +84,7 @@ public class Scorer {
         return sum;
     }
 
-    private int sumVerticalSideMoves(Board b) {
+    final int sumVerticalSideMoves(Board b) {
         int sum = 0;
 
         ArrayList<AgentAction> moves = b.getVertical().getLegalMoves();
@@ -84,7 +97,7 @@ public class Scorer {
         return sum;
     }
 
-    private int sumHorizontalSideMoves(Board b) {
+    final int sumHorizontalSideMoves(Board b) {
         int sum = 0;
 
         ArrayList<AgentAction> moves = b.getHorizontal().getLegalMoves();
@@ -97,7 +110,7 @@ public class Scorer {
         return sum;
     }
 
-    private int sumHorizontalForwardMoves(Board b) {
+    final int sumHorizontalForwardMoves(Board b) {
         int sum = 0;
 
         ArrayList<AgentAction> moves = b.getHorizontal().getLegalMoves();
@@ -110,7 +123,7 @@ public class Scorer {
         return sum;
     }
 
-    private int sumHorizontalDistance(Board b) {
+    final int sumHorizontalDistance(Board b) {
         int sum = 0;
 
         HashMap<Vector2, Cell> cellHash = b.getHorizontal().getMyCells();
@@ -124,7 +137,7 @@ public class Scorer {
         return sum;
     }
 
-    private int sumVerticalDistance(Board b) {
+    final int sumVerticalDistance(Board b) {
         int sum = 0;
 
         HashMap<Vector2, Cell> cellHash = b.getVertical().getMyCells();
@@ -138,12 +151,11 @@ public class Scorer {
         return sum;
     }
 
-    private int sumVerticalPieces(Board board) {
+    final int sumVerticalPieces(Board board) {
         return board.getVertical().getMyCells().size();
     }
 
-    private int sumHorizontalPieces(Board board) {
+    final int sumHorizontalPieces(Board board) {
         return board.getHorizontal().getMyCells().size();
     }
-
 }
