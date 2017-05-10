@@ -13,9 +13,10 @@ import java.util.HashMap;
 public class Scorer {
     // score += cell property * this
     private static final boolean showDebug = false;
-    private static final double DISTANCE_SCORE = -1;
-    private static final double MOVE_SIDE_SCORE = 0.5;
-    private static final double MOVE_FORWARD_SCORE = 2;
+    private static final double DISTANCE_SCORE = -2;
+    private static final double COUNT_SCORE = -2;
+    private static final double MOVE_SIDE_SCORE = 0.25;
+    private static final double MOVE_FORWARD_SCORE = 1.5;
 
     public static double scoreBoard(Board board, char playerPiece) {
         boolean playerIsHorizontal = playerPiece == 'H';
@@ -33,15 +34,18 @@ public class Scorer {
         score += DISTANCE_SCORE * sumVerticalDistance(board);
         score += MOVE_SIDE_SCORE * sumVerticalSideMoves(board);
         score += MOVE_FORWARD_SCORE * sumVerticalFowardMoves(board);
+        score += COUNT_SCORE * sumVerticalPieces(board);
 
         return score;
     }
+
     private static double scoreBoardHorizontal(Board board) {
         double score = 0;
 
         score += DISTANCE_SCORE * sumHorizontalDistance(board);
         score += MOVE_SIDE_SCORE * sumHorizontalSideMoves(board);
         score += MOVE_FORWARD_SCORE * sumHorizontalForwardMoves(board);
+        score += COUNT_SCORE * sumHorizontalPieces(board);
 
         return score;
     }
@@ -126,4 +130,13 @@ public class Scorer {
 
         return sum;
     }
+
+    private static int sumVerticalPieces(Board board) {
+        return board.getVertical().getMyCells().size();
+    }
+
+    private static int sumHorizontalPieces(Board board) {
+        return board.getHorizontal().getMyCells().size();
+    }
+
 }
