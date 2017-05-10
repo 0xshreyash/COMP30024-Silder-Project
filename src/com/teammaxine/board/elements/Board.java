@@ -95,6 +95,12 @@ public class Board {
                     vertical.addCell(board[row][column]);
             }
         }
+
+        for(int row = 0; row < this.size; row++) {
+            for(int column = 0; column < this.size; column++) {
+                this.addNeighbours(row, column);
+            }
+        }
     }
 
     public Cell[][] getBoard() {
@@ -134,6 +140,7 @@ public class Board {
      * @param column column number of the cell
      */
     private void addNeighbours(int row, int column) {
+        //System.out.println(row + " " + column);
         if (row != this.size - 1)
             this.board[row][column].setNeighbour(Move.Direction.UP,
                     this.board[row + 1][column]);
@@ -167,9 +174,6 @@ public class Board {
             boardString += "\n";
         }
 
-        boardString += "Horizontal Score: " + Scorer.scoreBoard(this, 'H') + "\n";
-        boardString += "Vertical   Score: " + Scorer.scoreBoard(this, 'V') + "\n";
-
         return boardString;
     }
 
@@ -198,8 +202,6 @@ public class Board {
                 if(board[row][column].getValue() == type) {
                     cells.put(new Vector2(column, row), board[row][column]);
                 }
-
-
             }
         }
 

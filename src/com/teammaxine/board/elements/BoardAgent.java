@@ -136,6 +136,7 @@ public abstract class BoardAgent {
                 }
 
                 if (value == Board.CELL_EMPTY) {
+                    //System.out.println("Neighbour of " + myCell.getPos() + " has value " + value);
                     moves.add(new AgentAction(AgentAction.ActionType.MOVE, myCell.getPos(), legalDirection));
                 }
             }

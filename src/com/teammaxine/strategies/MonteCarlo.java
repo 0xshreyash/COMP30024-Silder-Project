@@ -14,13 +14,38 @@ import java.util.Random;
  */
 public class MonteCarlo implements Strategy {
     private char player;
+    private Scorer scorer;
     private Random random;
-    private static final int TRIES = 700;
+    private static final int TRIES = 5000;
     private static final int MAX_DEPTH = 150;
 
-    public MonteCarlo(char player) {
+    private static Move prevMove;
+
+    public MonteCarlo(char player, Scorer scorer) {
+        prevMove = null;
+        this.scorer = scorer;
         this.player = player;
         this.random = new Random(System.currentTimeMillis());
+    }
+
+    private Move oppositeMove(Move m) {
+        Move.Direction opDir;
+        int i = m.i;
+        int j = m.j;
+        if(m.d == Move.Direction.UP) {
+            opDir = Move.Direction.DOWN;
+            j++;
+        } else if(m.d == Move.Direction.DOWN) {
+            opDir = Move.Direction.UP;
+            j--;
+        } else if(m.d == Move.Direction.LEFT) {
+            opDir = Move.Direction.LEFT;
+            i--;
+        } else {
+            opDir = Move.Direction.RIGHT;
+            i++;
+        }
+        return new Move(i, j, opDir);
     }
 
     @Override
@@ -53,11 +78,13 @@ public class MonteCarlo implements Strategy {
             }
             double avg = sum / TRIES;
 
-            if(sum >= maxScore) {
-                maxScore = sum;
+            if((avg >= maxScore) && (prevMove == null || oppositeMove(prevMove).toString().equals(m.toString()))) {
+                maxScore = avg;
                 toMake = m;
             }
         }
+
+        prevMove = toMake;
 
         return toMake;
     }
@@ -71,8 +98,7 @@ public class MonteCarlo implements Strategy {
                 (board.getHorizontal().getLegalMoves().size() == 0 && board.getVertical().getLegalMoves().size() == 0)) {
             char winner = board.getWinner();
             if(winner == '-') {
-                // no winner
-                return Math.tanh(Scorer.scoreBoard(board, player));
+                return Math.tanh(scorer.scoreBoard(board, player));
             } else if(winner == player) {
                 return 1;
             }
