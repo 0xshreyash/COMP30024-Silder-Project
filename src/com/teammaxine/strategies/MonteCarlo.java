@@ -15,8 +15,8 @@ import java.util.Random;
 public class MonteCarlo implements Strategy {
     private char player;
     private Random random;
-    private static final int TRIES = 300;
-    private static final int MAX_DEPTH = 100;
+    private static final int TRIES = 700;
+    private static final int MAX_DEPTH = 150;
 
     public MonteCarlo(char player) {
         this.player = player;
@@ -48,13 +48,13 @@ public class MonteCarlo implements Strategy {
 
                 if(score > localMax)
                     localMax = score;
-                if(score < localMax)
+                if(score < localMin)
                     localMin = score;
             }
             double avg = sum / TRIES;
 
-            if(localMin > maxScore) {
-                maxScore = localMin;
+            if(sum > maxScore) {
+                maxScore = sum;
                 toMake = m;
             }
         }
@@ -69,7 +69,14 @@ public class MonteCarlo implements Strategy {
         if((board.getHorizontal().getMyCells().size() == 0 || board.getVertical().getMyCells().size() == 0) ||
                 depth >= MAX_DEPTH ||
                 (board.getHorizontal().getLegalMoves().size() == 0 && board.getVertical().getLegalMoves().size() == 0)) {
-            return Scorer.scoreBoard(board, player);
+            char winner = board.getWinner();
+            if(winner == '-') {
+                // no winner
+                return Math.tanh(Scorer.scoreBoard(board, player));
+            } else if(winner == player) {
+                return 1;
+            }
+            return -1;
         }
 
         char nextTurn = (turn == 'H')? 'V' : 'H';

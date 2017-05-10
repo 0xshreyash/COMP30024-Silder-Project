@@ -274,4 +274,12 @@ public class Board {
 
         return new Board(boardMapping);
     }
+
+    public char getWinner() {
+        if(getHorizontal().getMyCells().size() == 0)
+            return 'H';
+        else if(getVertical().getMyCells().size() == 0)
+            return 'V';
+        return '-';
+    }
 }
