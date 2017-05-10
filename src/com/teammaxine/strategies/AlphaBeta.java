@@ -17,7 +17,7 @@ public class AlphaBeta implements Strategy {
     public AlphaBeta(char player, Scorer scorer) {
         this.myPlayer = player;
         this.otherPlayer = this.myPlayer == Board.CELL_HORIZONTAL?
-                Board.CELL_HORIZONTAL: Board.CELL_VERTICAL;
+                Board.CELL_VERTICAL: Board.CELL_HORIZONTAL;
         this.scorer = scorer;
     }
 
@@ -57,6 +57,7 @@ public class AlphaBeta implements Strategy {
             bestVal = Math.max(bestVal, val);
 
             if(bestVal == val) {
+                System.out.println("Making this the best move");
                 bestMove = move;
             }
 
@@ -68,8 +69,11 @@ public class AlphaBeta implements Strategy {
     private double maxValue(Board board, double alpha, double beta, int depth) {
         //System.out.println("Max called");
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(this.myPlayer);
-        if(depth == 0 || isTerminalState(board))
+        if(depth == 0 || isTerminalState(board)) {
+            System.out.println("Terminal state :");
+            System.out.println(board);
             return Scorer.scoreBoard(board, myPlayer);
+        }
         double bestVal = Double.NEGATIVE_INFINITY;
         for(Move move : legalMoves) {
            Board newBoard = new Board(board);
@@ -85,9 +89,14 @@ public class AlphaBeta implements Strategy {
     private double minValue(Board board, double alpha, double beta, int depth) {
         //System.out.println("Min called");
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(this.otherPlayer);
-        if(depth == 0 || isTerminalState(board))
+        if(depth == 0 || isTerminalState(board)) {
+            System.out.println("Terminal state :");
+            System.out.println(board);
             return Scorer.scoreBoard(board, myPlayer);
+        }
         double bestVal = Double.POSITIVE_INFINITY;
+        if(legalMoves.size() == 0)
+            return Double.NEGATIVE_INFINITY;
         for(Move move : legalMoves) {
             Board newBoard = new Board(board);
             newBoard.makeMove(move, otherPlayer);
