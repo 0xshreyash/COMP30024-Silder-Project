@@ -8,6 +8,7 @@
 package com.teammaxine.agent;
 
 import aiproj.slider.Move;
+import aiproj.slider.SliderPlayer;
 import com.teammaxine.board.elements.Board;
 import com.teammaxine.board.elements.Cell;
 import com.teammaxine.board.helpers.Vector2;
@@ -24,7 +25,7 @@ import java.util.HashMap;
  * of our agent. Does the init and update stuff for us, so that we
  * can focus on the move with future implementations.
  */
-public abstract class Agent {
+public abstract class Agent implements SliderPlayer {
 
     /** Cells controlled by the Agents */
     private HashMap<Vector2, Cell> myCells;

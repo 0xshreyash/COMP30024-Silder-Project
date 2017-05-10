@@ -10,7 +10,7 @@ import com.teammaxine.board.elements.Cell;
  * Created by noxm on 17/04/17.
  * our main ai
  */
-public class Shreya extends Agent implements SliderPlayer {
+public class Shreya extends Agent {
 
     @Override
     public Move move() {
