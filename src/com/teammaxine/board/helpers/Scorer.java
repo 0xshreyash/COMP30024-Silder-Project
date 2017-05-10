@@ -19,7 +19,7 @@ public class Scorer {
     private static final double MOVE_SIDE_SCORE = 0;
     private static final double MOVE_FORWARD_SCORE = 3;
 
-    public static double scoreBoard(Board board, char playerPiece) {
+    public double scoreBoard(Board board, char playerPiece) {
         boolean playerIsHorizontal = playerPiece == 'H';
 
         if(playerIsHorizontal) {
@@ -29,7 +29,7 @@ public class Scorer {
         }
     }
 
-    private static double scoreBoardVertical(Board board) {
+    private double scoreBoardVertical(Board board) {
         double score = 0;
 
         int maxDist = board.getSize() - 1;
@@ -43,7 +43,7 @@ public class Scorer {
         return score;
     }
 
-    private static double scoreBoardHorizontal(Board board) {
+    private double scoreBoardHorizontal(Board board) {
         double score = 0;
 
         int maxDist = board.getSize() - 1;
@@ -57,7 +57,7 @@ public class Scorer {
         return score;
     }
 
-    private static int sumVerticalForwardMoves(Board b) {
+    private int sumVerticalForwardMoves(Board b) {
         int sum = 0;
 
         ArrayList<AgentAction> moves = b.getVertical().getLegalMoves();
@@ -71,7 +71,7 @@ public class Scorer {
         return sum;
     }
 
-    private static int sumVerticalSideMoves(Board b) {
+    private int sumVerticalSideMoves(Board b) {
         int sum = 0;
 
         ArrayList<AgentAction> moves = b.getVertical().getLegalMoves();
@@ -84,7 +84,7 @@ public class Scorer {
         return sum;
     }
 
-    private static int sumHorizontalSideMoves(Board b) {
+    private int sumHorizontalSideMoves(Board b) {
         int sum = 0;
 
         ArrayList<AgentAction> moves = b.getHorizontal().getLegalMoves();
@@ -97,7 +97,7 @@ public class Scorer {
         return sum;
     }
 
-    private static int sumHorizontalForwardMoves(Board b) {
+    private int sumHorizontalForwardMoves(Board b) {
         int sum = 0;
 
         ArrayList<AgentAction> moves = b.getHorizontal().getLegalMoves();
@@ -110,7 +110,7 @@ public class Scorer {
         return sum;
     }
 
-    private static int sumHorizontalDistance(Board b) {
+    private int sumHorizontalDistance(Board b) {
         int sum = 0;
 
         HashMap<Vector2, Cell> cellHash = b.getHorizontal().getMyCells();
@@ -124,7 +124,7 @@ public class Scorer {
         return sum;
     }
 
-    private static int sumVerticalDistance(Board b) {
+    private int sumVerticalDistance(Board b) {
         int sum = 0;
 
         HashMap<Vector2, Cell> cellHash = b.getVertical().getMyCells();
@@ -138,11 +138,11 @@ public class Scorer {
         return sum;
     }
 
-    private static int sumVerticalPieces(Board board) {
+    private int sumVerticalPieces(Board board) {
         return board.getVertical().getMyCells().size();
     }
 
-    private static int sumHorizontalPieces(Board board) {
+    private int sumHorizontalPieces(Board board) {
         return board.getHorizontal().getMyCells().size();
     }
 

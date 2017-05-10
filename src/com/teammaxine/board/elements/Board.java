@@ -167,9 +167,6 @@ public class Board {
             boardString += "\n";
         }
 
-        boardString += "Horizontal Score: " + Scorer.scoreBoard(this, 'H') + "\n";
-        boardString += "Vertical   Score: " + Scorer.scoreBoard(this, 'V') + "\n";
-
         return boardString;
     }
 

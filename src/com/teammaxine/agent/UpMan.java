@@ -21,7 +21,7 @@ public class UpMan extends Agent {
                     (this.getPlayer() == Board.CELL_HORIZONTAL && move.d == Move.Direction.RIGHT)) {
                 Board newBoard = new Board(this.getMyBoard());
                 newBoard.makeMove(move, this.getPlayer());
-                double newScore = Scorer.scoreBoard(newBoard, this.getPlayer());
+                double newScore = scorer.scoreBoard(newBoard, this.getPlayer());
                 if(newScore > maxScore) {
                     maxScore = newScore;
                     bestMove = move;
@@ -31,7 +31,7 @@ public class UpMan extends Agent {
                 Board newBoard = new Board(this.getMyBoard());
 //                System.out.println(move);
                 newBoard.makeMove(move, this.getPlayer());
-                double newScore = Scorer.scoreBoard(newBoard, this.getPlayer());
+                double newScore = scorer.scoreBoard(newBoard, this.getPlayer());
                 if(newScore > maxLateralScore) {
                     maxLateralScore = newScore;
                     bestLateralMove = move;

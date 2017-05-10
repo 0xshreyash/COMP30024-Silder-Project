@@ -72,7 +72,7 @@ public class AlphaBeta implements Strategy {
         if(depth == 0 || isTerminalState(board)) {
 //            System.out.println("Terminal state :");
 //            System.out.println(board);
-            return Scorer.scoreBoard(board, myPlayer);
+            return scorer.scoreBoard(board, myPlayer);
         }
         double bestVal = Double.NEGATIVE_INFINITY;
         for(Move move : legalMoves) {
@@ -92,7 +92,7 @@ public class AlphaBeta implements Strategy {
         if(depth == 0 || isTerminalState(board)) {
 //            System.out.println("Terminal state :");
 //            System.out.println(board);
-            return Scorer.scoreBoard(board, myPlayer);
+            return scorer.scoreBoard(board, myPlayer);
         }
         double bestVal = Double.POSITIVE_INFINITY;
         if(legalMoves.size() == 0)
