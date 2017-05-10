@@ -100,6 +100,19 @@ public abstract class BoardAgent {
         return this.myCells.values().contains(cell);
     }
 
+    public ArrayList<AgentAction> getOptimisticMoves() {
+        ArrayList<AgentAction> moves = getLegalMoves();
+        ArrayList<AgentAction> finalMoves = new ArrayList<>();
+
+        for(AgentAction m : moves) {
+            if(m.d == Move.Direction.UP)
+                finalMoves.add(m);
+        }
+
+        if(finalMoves.size() > 0)
+            return finalMoves;
+        return moves;
+    }
     /**
      * get all the legal moves possible
      *

@@ -15,36 +15,48 @@ import java.util.Random;
 public class MonteCarlo implements Strategy {
     private char player;
     private Random random;
-    private static final int TRIES = 1;
+    private static final int TRIES = 300;
     private static final int MAX_DEPTH = 100;
 
     public MonteCarlo(char player) {
         this.player = player;
-        this.random = new Random();
+        this.random = new Random(System.currentTimeMillis());
     }
 
     @Override
     public Move findMove(Board currentBoard, int depth) {
         ArrayList<AgentAction> moves;
 
-        if(player == 'H')
-            moves = currentBoard.getHorizontal().getLegalMoves();
-        else
-            moves = currentBoard.getVertical().getLegalMoves();
+        if(player == 'H') {
+            moves = currentBoard.getHorizontal().getOptimisticMoves();
+        } else {
+            moves = currentBoard.getVertical().getOptimisticMoves();
+        }
 
         double maxScore = Double.NEGATIVE_INFINITY;
         Move toMake = null;
 
         for(Move m : moves) {
-            double expected = Double.NEGATIVE_INFINITY;
-            for(int i = 0; i < TRIES; i++) {
-                double score = randomTraverse(currentBoard, m, 0, player, player);
-                if(score > expected)
-                    expected = score;
-            }
+            double sum = 0;
+            double localMax = Double.NEGATIVE_INFINITY;
+            double localMin = Double.POSITIVE_INFINITY;
 
-            if(expected > maxScore)
+            Board copyBoard = new Board(currentBoard);
+            for(int i = 0; i < TRIES; i++) {
+                double score = randomTraverse(copyBoard, m, 0, player, player);
+                sum += score;
+
+                if(score > localMax)
+                    localMax = score;
+                if(score < localMax)
+                    localMin = score;
+            }
+            double avg = sum / TRIES;
+
+            if(localMin > maxScore) {
+                maxScore = localMin;
                 toMake = m;
+            }
         }
 
         return toMake;
@@ -54,7 +66,9 @@ public class MonteCarlo implements Strategy {
         if(m != null)
             board.makeMove(m, turn);
 
-        if(depth >= MAX_DEPTH) {
+        if((board.getHorizontal().getMyCells().size() == 0 || board.getVertical().getMyCells().size() == 0) ||
+                depth >= MAX_DEPTH ||
+                (board.getHorizontal().getLegalMoves().size() == 0 && board.getVertical().getLegalMoves().size() == 0)) {
             return Scorer.scoreBoard(board, player);
         }
 
@@ -63,9 +77,9 @@ public class MonteCarlo implements Strategy {
         ArrayList<AgentAction> moves;
 
         if(nextTurn == 'H')
-            moves = board.getHorizontal().getLegalMoves();
+            moves = board.getHorizontal().getOptimisticMoves();
         else
-            moves = board.getVertical().getLegalMoves();
+            moves = board.getVertical().getOptimisticMoves();
 
         if(moves.size() > 0) {
             Move randomMove = moves.get(random.nextInt(moves.size()));
