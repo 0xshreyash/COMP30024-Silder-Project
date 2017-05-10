@@ -46,14 +46,14 @@ public class MonteCarlo implements Strategy {
                 double score = randomTraverse(copyBoard, m, 0, player, player);
                 sum += score;
 
-                if(score > localMax)
+                if(score >= localMax)
                     localMax = score;
-                if(score < localMin)
+                if(score <= localMin)
                     localMin = score;
             }
             double avg = sum / TRIES;
 
-            if(sum > maxScore) {
+            if(sum >= maxScore) {
                 maxScore = sum;
                 toMake = m;
             }

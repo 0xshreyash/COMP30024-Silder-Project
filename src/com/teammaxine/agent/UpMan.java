@@ -29,7 +29,7 @@ public class UpMan extends Agent {
             }
             else {
                 Board newBoard = new Board(this.getMyBoard());
-                System.out.println(move);
+//                System.out.println(move);
                 newBoard.makeMove(move, this.getPlayer());
                 double newScore = Scorer.scoreBoard(newBoard, this.getPlayer());
                 if(newScore > maxLateralScore) {

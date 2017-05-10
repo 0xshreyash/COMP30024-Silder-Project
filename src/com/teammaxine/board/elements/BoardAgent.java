@@ -105,7 +105,8 @@ public abstract class BoardAgent {
         ArrayList<AgentAction> finalMoves = new ArrayList<>();
 
         for(AgentAction m : moves) {
-            if(m.d == Move.Direction.UP)
+            if((this instanceof Vertical && m.d == Move.Direction.UP) ||
+               (this instanceof Horizontal && m.d == Move.Direction.RIGHT))
                 finalMoves.add(m);
         }
 
