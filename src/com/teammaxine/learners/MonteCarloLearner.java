@@ -2,6 +2,7 @@ package com.teammaxine.learners;
 
 import aiproj.slider.SliderPlayer;
 import com.teammaxine.agent.Shreya;
+import com.teammaxine.agent.UpMan;
 import com.teammaxine.agent.Xena;
 import com.teammaxine.board.helpers.MonteCarloScorer;
 import com.teammaxine.board.helpers.Scorer;
@@ -15,8 +16,8 @@ public class MonteCarloLearner extends Learner {
     private static final int BONUS_SCORE = 1;
 
     public static void main(String[] args) {
-//        selfLearn();
-        battleLearn(new Shreya());
+        selfLearn();
+//        battleLearn(new UpMan());
     }
 
     public static void battleLearn(SliderPlayer opponent) {
@@ -37,7 +38,7 @@ public class MonteCarloLearner extends Learner {
                             xena.setScorer(new MonteCarloScorer(i, j, k, l, m));
 
                             int[] scores = new int[2];
-                            // scores[0] = winner
+                            // scores[0] = xena
                             // scores[1] = opponent
 
                             for(int p = 0; p < playCount; p++) {

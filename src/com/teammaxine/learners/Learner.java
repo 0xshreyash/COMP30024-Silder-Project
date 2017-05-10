@@ -101,7 +101,7 @@ public abstract class Learner {
 //			System.out.println(" (move: " + previousMove + ")");
 //		}
 
-		return (board.winner() == "horizontal") ? 0 : 1;
+		return (board.winner().equals("horizontal!")) ? 0 : 1;
 	}
 
 	/** Helper function for rendering a board */
