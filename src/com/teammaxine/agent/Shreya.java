@@ -24,7 +24,7 @@ public class Shreya extends Agent {
             System.out.println(move);
         }*/
         Strategy myStrategy = new AlphaBeta(this.getPlayer(), scorer);
-        Move toMake = myStrategy.findMove(this.getMyBoard(), 5);
+        Move toMake = myStrategy.findMove(this.getMyBoard(), 2);
         this.update(toMake, this.getPlayer());
         /*System.out.println("My board after move :");
         System.out.println(this.getMyBoard());*/
