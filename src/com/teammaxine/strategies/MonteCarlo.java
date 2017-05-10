@@ -14,14 +14,16 @@ import java.util.Random;
  */
 public class MonteCarlo implements Strategy {
     private char player;
+    private Scorer scorer;
     private Random random;
     private static final int TRIES = 5000;
     private static final int MAX_DEPTH = 150;
 
     private static Move prevMove;
 
-    public MonteCarlo(char player) {
+    public MonteCarlo(char player, Scorer scorer) {
         prevMove = null;
+        this.scorer = scorer;
         this.player = player;
         this.random = new Random(System.currentTimeMillis());
     }
@@ -96,9 +98,7 @@ public class MonteCarlo implements Strategy {
                 (board.getHorizontal().getLegalMoves().size() == 0 && board.getVertical().getLegalMoves().size() == 0)) {
             char winner = board.getWinner();
             if(winner == '-') {
-                // no winner
-                return 0;
-                //return Math.tanh(Scorer.scoreBoard(board, player));
+                return Math.tanh(scorer.scoreBoard(board, player));
             } else if(winner == player) {
                 return 1;
             }
