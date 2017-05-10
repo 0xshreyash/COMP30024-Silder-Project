@@ -8,13 +8,13 @@ import java.util.ArrayList;
 /**
  * Created by shreyashpatodia on 05/05/17.
  */
-public class AlphaBeta implements Strategy {
+public class EarlyAlphaBeta implements Strategy {
 
     private char myPlayer;
     private char otherPlayer;
     private Scorer scorer;
 
-    public AlphaBeta(char player, Scorer scorer) {
+    public EarlyAlphaBeta(char player, Scorer scorer) {
         this.myPlayer = player;
         this.otherPlayer = this.myPlayer == Board.CELL_HORIZONTAL?
                 Board.CELL_VERTICAL: Board.CELL_HORIZONTAL;
@@ -23,7 +23,7 @@ public class AlphaBeta implements Strategy {
 
     public Move findMove(Board board, int depth) {
         Move bestMove = alphaBetaSearch(depth, board, myPlayer,
-                                            Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+                Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
         //alphaBetaSearch(depth, board, this.player);
         return bestMove;
     }
@@ -76,12 +76,12 @@ public class AlphaBeta implements Strategy {
         }
         double bestVal = Double.NEGATIVE_INFINITY;
         for(Move move : legalMoves) {
-           Board newBoard = new Board(board);
-           newBoard.makeMove(move, myPlayer);
-           bestVal = Math.max(bestVal, minValue(newBoard, alpha, beta, depth - 1));
-           alpha = Math.max(bestVal, alpha);
-           if (beta <= bestVal)
-               break;
+            Board newBoard = new Board(board);
+            newBoard.makeMove(move, myPlayer);
+            bestVal = Math.max(bestVal, minValue(newBoard, alpha, beta, depth - 1));
+            alpha = Math.max(bestVal, alpha);
+            if (beta <= bestVal)
+                break;
         }
         return bestVal;
     }
