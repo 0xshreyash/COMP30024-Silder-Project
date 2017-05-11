@@ -43,9 +43,11 @@ public class BetaScorer extends Scorer {
         if (playerIsHorizontal) {
             totalScore = scoreBoardHorizontal(board) - scoreBoardVertical(board);
             totalScore += horizontalBlockingValue(board) - horizontalBlockingValue(initialBoard);
+            totalScore += horizontalMagnitudeOfBlockedness(board);
         } else {
             totalScore = scoreBoardVertical(board) - scoreBoardHorizontal(board);
             totalScore += verticalBlockingValue(board) - verticalBlockingValue(initialBoard);
+            totalScore += verticalMagnitudeOfBlockedness(board);
         }
 
         return totalScore;

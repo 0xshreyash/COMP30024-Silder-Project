@@ -24,7 +24,6 @@ public class AlphaBeta implements Strategy {
     public Move findMove(Board board, int depth) {
         Move bestMove = alphaBetaSearch(depth, board, myPlayer,
                                             Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
-        //alphaBetaSearch(depth, board, this.player);
         return bestMove;
     }
 
@@ -54,7 +53,6 @@ public class AlphaBeta implements Strategy {
             System.out.println(val);
             //System.out.println("Score for this move would be:" + val);
             //bestVal = Math.max(bestVal, val);
-
             if(val > bestVal) {
                 //System.out.println("Making this the best move");
                 bestVal = val;
@@ -62,6 +60,10 @@ public class AlphaBeta implements Strategy {
                 //System.out.println(val);
                 bestMove = move;
             }
+            if(bestVal >= beta) {
+                return bestMove;
+            }
+            alpha = Math.max(alpha, bestVal);
 
         }
         //System.out.println("++++++++++++++++++++");
