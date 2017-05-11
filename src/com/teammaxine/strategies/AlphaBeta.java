@@ -80,6 +80,9 @@ public class AlphaBeta implements Strategy {
             return this.scorer.scoreBoard(board, myPlayer);
         }
         double bestVal = Double.NEGATIVE_INFINITY;
+        // The other player is out of moves so score th
+        if(legalMoves.size() == 0)
+            return scorer.scoreBoard(board, myPlayer);
         for(Move move : legalMoves) {
            Board newBoard = new Board(board);
            newBoard.makeMove(move, myPlayer);
@@ -108,7 +111,7 @@ public class AlphaBeta implements Strategy {
         }
         double bestVal = Double.POSITIVE_INFINITY;
         if(legalMoves.size() == 0)
-            return Double.NEGATIVE_INFINITY;
+            return scorer.scoreBoard(board, myPlayer);
         for(Move move : legalMoves) {
             Board newBoard = new Board(board);
             newBoard.makeMove(move, otherPlayer);
