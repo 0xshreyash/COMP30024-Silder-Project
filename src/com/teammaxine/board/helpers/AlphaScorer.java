@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Taking a two-fold approach to scoring, not just scoring the final board but also
- * scoring the
+ * Simple scorer for testing purposes.
  */
 public class AlphaScorer extends Scorer {
     // score += cell property * this

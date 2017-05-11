@@ -39,26 +39,27 @@ public class AlphaBeta implements Strategy {
         Move bestMove = null;
         // Add terminal state here maybe, don't know if it matters.
         double bestVal = Double.NEGATIVE_INFINITY;
-        System.out.println("++++++++++++++++++++");
-        System.out.println(board);
-        System.out.println("     possibles     ");
+        //System.out.println("++++++++++++++++++++");
+        //System.out.println(board);
+        //System.out.println("     possibles     ");
         for(Move move : legalMoves) {
             Board newBoard = new Board(board);
 
             newBoard.makeMove(move, myPlayer);
-
             System.out.println("--------------------");
-            //System.out.println(newBoard);
             System.out.println("With move :" + move);
             System.out.println("New board\n" + newBoard);
             // Check if depth - 1 should be here or not
             double val = minValue(newBoard, alpha, beta, depth - 1);
+            System.out.println(val);
             //System.out.println("Score for this move would be:" + val);
             //bestVal = Math.max(bestVal, val);
 
             if(val > bestVal) {
                 //System.out.println("Making this the best move");
                 bestVal = val;
+                //System.out.println("With move :" + move);
+                //System.out.println(val);
                 bestMove = move;
             }
 
@@ -71,12 +72,12 @@ public class AlphaBeta implements Strategy {
 
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(this.myPlayer);
         if(depth == 0 || isTerminalState(board)) {
-            System.out.println("--------------------");
-            System.out.println("Terminal state :");
-            System.out.println(board);
-            double score = this.scorer.scoreBoard(board, myPlayer);
-            System.out.println("Score is: " + score);
-            System.out.println("--------------------");
+            //System.out.println("--------------------");
+            //System.out.println("Terminal state :");
+            //System.out.println(board);
+            //double score = this.scorer.scoreBoard(board, myPlayer);
+            //System.out.println("Score is: " + score);
+            //System.out.println("--------------------");
             return this.scorer.scoreBoard(board, myPlayer);
         }
         double bestVal = Double.NEGATIVE_INFINITY;
@@ -101,12 +102,12 @@ public class AlphaBeta implements Strategy {
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(this.otherPlayer);
 
         if(depth == 0 || isTerminalState(board)) {
-            System.out.println("--------------------");
-            System.out.println("Terminal state :");
-            System.out.println(board);
+            //System.out.println("--------------------");
+            //System.out.println("Terminal state :");
+            //System.out.println(board);
             double score = this.scorer.scoreBoard(board, myPlayer);
-            System.out.println("Score is: " + score);
-            System.out.println("--------------------");
+            //System.out.println("Score is: " + score);
+            //System.out.println("--------------------");
             return score;
         }
         double bestVal = Double.POSITIVE_INFINITY;

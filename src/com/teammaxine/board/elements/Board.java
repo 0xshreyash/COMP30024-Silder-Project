@@ -32,6 +32,7 @@ public class Board {
     public static final char CELL_UNKNOWN = '-';
     public static final char CELL_HORIZONTAL = 'H';
     public static final char CELL_VERTICAL = 'V';
+    public static final char CELL_BLOCKED = 'B';
 
     private Cell[][] board;
     private Vertical vertical;
