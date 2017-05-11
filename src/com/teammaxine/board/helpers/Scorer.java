@@ -60,7 +60,7 @@ public class Scorer {
         double score = 0;
 
         int maxDist = board.getSize() - 1;
-        int count = board.getVertical().getMyCells().size();
+        int count = board.getHorizontal().getMyCells().size();
         score += distance_score * (maxDist * count - sumHorizontalDistance(board));
         score += move_side_score * sumHorizontalSideMoves(board);
         score += move_forward_score * sumHorizontalForwardMoves(board);

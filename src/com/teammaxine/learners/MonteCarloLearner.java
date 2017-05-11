@@ -26,11 +26,12 @@ public class MonteCarloLearner extends Learner {
 
         int count = 0;
         int bestScore = 0;
-        for(int i = 0; i < 10; i++) {
-            for(int j = 0; j < 10; j++) {
-                for(int k = 0; k < 10; k++) {
-                    for(int l = 0; l < 10; l++) {
-                        for(int m = 0; m < 10; m++) {
+        int i = 0, j = 0, k = 0, l = 0, m = 0;
+        for(i = 0; i < 10; i++) {
+            for(j = 0; j < 10; j++) {
+                for(k = 0; k < 10; k++) {
+                    for(l = 0; l < 10; l++) {
+                        for(m = 0; m < 10; m++) {
                             System.out.println("---------------------------");
                             System.out.println("Game #" + count);
                             Scorer prevSetting = xena.getScorer();
@@ -73,6 +74,8 @@ public class MonteCarloLearner extends Learner {
                 }
             }
         }
+
+        System.out.println("Final winner " + i + " " + j + " " + k + " " + l + " " + m);
     }
 
     public static void selfLearn() {
@@ -81,11 +84,12 @@ public class MonteCarloLearner extends Learner {
         Xena opponent;
 
         int count = 0;
-        for(int i = 0; i < 10; i++) {
-            for(int j = 0; j < 10; j++) {
-                for(int k = 0; k < 10; k++) {
-                    for(int l = 0; l < 10; l++) {
-                        for(int m = 0; m < 10; m++) {
+        int i = 0, j = 0, k = 0, l = 0, m = 0;
+        for(i = 0; i < 10; i++) {
+            for(j = 0; j < 10; j++) {
+                for(k = 0; k < 10; k++) {
+                    for(l = 0; l < 10; l++) {
+                        for(m = 0; m < 10; m++) {
                             System.out.println("---------------------------");
                             System.out.println("Game #" + count);
                             opponent = new Xena();
@@ -125,5 +129,7 @@ public class MonteCarloLearner extends Learner {
                 }
             }
         }
+
+        System.out.println("Final winner " + i + " " + j + " " + k + " " + l + " " + m);
     }
 }
