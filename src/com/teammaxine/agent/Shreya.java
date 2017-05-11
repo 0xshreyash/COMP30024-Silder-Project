@@ -2,6 +2,7 @@ package com.teammaxine.agent;
 
 import aiproj.slider.Move;
 import aiproj.slider.SliderPlayer;
+import com.teammaxine.board.helpers.AlphaScorer;
 import com.teammaxine.board.helpers.Scorer;
 import com.teammaxine.strategies.AlphaBeta;
 import com.teammaxine.strategies.Strategy;
@@ -14,7 +15,8 @@ public class Shreya extends Agent {
 
     @Override
     public Move move() {
-        Scorer scorer = new Scorer();
+        Scorer scorer = new AlphaScorer(this.getMyBoard());
+
         /*System.out.println("My board before the move:");
         System.out.println(this.getMyBoard());
         for(Cell cell : this.getMyBoard().getCellsOfType(this.getPlayer()).values()) {
@@ -24,7 +26,7 @@ public class Shreya extends Agent {
             System.out.println(move);
         }*/
         Strategy myStrategy = new AlphaBeta(this.getPlayer(), scorer);
-        Move toMake = myStrategy.findMove(this.getMyBoard(), 1);
+        Move toMake = myStrategy.findMove(this.getMyBoard(), 10);
         this.update(toMake, this.getPlayer());
         /*System.out.println("My board after move :");
         System.out.println(this.getMyBoard());*/

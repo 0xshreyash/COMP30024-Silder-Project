@@ -52,17 +52,18 @@ public class AlphaBeta implements Strategy {
             System.out.println("With move :" + move);
             System.out.println("New board\n" + newBoard);
             // Check if depth - 1 should be here or not
-            double val = minValue(newBoard, alpha, beta, depth);
-            System.out.println("Score for this move would be:" + val);
-            bestVal = Math.max(bestVal, val);
+            double val = minValue(newBoard, alpha, beta, depth - 1);
+            //System.out.println("Score for this move would be:" + val);
+            //bestVal = Math.max(bestVal, val);
 
-            if(bestVal == val) {
-                System.out.println("Making this the best move");
+            if(val > bestVal) {
+                //System.out.println("Making this the best move");
+                bestVal = val;
                 bestMove = move;
             }
 
         }
-        System.out.println("++++++++++++++++++++");
+        //System.out.println("++++++++++++++++++++");
         return bestMove;
     }
 
@@ -70,16 +71,20 @@ public class AlphaBeta implements Strategy {
 
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(this.myPlayer);
         if(depth == 0 || isTerminalState(board)) {
+            System.out.println("--------------------");
             System.out.println("Terminal state :");
             System.out.println(board);
+            double score = this.scorer.scoreBoard(board, myPlayer);
+            System.out.println("Score is: " + score);
+            System.out.println("--------------------");
             return this.scorer.scoreBoard(board, myPlayer);
         }
         double bestVal = Double.NEGATIVE_INFINITY;
         for(Move move : legalMoves) {
            Board newBoard = new Board(board);
            newBoard.makeMove(move, myPlayer);
-           System.out.println(newBoard);
-           bestVal = Math.max(bestVal, minValue(newBoard, alpha, beta, depth));
+           //System.out.println(newBoard);
+           bestVal = Math.max(bestVal, minValue(newBoard, alpha, beta, depth - 1));
            alpha = Math.max(bestVal, alpha);
            if (beta <= bestVal)
                break;
@@ -89,15 +94,17 @@ public class AlphaBeta implements Strategy {
 
     private double minValue(Board board, double alpha, double beta, int depth) {
         //System.out.println("Min called");
-        System.out.println(board);
+        //System.out.println(board);
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(this.otherPlayer);
-        for(Move move : legalMoves) {
-            System.out.println(move);
-        }
+
         if(depth == 0 || isTerminalState(board)) {
+            System.out.println("--------------------");
             System.out.println("Terminal state :");
             System.out.println(board);
-            return this.scorer.scoreBoard(board, myPlayer);
+            double score = this.scorer.scoreBoard(board, myPlayer);
+            System.out.println("Score is: " + score);
+            System.out.println("--------------------");
+            return score;
         }
         double bestVal = Double.POSITIVE_INFINITY;
         if(legalMoves.size() == 0)
