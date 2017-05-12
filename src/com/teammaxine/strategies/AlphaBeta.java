@@ -5,9 +5,6 @@ import com.teammaxine.board.elements.Board;
 import com.teammaxine.board.helpers.Scorer;
 import java.util.ArrayList;
 
-/**
- * Created by shreyashpatodia on 05/05/17.
- */
 public class AlphaBeta implements Strategy {
 
     private char myPlayer;
@@ -45,12 +42,12 @@ public class AlphaBeta implements Strategy {
             Board newBoard = new Board(board);
 
             newBoard.makeMove(move, myPlayer);
-            System.out.println("--------------------");
-            System.out.println("With move :" + move);
-            System.out.println("New board\n" + newBoard);
+            // System.out.println("--------------------");
+            //System.out.println("With move :" + move);
+            //System.out.println("New board\n" + newBoard);
             // Check if depth - 1 should be here or not
             double val = minValue(newBoard, alpha, beta, depth - 1);
-            System.out.println(val);
+            //System.out.println(val);
             //System.out.println("Score for this move would be:" + val);
             //bestVal = Math.max(bestVal, val);
             if(val > bestVal) {
