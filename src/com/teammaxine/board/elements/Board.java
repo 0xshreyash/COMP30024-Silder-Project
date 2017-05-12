@@ -260,6 +260,43 @@ public class Board {
         }
     }
 
+    public void undoMove(Move move, char player) {
+
+        this.changeCellValue(move.j, move.i, player);
+        if(player == Board.CELL_HORIZONTAL)
+            this.horizontal.addCell(board[move.j][move.i]);
+        else
+            this.vertical.addCell(board[move.j][move.i]);
+
+        if (move.d == Move.Direction.LEFT) {
+            this.changeCellValue(move.j, move.i - 1, Board.CELL_EMPTY);
+            if(player == Board.CELL_HORIZONTAL)
+                this.horizontal.removeCell(board[move.j][move.i - 1]);
+            else
+                this.vertical.removeCell(board[move.j][move.i - 1]);
+
+        } else if (move.d == Move.Direction.RIGHT && move.i != this.getSize() - 1) {
+            this.changeCellValue(move.j, move.i + 1, Board.CELL_EMPTY);
+            if(player == Board.CELL_HORIZONTAL)
+                this.horizontal.removeCell(board[move.j][move.i + 1]);
+            else
+                this.vertical.removeCell(board[move.j][move.i + 1]);
+
+        } else if (move.d == Move.Direction.UP && move.j != this.getSize() - 1) {
+            this.changeCellValue(move.j + 1 , move.i, Board.CELL_EMPTY);
+            if(player == Board.CELL_HORIZONTAL)
+                this.horizontal.removeCell(board[move.j + 1][move.i]);
+            else
+                this.vertical.removeCell(board[move.j + 1][move.i]);
+        } else if (move.d == Move.Direction.DOWN) {
+            this.changeCellValue(move.j - 1, move.i, Board.CELL_EMPTY);
+            if(player == Board.CELL_HORIZONTAL)
+                this.horizontal.removeCell(board[move.j - 1][move.i]);
+            else
+                this.vertical.removeCell(board[move.j - 1][move.i]);
+        }
+    }
+
     public void changeCellValue(int x, int y, char newValue) {
         board[x][y].setValue(newValue);
     }

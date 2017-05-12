@@ -11,7 +11,7 @@ import java.util.HashMap;
  * Taking a two-fold approach to scoring, not just scoring the final board but also
  * scoring the board
  */
-public class BetaScorer extends Scorer {
+public class GammaScorer extends Scorer {
     // score += cell property * this
 
     // initialBoard is the board we start evaluating from.
@@ -33,7 +33,7 @@ public class BetaScorer extends Scorer {
     // is a B on the board.
     //double action_finish_score = 3;
 
-    public BetaScorer(Board initialBoard) {
+    public GammaScorer(Board initialBoard) {
         this.initialBoard = initialBoard;
     }
 
@@ -113,10 +113,12 @@ public class BetaScorer extends Scorer {
                 if (cellValue == Board.CELL_BLOCKED) {
                     magnitude += b_blocked_score;
                 }
+                /*
                 else if (cellValue == Board.CELL_VERTICAL) {
 
                     magnitude += other_blocked_score;
                 }
+                */
             }
         }
         return magnitude;
@@ -131,10 +133,11 @@ public class BetaScorer extends Scorer {
                 if (cellValue == Board.CELL_BLOCKED) {
                     magnitude += b_blocked_score;
                 }
+                /*
                 else if (cellValue == Board.CELL_HORIZONTAL) {
                     magnitude += other_blocked_score;
                 }
-
+                */
             }
         }
         //System.out.println(magnitude);
