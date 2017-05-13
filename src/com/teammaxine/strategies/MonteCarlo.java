@@ -15,8 +15,8 @@ public class MonteCarlo implements Strategy {
     private char player;
     private Scorer scorer;
     private Random random;
-    private static final int TRIES = 500000;//5k
-    private static final int MAX_DEPTH = 300;
+    private static final int TRIES = 11000000;//5k
+    private static final int MAX_DEPTH = 40;
 
     private static Move prevMove;
 
@@ -88,7 +88,7 @@ public class MonteCarlo implements Strategy {
         return toMake;
     }
 
-    private double randomTraverse(Board board, Move m, int depth, char turn, char player) {
+    public double randomTraverse(Board board, Move m, int depth, char turn, char player) {
         if(m != null)
             board.makeMove(m, turn);
 
@@ -97,7 +97,7 @@ public class MonteCarlo implements Strategy {
                 (board.getHorizontal().getLegalMoves().size() == 0 && board.getVertical().getLegalMoves().size() == 0)) {
             char winner = board.getWinner();
             if(winner == '-') {
-                return Math.tanh(scorer.scoreBoard(board, player));
+                return 0;//Math.tanh(scorer.scoreBoard(board, player));
             } else if(winner == player) {
                 return 1;
             }

@@ -321,4 +321,10 @@ public class Board {
             return 'V';
         return '-';
     }
+
+    public ArrayList<? extends Move> getOptimisticMoves(char otherPlayer) {
+        if(otherPlayer == 'H')
+            return getHorizontal().getOptimisticMoves();
+        return getVertical().getOptimisticMoves();
+    }
 }

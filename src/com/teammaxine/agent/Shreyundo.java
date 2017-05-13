@@ -19,7 +19,7 @@ public class Shreyundo extends Agent {
         if(this.getMyBoard().getSize() == 6)
             depth = 9;
         if(this.getMyBoard().getSize() == 7)
-            depth = 8;
+            depth = 13;
         AlphaScorer scorer = new AlphaScorer(this.getMyBoard(), depth);
         Strategy myStrategy = new AlphaBetaUndo(this.getPlayer(), scorer);
         Move toMake = myStrategy.findMove(this.getMyBoard(), depth);

@@ -3,6 +3,7 @@ package com.teammaxine.strategies;
 import aiproj.slider.Move;
 import com.teammaxine.board.elements.Board;
 import com.teammaxine.board.scorers.AlphaScorer;
+import com.teammaxine.board.scorers.MontyPythonScorer;
 
 import java.util.ArrayList;
 
@@ -13,12 +14,14 @@ public class AlphaBetaUndo implements Strategy{
     private char myPlayer;
     private char otherPlayer;
     private AlphaScorer scorer;
+    private MontyPythonScorer montyScorer;
 
     public AlphaBetaUndo(char player, AlphaScorer scorer) {
         this.myPlayer = player;
         this.otherPlayer = this.myPlayer == Board.CELL_HORIZONTAL?
                 Board.CELL_VERTICAL: Board.CELL_HORIZONTAL;
         this.scorer = scorer;
+        montyScorer = new MontyPythonScorer();
     }
 
     public Move findMove(Board board, int depth) {
@@ -34,7 +37,7 @@ public class AlphaBetaUndo implements Strategy{
      * @return
      */
     private Move alphaBetaSearch(int depth, Board board, char currPlayer, double alpha, double beta) {
-        ArrayList<? extends Move> legalMoves = board.getLegalMoves(currPlayer);
+        ArrayList<? extends Move> legalMoves = board.getOptimisticMoves(currPlayer);
         Move bestMove = null;
         // Add terminal state here maybe, don't know if it matters.
         double bestVal = Double.NEGATIVE_INFINITY;
@@ -42,6 +45,7 @@ public class AlphaBetaUndo implements Strategy{
         //System.out.println(board);
         //System.out.println("     possibles     ");
         Board newBoard = new Board(board);
+//        Board bestBoard = null;
         for(Move move : legalMoves) {
             newBoard.makeMove(move, myPlayer);
             //System.out.println("--------------------");
@@ -57,6 +61,12 @@ public class AlphaBetaUndo implements Strategy{
                 //System.out.println("With move :" + move);
                 //System.out.println(val);
                 bestMove = move;
+//                bestBoard = new Board(newBoard);
+//            } else if(val == bestVal &&
+//                    montyScorer.scoreBoard(newBoard, myPlayer) > montyScorer.scoreBoard(bestBoard, myPlayer)) {
+//                bestMove = move;
+//                bestBoard = new Board(newBoard);
+
             }
             newBoard.undoMove(move, myPlayer);
             if(bestVal >= beta) {
@@ -71,7 +81,7 @@ public class AlphaBetaUndo implements Strategy{
 
     private double maxValue(Board board, double alpha, double beta, int depth) {
 
-        ArrayList<? extends Move> legalMoves = board.getLegalMoves(this.myPlayer);
+        ArrayList<? extends Move> legalMoves = board.getOptimisticMoves(this.myPlayer);
         if(depth == 0 || isTerminalState(board)) {
             //System.out.println("--------------------");
             //System.out.println("Terminal state :");
@@ -101,7 +111,7 @@ public class AlphaBetaUndo implements Strategy{
     private double minValue(Board board, double alpha, double beta, int depth) {
         //System.out.println("Min called");
         //System.out.println(board);
-        ArrayList<? extends Move> legalMoves = board.getLegalMoves(this.otherPlayer);
+        ArrayList<? extends Move> legalMoves = board.getOptimisticMoves(this.otherPlayer);
 
         if(depth == 0 || isTerminalState(board)) {
             //System.out.println("--------------------");
