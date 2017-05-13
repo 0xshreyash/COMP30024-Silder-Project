@@ -2,9 +2,7 @@ package com.teammaxine.agent;
 
 import aiproj.slider.Move;
 import com.teammaxine.board.elements.Board;
-import com.teammaxine.board.helpers.Scorer;
-
-import java.util.logging.SocketHandler;
+import com.teammaxine.board.scorers.Scorer;
 
 /**
  * Created by shreyashpatodia on 10/05/17.

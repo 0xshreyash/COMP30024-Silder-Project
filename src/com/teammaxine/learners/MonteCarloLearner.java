@@ -1,11 +1,9 @@
 package com.teammaxine.learners;
 
 import aiproj.slider.SliderPlayer;
-import com.teammaxine.agent.Shreya;
-import com.teammaxine.agent.UpMan;
 import com.teammaxine.agent.Xena;
-import com.teammaxine.board.helpers.MonteCarloScorer;
-import com.teammaxine.board.helpers.Scorer;
+import com.teammaxine.board.scorers.MonteCarloScorer;
+import com.teammaxine.board.scorers.Scorer;
 
 /**
  * Created by noxm on 10/05/17.

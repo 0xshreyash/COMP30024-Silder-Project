@@ -1,8 +1,8 @@
 package com.teammaxine.agent;
 
 import aiproj.slider.Move;
-import com.teammaxine.board.helpers.BetaScorer;
-import com.teammaxine.board.helpers.Scorer;
+import com.teammaxine.board.scorers.BetaScorer;
+import com.teammaxine.board.scorers.Scorer;
 import com.teammaxine.strategies.AlphaBeta;
 import com.teammaxine.strategies.Strategy;
 /**

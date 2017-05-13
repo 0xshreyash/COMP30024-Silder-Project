@@ -1,8 +1,7 @@
 package com.teammaxine.agent;
 
 import aiproj.slider.Move;
-import com.teammaxine.board.helpers.AlphaScorer;
-import com.teammaxine.board.helpers.Scorer;
+import com.teammaxine.board.scorers.AlphaScorer;
 import com.teammaxine.strategies.AlphaBetaUndo;
 import com.teammaxine.strategies.Strategy;
 /**

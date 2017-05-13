@@ -1,6 +1,7 @@
-package com.teammaxine.board.helpers;
+package com.teammaxine.board.scorers;
 
 import com.teammaxine.board.elements.Board;
+import com.teammaxine.board.helpers.Generator;
 
 /**
  * Created by noxm on 5/05/17.

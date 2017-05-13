@@ -1,9 +1,8 @@
 package com.teammaxine.agent;
 
 import aiproj.slider.Move;
-import aiproj.slider.SliderPlayer;
-import com.teammaxine.board.helpers.MonteCarloScorer;
-import com.teammaxine.board.helpers.Scorer;
+import com.teammaxine.board.scorers.MonteCarloScorer;
+import com.teammaxine.board.scorers.Scorer;
 import com.teammaxine.strategies.MonteCarlo;
 import com.teammaxine.strategies.Strategy;
 

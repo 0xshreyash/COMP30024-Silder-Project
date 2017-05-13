@@ -1,14 +1,9 @@
-package com.teammaxine.board.helpers;
+package com.teammaxine.board.scorers;
 
 /**
  * Created by noxm on 10/05/17.
  */
-import aiproj.slider.Move;
-import com.teammaxine.board.actions.AgentAction;
 import com.teammaxine.board.elements.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by noxm on 17/04/17.

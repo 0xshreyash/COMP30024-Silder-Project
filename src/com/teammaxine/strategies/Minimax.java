@@ -2,12 +2,9 @@ package com.teammaxine.strategies;
 
 import aiproj.slider.Move;
 import com.teammaxine.board.elements.Board;
-import com.teammaxine.board.helpers.Scorer;
-import com.teammaxine.board.helpers.Vector2;
-import com.teammaxine.board.elements.Cell;
+import com.teammaxine.board.scorers.Scorer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * The idea with doing minimax is to find a contingent strategy.

@@ -1,11 +1,6 @@
-package com.teammaxine.board.helpers;
+package com.teammaxine.board.scorers;
 
-import aiproj.slider.Move;
-import com.teammaxine.board.actions.AgentAction;
 import com.teammaxine.board.elements.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Taking a two-fold approach to scoring, not just scoring the final board but also

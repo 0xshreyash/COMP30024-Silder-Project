@@ -1,8 +1,9 @@
-package com.teammaxine.board.helpers;
+package com.teammaxine.board.scorers;
 
 import aiproj.slider.Move;
 import com.teammaxine.board.actions.AgentAction;
 import com.teammaxine.board.elements.*;
+import com.teammaxine.board.helpers.Vector2;
 
 import java.util.ArrayList;
 import java.util.HashMap;

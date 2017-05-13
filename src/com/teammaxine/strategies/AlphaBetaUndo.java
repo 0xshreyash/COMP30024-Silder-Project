@@ -2,8 +2,7 @@ package com.teammaxine.strategies;
 
 import aiproj.slider.Move;
 import com.teammaxine.board.elements.Board;
-import com.teammaxine.board.helpers.AlphaScorer;
-import com.teammaxine.board.helpers.Scorer;
+import com.teammaxine.board.scorers.AlphaScorer;
 
 import java.util.ArrayList;
 
