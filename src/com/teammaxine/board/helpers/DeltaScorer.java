@@ -1,53 +1,46 @@
 package com.teammaxine.board.helpers;
 
-import com.teammaxine.board.elements.Board;
-
+import aiproj.slider.Move;
+import com.teammaxine.board.actions.AgentAction;
 import com.teammaxine.board.elements.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
- * Taking a two-fold approach to scoring, not just scoring the final board but also
- * scoring the board
+ * Simple scorer for testing purposes.
  */
 public class DeltaScorer extends Scorer {
     // score += cell property * this
 
     // initialBoard is the board we start evaluating from.
     private Board initialBoard;
-    double distance_change_score = 15;
+    double distance_change_score = 10;
     // Scores to evaluate blockedness
-    // Take this score off when blocked by B because,
-    // B will never move, so we don't want to be in the
-    // same line a
-    double b_blocked_score = -6;
-    // Take this score when blocked by other player, still
-    // good to move forward in these scenarios since the other
-    // player may move (especially if the the opponent does
-    // not think about blocking, which I am assuming will be
-    // the case most of the time/
-    double other_blocked_score = -2.5;
-    // Our piece will probably move forward anyways so, we
-    // can be right behind it. This will happen every time there
-    // is a B on the board.
-    //double action_finish_score = 3;
+    double b_blocked_score = -10;
+    double other_blocked_score = 20;
+    double my_blocked_score = -2.5;
+    double distance_score = 10;
+    double count_score = 5;
+    double block_score = 10;
+    double move_side_score = 0;
+    double move_forward_score = 3;
+    //int depth;
 
-    public DeltaScorer(Board initialBoard) {
+    public DeltaScorer(Board initialBoard, int depth) {
         this.initialBoard = initialBoard;
+        //
+        // this.depth = depth;
     }
 
     public double scoreBoard(Board board, char playerPiece) {
         boolean playerIsHorizontal = playerPiece == 'H';
-        double totalScore = 0;
-        if (playerIsHorizontal) {
-            totalScore = scoreBoardHorizontal(board) - scoreBoardVertical(board);
-            totalScore += horizontalBlockingValue(board) - horizontalBlockingValue(initialBoard);
-            totalScore += horizontalMagnitudeOfBlockedness(board);
-        } else {
-            totalScore = scoreBoardVertical(board) - scoreBoardHorizontal(board);
-            totalScore += verticalBlockingValue(board) - verticalBlockingValue(initialBoard);
-            totalScore += verticalMagnitudeOfBlockedness(board);
-        }
 
-        return totalScore;
+        if (playerIsHorizontal) {
+            return scoreBoardHorizontal(board);
+        } else {
+            return scoreBoardVertical(board);
+        }
     }
 
     double scoreBoardVertical(Board board) {
@@ -64,15 +57,11 @@ public class DeltaScorer extends Scorer {
         // Higher is better
         score += distanceChange * distance_change_score;
 
-        // Now checking if the new board is more blocked w.r.t to the player
-        // or not.
-        // More is better, blockedness is negative. Larger number (-3 > -5)
-        // then the board is less blocked
-        double oldBlockedness = verticalMagnitudeOfBlockedness(initialBoard);
-        double changeBlockness = verticalMagnitudeOfBlockedness(board) - oldBlockedness;
-        score += changeBlockness;
+        //System.out.println
+        //score += verticalMagnitudeOfBBlockedness(board) - verticalMagnitudeOfBBlockedness(initialBoard);
+        //score += verticalHBlockedness(board) - verticalHBlockedness(initialBoard);
 
-    return score;
+        return score;
     }
 
     double scoreBoardHorizontal(Board board) {
@@ -88,87 +77,62 @@ public class DeltaScorer extends Scorer {
         int distanceChange = distanceInitialBoard - distanceNewBoard;
         // Higher is better
         score += distanceChange * distance_change_score;
-        double oldBlockedness = horizontalMagnitudeOfBlockedness(initialBoard);
-        double changeBlockness = horizontalMagnitudeOfBlockedness(board) - oldBlockedness;
-        score += changeBlockness;
 
+        //score += horizontalMagnitudeOfBBlockedness(board) - horizontalMagnitudeOfBBlockedness(initialBoard);
+        // Sometimes we may get closer to the goal by moving laterally and then
+        // moving forward.
+        // + H V + +
+        // + + + + +
+        // In the above H may be able to move laterally and then move forward
+        // but we want to not promote that sort of move, because it means that
+        // we are making less progress than the opponent and we want to allow
+        // them to move and let us go straight ahead instead.
+
+        //score += horizontalVBlockedness(board) - horizontalVBlockedness(initialBoard);
         return score;
     }
-    // Try adding blockness of our own peices as well.
-    int horizontalMagnitudeOfBlockedness(Board b) {
-        int magnitude = 0;
-        Cell board[][] = b.getBoard();
-        for(Cell c : b.getHorizontal().getMyCells().values()) {
-            for (int i = c.getPos().getX() + 1; i < b.getSize(); i++) {
-                char cellValue = board[c.getPos().getY()][i].getValue();
-            /*
-            System.out.println("------------");
 
-            System.out.println(c.getPos());
-            System.out.println(board[c.getPos().getY()][i].getPos());
-            System.out.println(cellValue);
-            System.out.println("------------");
-            */
-                if (cellValue == Board.CELL_BLOCKED) {
+    double horizontalMagnitudeOfBBlockedness(Board board) {
+        double magnitude = 0;
+        for(Cell c : board.getHorizontal().getMyCells().values()) {
+            for(int i = c.getPos().getX() + 1; i < board.getSize(); i++) {
+                if(board.getBoard()[c.getPos().getY()][i].getValue() == Board.CELL_BLOCKED)
                     magnitude += b_blocked_score;
-                } else if (cellValue == Board.CELL_VERTICAL) {
-                    magnitude += other_blocked_score;
-                }
             }
         }
         return magnitude;
     }
 
-    int verticalMagnitudeOfBlockedness(Board b) {
-        int magnitude = 0;
-        Cell board[][] = b.getBoard();
-        for(Cell c : b.getVertical().getMyCells().values()) {
-            for (int i = c.getPos().getY() + 1; i < b.getSize(); i++) {
-                char cellValue = board[i][c.getPos().getX()].getValue();
-                if (cellValue == Board.CELL_BLOCKED) {
+    double verticalMagnitudeOfBBlockedness(Board board) {
+        double magnitude = 0;
+        for(Cell c : board.getVertical().getMyCells().values()) {
+            for (int i = c.getPos().getY() + 1; i < board.getSize(); i++) {
+                if (board.getBoard()[i][c.getPos().getX()].getValue() == Board.CELL_BLOCKED)
                     magnitude += b_blocked_score;
-                } else if (cellValue == Board.CELL_HORIZONTAL) {
-                    magnitude += other_blocked_score;
-                }
             }
         }
-        //System.out.println(magnitude);
         return magnitude;
     }
 
-    /**
-     * Functions finds how valuable the board is w.r.t to blocking the other player,
-     * the
-     * @param b
-     * @return
-     */
-    double horizontalBlockingValue(Board b) {
-        double score = 0;
-        for(Cell c : b.getHorizontal().getMyCells().values()) {
-            for(int i = 0; i < c.getPos().getY() - 1; i++) {
-                char value = b.getBoard()[i][c.getPos().getX()].getValue();
-                if(value == Board.CELL_VERTICAL) {
-                    score += block_score;
-                }
+    double horizontalVBlockedness(Board board) {
+        double magnitude = 0;
+        for(Cell c : board.getHorizontal().getMyCells().values()) {
+            for (int i = c.getPos().getX() + 1; i < board.getSize(); i++) {
+                if (board.getBoard()[c.getPos().getY()][i].getValue() == Board.CELL_VERTICAL)
+                    magnitude += other_blocked_score;
             }
         }
-        return score;
+        return magnitude;
     }
 
-    double verticalBlockingValue(Board b) {
-        double score = 0;
-        for(Cell c : b.getVertical().getMyCells().values()) {
-            for(int i = 0; i < c.getPos().getX() - 1; i++) {
-                char value = b.getBoard()[c.getPos().getY()][i].getValue();
-                if(value == Board.CELL_HORIZONTAL) {
-                    score += block_score;
-                }
+    double verticalHBlockedness(Board board) {
+        double magnitude = 0;
+        for(Cell c : board.getVertical().getMyCells().values()) {
+            for (int i = c.getPos().getY() + 1; i < board.getSize(); i++) {
+                if (board.getBoard()[i][c.getPos().getX()].getValue() == Board.CELL_HORIZONTAL)
+                    magnitude += other_blocked_score;
             }
         }
-        return score;
+        return magnitude;
     }
-
-
-
-
 }

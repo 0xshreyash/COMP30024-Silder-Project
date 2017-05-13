@@ -9,12 +9,12 @@ import java.util.ArrayList;
 /**
  * Created by shreyashpatodia on 12/05/17.
  */
-public class AlphaBetaOrdered implements Strategy{
+public class AlphaBetaGreedy implements Strategy{
     private char myPlayer;
     private char otherPlayer;
     private Scorer scorer;
 
-    public AlphaBetaOrdered(char player, Scorer scorer) {
+    public AlphaBetaGreedy(char player, Scorer scorer) {
         this.myPlayer = player;
         this.otherPlayer = this.myPlayer == Board.CELL_HORIZONTAL?
                 Board.CELL_VERTICAL: Board.CELL_HORIZONTAL;
@@ -44,21 +44,18 @@ public class AlphaBetaOrdered implements Strategy{
         Board newBoard = new Board(board);
         for(Move move : legalMoves) {
             newBoard.makeMove(move, myPlayer);
-            /*
             System.out.println("--------------------");
             System.out.println("With move :" + move);
             System.out.println("New board\n" + newBoard);
-            */
             // Check if depth - 1 should be here or not
             double val = minValue(newBoard, alpha, beta, depth - 1);
-            //System.out.println(val);
-            //System.out.println("Score for this move would be:" + val);
+            System.out.println("Score for this move would be:" + val);
             //bestVal = Math.max(bestVal, val);
             if(val > bestVal) {
-                //System.out.println("Making this the best move");
+                System.out.println("Making this the best move");
                 bestVal = val;
-                //System.out.println("With move :" + move);
-                //System.out.println(val);
+                System.out.println("With move :" + move);
+                System.out.println(val);
                 bestMove = move;
             }
             newBoard.undoMove(move, myPlayer);
@@ -66,8 +63,9 @@ public class AlphaBetaOrdered implements Strategy{
                 return bestMove;
             }
             alpha = Math.max(alpha, bestVal);
+            System.out.println("--------------------");
         }
-        //System.out.println("++++++++++++++++++++");
+        System.out.println("++++++++++++++++++++");
         return bestMove;
     }
 
@@ -78,7 +76,7 @@ public class AlphaBetaOrdered implements Strategy{
             //System.out.println("--------------------");
             //System.out.println("Terminal state :");
             //System.out.println(board);
-            //double score = this.scorer.scoreBoard(board, myPlayer);
+            double score = this.scorer.scoreBoard(board, myPlayer);
             //System.out.println("Score is: " + score);
             //System.out.println("--------------------");
             return this.scorer.scoreBoard(board, myPlayer);
