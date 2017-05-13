@@ -94,7 +94,7 @@ public class AlphaScorer extends Scorer {
         double oldBlockedness = horizontalMagnitudeOfBlockedness(initialBoard);
         double changeBlockness = horizontalMagnitudeOfBlockedness(board) - oldBlockedness;
         score += changeBlockness;
-        score += verticalBlockingValue(board)m - verticalBlockingValue(initialBoard);
+        score += verticalBlockingValue(board) - verticalBlockingValue(initialBoard);
         return score;
     }
 
