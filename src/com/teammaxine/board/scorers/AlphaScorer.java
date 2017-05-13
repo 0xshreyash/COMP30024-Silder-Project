@@ -12,15 +12,16 @@ public class AlphaScorer extends Scorer {
     private Board initialBoard;
     double distance_change_score = 20;
     double lateral_move_penalty = - 90;
-    double action_finish_value = 10;
+    double action_finish_value = 50;
     // Scores to evaluate blockedness
     double b_blocked_score = -20;
+    double blocking_value = 60;
     int moves;
 
     public AlphaScorer(Board initialBoard, int depth)
     {
         this.initialBoard = initialBoard;
-        this.lateral_move_penalty = (initialBoard.getSize() + 1) * -10;
+        //this.lateral_move_penalty = (initialBoard.getSize() + 1) * -10;
         //this.action_finish_value = (initialBoard.getSize()) * 10;
         this.moves = (depth + 1)/2;
     }
@@ -69,6 +70,8 @@ public class AlphaScorer extends Scorer {
         double oldBlockedness = verticalMagnitudeOfBlockedness(initialBoard);
         double changeBlockness = verticalMagnitudeOfBlockedness(board) - oldBlockedness;
         score += changeBlockness;
+        score += horizontalBlockingValue(board) - horizontalBlockingValue(initialBoard);
+
         return score;
     }
 
@@ -91,6 +94,7 @@ public class AlphaScorer extends Scorer {
         double oldBlockedness = horizontalMagnitudeOfBlockedness(initialBoard);
         double changeBlockness = horizontalMagnitudeOfBlockedness(board) - oldBlockedness;
         score += changeBlockness;
+        score += horizontalBlockingValue(board) - horizontalBlockingValue(initialBoard);
         return score;
     }
 
@@ -136,6 +140,39 @@ public class AlphaScorer extends Scorer {
         }
         //System.out.println(magnitude);
         return magnitude;
+    }
+
+
+    /**
+     * Functions finds how valuable the board is w.r.t to blocking the other player,
+     * the
+     * @param b
+     * @return
+     */
+    double horizontalBlockingValue(Board b) {
+        double score = 0;
+        for(Cell c : b.getHorizontal().getMyCells().values()) {
+            for(int i = 0; i < c.getPos().getY() - 1; i++) {
+                char value = b.getBoard()[i][c.getPos().getX()].getValue();
+                if(value == Board.CELL_VERTICAL) {
+                    score += blocking_value;
+                }
+            }
+        }
+        return score;
+    }
+
+    double verticalBlockingValue(Board b) {
+        double score = 0;
+        for(Cell c : b.getVertical().getMyCells().values()) {
+            for(int i = 0; i < c.getPos().getX() - 1; i++) {
+                char value = b.getBoard()[c.getPos().getY()][i].getValue();
+                if(value == Board.CELL_HORIZONTAL) {
+                    score += blocking_value;
+                }
+            }
+        }
+        return score;
     }
 
 }

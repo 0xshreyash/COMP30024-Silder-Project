@@ -14,14 +14,14 @@ public class AlphaBetaUndo implements Strategy{
     private char myPlayer;
     private char otherPlayer;
     private AlphaScorer scorer;
-    private MontyPythonScorer montyScorer;
+    //private MontyPythonScorer montyScorer;
 
     public AlphaBetaUndo(char player, AlphaScorer scorer) {
         this.myPlayer = player;
         this.otherPlayer = this.myPlayer == Board.CELL_HORIZONTAL?
                 Board.CELL_VERTICAL: Board.CELL_HORIZONTAL;
         this.scorer = scorer;
-        montyScorer = new MontyPythonScorer();
+        //montyScorer = new MontyPythonScorer();
     }
 
     public Move findMove(Board board, int depth) {
