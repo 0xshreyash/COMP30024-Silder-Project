@@ -32,6 +32,7 @@ public class Board {
     public static final char CELL_UNKNOWN = '-';
     public static final char CELL_HORIZONTAL = 'H';
     public static final char CELL_VERTICAL = 'V';
+    public static final char CELL_BLOCKED = 'B';
 
     private Cell[][] board;
     private Vertical vertical;
@@ -95,6 +96,12 @@ public class Board {
                     vertical.addCell(board[row][column]);
             }
         }
+
+        for(int row = 0; row < this.size; row++) {
+            for(int column = 0; column < this.size; column++) {
+                this.addNeighbours(row, column);
+            }
+        }
     }
 
     public Cell[][] getBoard() {
@@ -134,6 +141,7 @@ public class Board {
      * @param column column number of the cell
      */
     private void addNeighbours(int row, int column) {
+        //System.out.println(row + " " + column);
         if (row != this.size - 1)
             this.board[row][column].setNeighbour(Move.Direction.UP,
                     this.board[row + 1][column]);
@@ -195,8 +203,6 @@ public class Board {
                 if(board[row][column].getValue() == type) {
                     cells.put(new Vector2(column, row), board[row][column]);
                 }
-
-
             }
         }
 
@@ -251,6 +257,43 @@ public class Board {
                 this.horizontal.addCell(board[move.j - 1][move.i]);
             else
                 this.vertical.addCell(board[move.j - 1][move.i]);
+        }
+    }
+
+    public void undoMove(Move move, char player) {
+
+        this.changeCellValue(move.j, move.i, player);
+        if(player == Board.CELL_HORIZONTAL)
+            this.horizontal.addCell(board[move.j][move.i]);
+        else
+            this.vertical.addCell(board[move.j][move.i]);
+
+        if (move.d == Move.Direction.LEFT) {
+            this.changeCellValue(move.j, move.i - 1, Board.CELL_EMPTY);
+            if(player == Board.CELL_HORIZONTAL)
+                this.horizontal.removeCell(board[move.j][move.i - 1]);
+            else
+                this.vertical.removeCell(board[move.j][move.i - 1]);
+
+        } else if (move.d == Move.Direction.RIGHT && move.i != this.getSize() - 1) {
+            this.changeCellValue(move.j, move.i + 1, Board.CELL_EMPTY);
+            if(player == Board.CELL_HORIZONTAL)
+                this.horizontal.removeCell(board[move.j][move.i + 1]);
+            else
+                this.vertical.removeCell(board[move.j][move.i + 1]);
+
+        } else if (move.d == Move.Direction.UP && move.j != this.getSize() - 1) {
+            this.changeCellValue(move.j + 1 , move.i, Board.CELL_EMPTY);
+            if(player == Board.CELL_HORIZONTAL)
+                this.horizontal.removeCell(board[move.j + 1][move.i]);
+            else
+                this.vertical.removeCell(board[move.j + 1][move.i]);
+        } else if (move.d == Move.Direction.DOWN) {
+            this.changeCellValue(move.j - 1, move.i, Board.CELL_EMPTY);
+            if(player == Board.CELL_HORIZONTAL)
+                this.horizontal.removeCell(board[move.j - 1][move.i]);
+            else
+                this.vertical.removeCell(board[move.j - 1][move.i]);
         }
     }
 

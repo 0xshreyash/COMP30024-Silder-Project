@@ -33,7 +33,7 @@ public class Xena extends Agent {
 
         Strategy myStrategy = new MonteCarlo(getPlayer(), scorer);
 
-        Move toMake = myStrategy.findMove(this.getMyBoard(), 0);
+        Move toMake = myStrategy.findMove(this.getMyBoard(), 500);
         this.update(toMake, this.getPlayer());
 
         return toMake;
