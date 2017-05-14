@@ -15,15 +15,17 @@ public class BlockingScorer extends Scorer{
 
     private char player;
     private static int distance_score = 100;
-    private static int b_blocked_score = 90;
-    private static int other_blocked_score = 30;
-    private static int action_finish_value = 50;
+    private static int b_blocked_score = 150;
+    private static int other_blocked_score = 60;
+    private static int action_finish_value = 200;
 
-    private static int close_block_bonus = 8;
-    //private static int blocking_penalty = 2;
+    private static int block_bonus = 8;
+    private static int smaller_block_bonus = 5;
+    private static Board initialBoard = null;
 
-    public BlockingScorer(char player) {
+    public BlockingScorer(char player, Board initialBoard) {
         this.player = player;
+        this.initialBoard = initialBoard;
     }
     public double scoreBoard(Board b, char currentPlayer, int movesLeft)
     {
@@ -33,7 +35,8 @@ public class BlockingScorer extends Scorer{
         int horizontalDist = 0;
         int numHCells = b.getHorizontal().getSize();
         int numVCells = b.getVertical().getSize();
-
+        int originalHCells = initialBoard.getHorizontal().getSize();
+        int originalVCells = initialBoard.getVertical().getSize();
         // Find distance, the less the distance the better the score. Consider blocking
         // as well as straight distance from the goal.
         for (Cell c : b.getVertical().getMyCells().values()) {
@@ -50,8 +53,8 @@ public class BlockingScorer extends Scorer{
                     break;
                 }
                 if ((b.getCellValue(row, col) == Board.CELL_HORIZONTAL)) {
-                    // The close the blocker is the worse
-                    verticalDist += other_blocked_score + close_block_bonus * (boardSize - (row - cellRow));
+                    // Better to have one of the higher column ones block than the other ones
+                    verticalDist += other_blocked_score + block_bonus * col;
                     break;
                 }
             }
@@ -69,23 +72,23 @@ public class BlockingScorer extends Scorer{
                     break;
                 }
                 if((b.getCellValue(row, col) ==  Board.CELL_VERTICAL)) {
-                    horizontalDist += other_blocked_score + close_block_bonus * (boardSize - (col - cellColumn));
+                    horizontalDist += other_blocked_score - smaller_block_bonus * col;
+                    break;
                 }
             }
         }
 
         if(player == 'H') {
             score = verticalDist - horizontalDist;
-            score += (boardSize - 1 - numHCells)*action_finish_value - (boardSize - 1 - numVCells)*action_finish_value;
+            score += (originalHCells - numHCells)*action_finish_value - (originalVCells - numVCells)*action_finish_value;
         }
         else {
             score = horizontalDist - verticalDist;
-            score +=(boardSize - 1 - numVCells)*action_finish_value - (boardSize - 1 - numHCells)*action_finish_value;
+            score +=(originalVCells - numVCells)*action_finish_value - (originalHCells - numHCells)*action_finish_value;
         }
 
         // The other player will probably move closer to the goal if it's their turn.
         if (player != currentPlayer) {
-
             score -= distance_score;
         }
 

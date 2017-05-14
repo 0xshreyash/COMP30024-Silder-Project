@@ -16,6 +16,7 @@ public class AlphaBetaSorted implements Strategy{
     private char otherPlayer;
     private BlockingScorer scorer;
     private int maxDepth;
+    private int nodes;
     //private MontyPythonScorer montyScorer;
 
     public AlphaBetaSorted(char player, BlockingScorer scorer, int maxDepth) {
@@ -39,16 +40,16 @@ public class AlphaBetaSorted implements Strategy{
      * @return
      */
     private Move alphaBetaSearch(int depth, Board board, double alpha, double beta) {
-        ArrayList<? extends Move> legalMoves = this.sortMoves(board, this.myPlayer);
+
         Move bestMove = null;
         double bestVal = Integer.MIN_VALUE;
-        //System.out.println("++++++++++++++++++++");
-        //System.out.println(board);
-        //System.out.println("     possibles     ");
+
         Board newBoard = new Board(board);
 //        Board bestBoard = null;
+        ArrayList<? extends Move> legalMoves = board.getLegalMoves(myPlayer);
         for(Move move : legalMoves) {
             newBoard.makeMove(move, myPlayer);
+            nodes++;
             //System.out.println("--------------------");
             //System.out.println("With move :" + move);
             //System.out.println("New board\n" + newBoard);
@@ -56,7 +57,7 @@ public class AlphaBetaSorted implements Strategy{
             double val = minValue(newBoard, alpha, beta, depth - 1);
             //System.out.println("Score for this move would be:" + val);
             //bestVal = Math.max(bestVal, val);
-            if(val > bestVal || (val == bestVal && bestMove == null)) {
+            if(val > bestVal) {
                 //System.out.println("Making this the best move");
                 bestVal = val;
                 //System.out.println("With move :" + move);
@@ -70,13 +71,13 @@ public class AlphaBetaSorted implements Strategy{
             }
             //System.out.println("--------------------");
         }
-        //System.out.println("++++++++++++++++++++");
+        System.out.println("Nodes visited " + nodes);
         return bestMove;
     }
 
     private double maxValue(Board board, double alpha, double beta, int depth) {
 
-        ArrayList<? extends Move> legalMoves = this.sortMoves(board, this.myPlayer);
+
         if(board.horizontalWon()) {
             if(this.myPlayer == 'H')
                 return Integer.MAX_VALUE - maxDepth + depth;
@@ -98,6 +99,7 @@ public class AlphaBetaSorted implements Strategy{
             //System.out.println("--------------------");
             return score;
         }
+        ArrayList<? extends Move> legalMoves = board.getLegalMoves(myPlayer);
         double bestVal = Integer.MIN_VALUE;
         // We are out of moves.
         if(legalMoves.size() == 0)
@@ -105,6 +107,7 @@ public class AlphaBetaSorted implements Strategy{
             return minValue(board, alpha, beta, depth);
 
         for(Move move : legalMoves) {
+            nodes++;
             board.makeMove(move, myPlayer);
             bestVal = Math.max(bestVal, minValue(board, alpha, beta, depth - 1));
             alpha = Math.max(bestVal, alpha);
@@ -118,15 +121,15 @@ public class AlphaBetaSorted implements Strategy{
     private double minValue(Board board, double alpha, double beta, int depth) {
         //System.out.println("Min called");
         //System.out.println(board);
-        ArrayList<? extends Move> legalMoves = this.sortMoves(board, otherPlayer);
+
         if(board.horizontalWon()) {
-            if(this.myPlayer == 'H')
+            if(this.myPlayer == Board.CELL_HORIZONTAL)
                 return Integer.MAX_VALUE - maxDepth + depth;
             else
                 return Integer.MIN_VALUE + maxDepth - depth;
         }
         if(board.verticalWon()) {
-            if(this.myPlayer == 'V')
+            if(this.myPlayer == Board.CELL_VERTICAL)
                 return  Integer.MAX_VALUE - maxDepth + depth;
             else
                 return Integer.MIN_VALUE + maxDepth - depth;
@@ -140,7 +143,7 @@ public class AlphaBetaSorted implements Strategy{
             //System.out.println("--------------------");
             return score;
         }
-
+        ArrayList<? extends Move> legalMoves = board.getLegalMoves(otherPlayer);
         // The other player is out of moves.
         if(legalMoves.size() == 0)
             // Maybe -1 maybe not?
@@ -152,6 +155,7 @@ public class AlphaBetaSorted implements Strategy{
             return Integer.MAX_VALUE;
         //Board newBoard = new Board(board);
         for(Move move : legalMoves) {
+            nodes++;
             board.makeMove(move, otherPlayer);
             bestVal = Math.min(bestVal, maxValue(board, alpha, beta, depth - 1));
             beta = Math.min(bestVal, beta);
@@ -161,18 +165,18 @@ public class AlphaBetaSorted implements Strategy{
         }
         return bestVal;
     }
-
+    /*
     public ArrayList<Move> sortMoves(Board board, char player) {
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(player);
         ArrayList<MoveValuePair> moveValuePairs = new ArrayList<>();
 
         for(Move move : legalMoves) {
             board.makeMove(move, player);
-            double score = evaluateBoard(board, player);
+            double score = moveEvaluation(move, player);
             if(player == this.myPlayer)
                 moveValuePairs.add(new MoveValuePair(move, score));
             else
-                moveValuePairs.add(new MoveValuePair(move, -score));
+                moveValuePairs.add(new MoveValuePair(move, score));
             board.undoMove(move, player);
         }
 
@@ -200,10 +204,22 @@ public class AlphaBetaSorted implements Strategy{
 
     }
 
+    private double moveEvaluation(Move move, char player) {
+        int forwardValue = 100;
+        int lateralValue = 50;
+        if(player == 'H' && move.d == Move.Direction.RIGHT ||
+                player == 'V' && move.d == Move.Direction.LEFT)
+            return forwardValue;
+        else
+            return lateralValue;
+    }
+
     public class MoveComparator implements Comparator<MoveValuePair> {
 
         public int compare(MoveValuePair one, MoveValuePair two) {
             return -Double.compare(one.score, two.score);
         }
     }
+    */
+
 }

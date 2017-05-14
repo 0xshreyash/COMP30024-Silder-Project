@@ -15,8 +15,8 @@ public class MonteCarlo implements Strategy {
     private char player;
     private Scorer scorer;
     private Random random;
-    private static final int TRIES = 11000000;//5k
-    private static final int MAX_DEPTH = 40;
+    private static final int TRIES = 100;//5k
+    private static final int MAX_DEPTH = 20;
 
     private static Move prevMove;
 
@@ -67,7 +67,7 @@ public class MonteCarlo implements Strategy {
 
             Board copyBoard = new Board(currentBoard);
             for(int i = 0; i < TRIES; i++) {
-                double score = randomTraverse(copyBoard, m, 0, player, player);
+                double score = randomTraverse(copyBoard, m, 20, player, player);
                 sum += score;
 
                 if(score >= localMax)

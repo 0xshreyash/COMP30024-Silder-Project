@@ -33,9 +33,9 @@ public class AlphaScorer extends Scorer {
         boolean nextIsMyTurn = this.player == currentPlayer;
 
         if (playerIsHorizontal) {
-            return scoreBoardHorizontal(board) - scoreBoardVertical(board);//- (nextIsMyTurn?0:100);
+            return scoreBoardHorizontal(board) - scoreBoardVertical(board);
         } else {
-            return scoreBoardVertical(board) - scoreBoardHorizontal(board);///- (nextIsMyTurn?0:100);
+            return scoreBoardVertical(board) - scoreBoardHorizontal(board);
         }
     }
 
@@ -65,11 +65,6 @@ public class AlphaScorer extends Scorer {
         // Distance change should be the number of forward moves made.
         score += lateral_move_penalty * (moves - distanceChange - movesLeft);
         score += action_finish_value * (countBefore - count);
-        double oldBlockedness = verticalMagnitudeOfBlockedness(initialBoard);
-        double changeBlockness = verticalMagnitudeOfBlockedness(board) - oldBlockedness;
-        score += changeBlockness;
-        score += horizontalBlockingValue(board) - horizontalBlockingValue(initialBoard);
-
         return score;
     }
 
@@ -89,10 +84,7 @@ public class AlphaScorer extends Scorer {
         score += distanceChange * distance_change_score;
         score += lateral_move_penalty * (moves - distanceChange - movesLeft);
         score += action_finish_value * (countBefore - count);
-        double oldBlockedness = horizontalMagnitudeOfBlockedness(initialBoard);
-        double changeBlockness = horizontalMagnitudeOfBlockedness(board) - oldBlockedness;
-        score += changeBlockness;
-        score += verticalBlockingValue(board) - verticalBlockingValue(initialBoard);
+
         return score;
     }
 
