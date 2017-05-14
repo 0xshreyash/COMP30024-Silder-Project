@@ -1,9 +1,8 @@
 package com.teammaxine.agent;
 
 import aiproj.slider.Move;
-import com.teammaxine.board.scorers.BetaScorer;
-import com.teammaxine.board.scorers.Scorer;
-import com.teammaxine.strategies.AlphaBeta;
+import com.teammaxine.board.scorers.BlockingScorer;
+import com.teammaxine.strategies.AlphaBetaSorted;
 import com.teammaxine.strategies.Strategy;
 /**
  * Created by noxm on 17/04/17.
@@ -13,7 +12,7 @@ public class Shreya extends Agent {
 
     @Override
     public Move move() {
-        Scorer scorer = new BetaScorer(this.getMyBoard());
+        //Scorer scorer = new BetaScorer(this.getMyBoard());
 
         /*System.out.println("My board before the move:");
         System.out.println(this.getMyBoard());
@@ -23,11 +22,17 @@ public class Shreya extends Agent {
         for(Move move : this.getMyBoard().getLegalMoves(this.getPlayer())) {
             System.out.println(move);
         }*/
-        Strategy myStrategy = new AlphaBeta(this.getPlayer(), scorer);
-        Move toMake = myStrategy.findMove(this.getMyBoard(), 7);
+        int depth = -1;
+        if(this.getMyBoard().getSize() == 5)
+            depth = 8;
+        if(this.getMyBoard().getSize() == 6)
+            depth = 7;
+        if(this.getMyBoard().getSize() == 7)
+            depth = 6;
+        BlockingScorer scorer = new BlockingScorer(this.getPlayer());
+        Strategy myStrategy = new AlphaBetaSorted(this.getPlayer(), scorer, depth);
+        Move toMake = myStrategy.findMove(this.getMyBoard(), depth);
         this.update(toMake, this.getPlayer());
-        /*System.out.println("My board after move :");
-        System.out.println(this.getMyBoard());*/
         return toMake;
     }
 }
