@@ -33,6 +33,8 @@ public class Shreya extends Agent {
             depth = 10;
         else if(boardSize == 6)
             depth = 9;
+        else if (boardSize == 7 && turns < 14)
+            depth = 9;
         else if (boardSize == 7)
             depth = 8;
         else
@@ -54,6 +56,7 @@ public class Shreya extends Agent {
         else {
             BlockingScorer bscorer = new BlockingScorer(player, board);
             myStrategy = new AlphaBetaGreedy(player, bscorer);
+            depth -= 3;
         }
 
         toMake = myStrategy.findMove(board, depth);
