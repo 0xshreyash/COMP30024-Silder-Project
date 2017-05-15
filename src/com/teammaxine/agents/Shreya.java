@@ -25,7 +25,9 @@ public class Shreya extends Agent {
         int boardSize = getMyBoard().getSize();
         int blockingTurns = (boardSize) * (boardSize - 1);
 
-        if (boardSize == 5)
+        if (boardSize == 5 && turns % 10 == 0)
+            depth = 11;
+        else if(boardSize == 5)
             depth = 10;
         else if (boardSize == 6 && turns % 4 == 0)
             depth = 10;

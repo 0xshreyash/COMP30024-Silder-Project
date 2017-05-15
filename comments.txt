@@ -186,4 +186,6 @@ that we couldn't submit it as part of our final AI. Even though, we don't submit
 submission it required a significant amount of effort to make these classes and there was also a lot of creative
 thinking involved creating an LRU Cache instead of a standard hash table, and in compressing the board in order to
 optimise memory usage but sadly we couldn't get the memory usage of a large enough size cache to be low enough to
-include in our final submission. 
+include in our final submission.
+
+Sorting one level
