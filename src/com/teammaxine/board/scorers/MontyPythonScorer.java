@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class MontyPythonScorer extends Scorer {
     private static MonteCarlo innerXena = null;
     private static final int DEPTH = 6;
-    private static final int TRIES = 1000;
+    private static final int TRIES = 2000;
 
     public MonteCarlo getInnerXena(char player) {
         if(innerXena == null)

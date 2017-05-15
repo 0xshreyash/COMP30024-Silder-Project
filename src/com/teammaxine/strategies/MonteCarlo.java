@@ -16,9 +16,8 @@ import java.util.Random;
 public class MonteCarlo implements Strategy {
     private char player;
     private Scorer scorer;
-    private Scorer proximity = new ProximityScorer();
     private Random random;
-    private static final int TRIES = 100;//5k
+    private static final int TRIES = 5000000;
     private static final int MAX_DEPTH = 20;
 
     private static Move prevMove;
@@ -102,11 +101,11 @@ public class MonteCarlo implements Strategy {
                 (board.getHorizontal().getLegalMoves().size() == 0 && board.getVertical().getLegalMoves().size() == 0)) {
             char winner = board.getWinner();
             if(winner == '-') {
-                return Math.tanh(scorer.scoreBoard(board, player)) + 2*Math.tanh(proximity.scoreBoard(board, player));
+                return 0;//Math.tanh(scorer.scoreBoard(board, player)) + 2*Math.tanh(proximity.scoreBoard(board, player));
             } else if(winner == player) {
-                return 3;
+                return 1;
             }
-            return -3;
+            return -1;
         }
 
         char nextTurn = (turn == 'H')? 'V' : 'H';

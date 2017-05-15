@@ -72,7 +72,7 @@ public class AlphaBetaBlocking implements Strategy{
             }
             //System.out.println("--------------------");
         }
-        System.out.println("Nodes visited " + nodes);
+        //System.out.println("Nodes visited " + nodes);
         return bestMove;
     }
 

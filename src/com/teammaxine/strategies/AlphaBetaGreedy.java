@@ -44,18 +44,18 @@ public class AlphaBetaGreedy implements Strategy{
         Board newBoard = new Board(board);
         for(Move move : legalMoves) {
             newBoard.makeMove(move, myPlayer);
-            System.out.println("--------------------");
-            System.out.println("With move :" + move);
-            System.out.println("New board\n" + newBoard);
+//            System.out.println("--------------------");
+//            System.out.println("With move :" + move);
+//            System.out.println("New board\n" + newBoard);
             // Check if depth - 1 should be here or not
             double val = minValue(newBoard, alpha, beta, depth - 1);
-            System.out.println("Score for this move would be:" + val);
+//            System.out.println("Score for this move would be:" + val);
             //bestVal = Math.max(bestVal, val);
             if(val > bestVal) {
-                System.out.println("Making this the best move");
+//                System.out.println("Making this the best move");
                 bestVal = val;
-                System.out.println("With move :" + move);
-                System.out.println(val);
+//                System.out.println("With move :" + move);
+//                System.out.println(val);
                 bestMove = move;
             }
             newBoard.undoMove(move, myPlayer);
@@ -63,9 +63,9 @@ public class AlphaBetaGreedy implements Strategy{
                 return bestMove;
             }
             alpha = Math.max(alpha, bestVal);
-            System.out.println("--------------------");
+//            System.out.println("--------------------");
         }
-        System.out.println("++++++++++++++++++++");
+//        System.out.println("++++++++++++++++++++");
         return bestMove;
     }
 
