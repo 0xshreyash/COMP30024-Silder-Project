@@ -34,7 +34,7 @@ public class AlphaBetaGreedy implements Strategy{
      * @return
      */
     private Move alphaBetaSearch(int depth, Board board, char currPlayer, double alpha, double beta) {
-        ArrayList<? extends Move> legalMoves = board.getLegalMoves(currPlayer);
+        ArrayList<? extends Move> legalMoves = board.getOptimisticMoves(currPlayer);
         Move bestMove = null;
         // Add terminal state here maybe, don't know if it matters.
         double bestVal = Double.NEGATIVE_INFINITY;
@@ -71,7 +71,7 @@ public class AlphaBetaGreedy implements Strategy{
 
     private double maxValue(Board board, double alpha, double beta, int depth) {
 
-        ArrayList<? extends Move> legalMoves = board.getLegalMoves(this.myPlayer);
+        ArrayList<? extends Move> legalMoves = board.getOptimisticMoves(this.myPlayer);
         if(depth == 0 || isTerminalState(board)) {
             //System.out.println("--------------------");
             //System.out.println("Terminal state :");
@@ -101,7 +101,7 @@ public class AlphaBetaGreedy implements Strategy{
     private double minValue(Board board, double alpha, double beta, int depth) {
         //System.out.println("Min called");
         //System.out.println(board);
-        ArrayList<? extends Move> legalMoves = board.getLegalMoves(this.otherPlayer);
+        ArrayList<? extends Move> legalMoves = board.getOptimisticMoves(this.otherPlayer);
 
         if(depth == 0 || isTerminalState(board)) {
             //System.out.println("--------------------");

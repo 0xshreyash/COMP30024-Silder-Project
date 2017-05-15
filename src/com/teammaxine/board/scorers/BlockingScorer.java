@@ -1,12 +1,8 @@
 package com.teammaxine.board.scorers;
 
-import com.sun.media.sound.SimpleSoundbank;
 import com.teammaxine.board.elements.Board;
 import com.teammaxine.board.elements.Cell;
-import com.teammaxine.board.helpers.Vector2;
 
-import java.util.HashMap;
-import java.util.SimpleTimeZone;
 
 /**
  * Created by shreyashpatodia on 13/05/17.
@@ -14,13 +10,13 @@ import java.util.SimpleTimeZone;
 public class BlockingScorer extends Scorer{
 
     private char player;
-    private static int distance_score = 100;
+    private static int distance_score = 150;
     private static int b_blocked_score = 150;
     private static int other_blocked_score = 60;
-    private static int action_finish_value = 200;
+    private static int action_finish_value = 170;
 
     private static int block_bonus = 8;
-    private static int smaller_block_bonus = 5;
+
     private static Board initialBoard = null;
 
     public BlockingScorer(char player, Board initialBoard) {
@@ -72,7 +68,7 @@ public class BlockingScorer extends Scorer{
                     break;
                 }
                 if((b.getCellValue(row, col) ==  Board.CELL_VERTICAL)) {
-                    horizontalDist += other_blocked_score - smaller_block_bonus * col;
+                    horizontalDist += other_blocked_score + block_bonus * row;
                     break;
                 }
             }

@@ -2,30 +2,29 @@ package com.teammaxine.strategies;
 
 import aiproj.slider.Move;
 import com.teammaxine.board.elements.Board;
+import com.teammaxine.board.elements.CompressedBoard;
+import com.teammaxine.board.helpers.BoardCompressor;
+import com.teammaxine.board.helpers.Compresser;
 import com.teammaxine.board.scorers.BlockingScorer;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 /**
  * Created by shreyashpatodia on 12/05/17.
  */
-public class AlphaBetaSorted implements Strategy{
+public class AlphaBetaBlocking implements Strategy{
     private char myPlayer;
     private char otherPlayer;
     private BlockingScorer scorer;
     private int maxDepth;
     private int nodes;
-    //private MontyPythonScorer montyScorer;
 
-    public AlphaBetaSorted(char player, BlockingScorer scorer, int maxDepth) {
+    public AlphaBetaBlocking(char player, BlockingScorer scorer, int maxDepth) {
         this.myPlayer = player;
         this.otherPlayer = this.myPlayer == Board.CELL_HORIZONTAL?
                 Board.CELL_VERTICAL: Board.CELL_HORIZONTAL;
         this.scorer = scorer;
         this.maxDepth = maxDepth;
-        //montyScorer = new MontyPythonScorer();
     }
 
     public Move findMove(Board board, int depth) {
@@ -44,17 +43,18 @@ public class AlphaBetaSorted implements Strategy{
         Move bestMove = null;
         double bestVal = Integer.MIN_VALUE;
 
-        Board newBoard = new Board(board);
-//        Board bestBoard = null;
+
+//       Board bestBoard = null;
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(myPlayer);
         for(Move move : legalMoves) {
-            newBoard.makeMove(move, myPlayer);
+            board.makeMove(move, myPlayer);
+
             nodes++;
             //System.out.println("--------------------");
             //System.out.println("With move :" + move);
             //System.out.println("New board\n" + newBoard);
             // Check if depth - 1 should be here or not
-            double val = minValue(newBoard, alpha, beta, depth - 1);
+            double val = minValue(board, alpha, beta, depth - 1);
             //System.out.println("Score for this move would be:" + val);
             //bestVal = Math.max(bestVal, val);
             if(val > bestVal) {
@@ -64,7 +64,8 @@ public class AlphaBetaSorted implements Strategy{
                 //System.out.println(val);
                 bestMove = move;
             }
-            newBoard.undoMove(move, myPlayer);
+            //cache.add(compressor.compress(b))
+            board.undoMove(move, myPlayer);
             alpha = Math.max(alpha, bestVal);
             if(alpha >= beta) {
                 return bestMove;
@@ -165,17 +166,15 @@ public class AlphaBetaSorted implements Strategy{
         }
         return bestVal;
     }
-    /*
-    public ArrayList<Move> sortMoves(Board board, char player) {
+
+   /* public ArrayList<Move> sortMoves(Board board, char player) {
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(player);
         ArrayList<MoveValuePair> moveValuePairs = new ArrayList<>();
 
         for(Move move : legalMoves) {
             board.makeMove(move, player);
-            double score = moveEvaluation(move, player);
+            int score = moveEvaluation(move, player);
             if(player == this.myPlayer)
-                moveValuePairs.add(new MoveValuePair(move, score));
-            else
                 moveValuePairs.add(new MoveValuePair(move, score));
             board.undoMove(move, player);
         }
@@ -185,41 +184,44 @@ public class AlphaBetaSorted implements Strategy{
 
         for(MoveValuePair pair : moveValuePairs) {
             orderedMoves.add(pair.move);
+            System.out.println(pair.move.d);
         }
         return orderedMoves;
     }
 
-    public double evaluateBoard(Board board, char player) {
-        return this.scorer.scoreBoard(board, player);
-    }
 
     public class MoveValuePair {
         Move move;
-        double score;
+        int score;
 
-        public MoveValuePair(Move move, Double score) {
+        public MoveValuePair(Move move, int score) {
             this.move = move;
             this.score = score;
         }
 
     }
 
-    private double moveEvaluation(Move move, char player) {
+    private int moveEvaluation(Move move, char player) {
         int forwardValue = 100;
-        int lateralValue = 50;
+        int badLateralValue = 50;
+        int betterLateralValue = 75;
         if(player == 'H' && move.d == Move.Direction.RIGHT ||
-                player == 'V' && move.d == Move.Direction.LEFT)
+                player == 'V' && move.d == Move.Direction.UP)
             return forwardValue;
+        else if(player == 'H' && move.d == Move.Direction.DOWN ||
+                player == 'V' && move.d == Move.Direction.LEFT)
+            return betterLateralValue;
         else
-            return lateralValue;
+            return badLateralValue;
     }
 
     public class MoveComparator implements Comparator<MoveValuePair> {
 
         public int compare(MoveValuePair one, MoveValuePair two) {
-            return -Double.compare(one.score, two.score);
+            return -Integer.compare(one.score, two.score);
         }
     }
     */
+
 
 }

@@ -2,7 +2,7 @@ package com.teammaxine.agent;
 
 import aiproj.slider.Move;
 import com.teammaxine.board.scorers.BlockingScorer;
-import com.teammaxine.strategies.AlphaBetaSorted;
+import com.teammaxine.strategies.AlphaBetaBlocking;
 
 
 /**
@@ -12,7 +12,7 @@ import com.teammaxine.strategies.AlphaBetaSorted;
 public class Shreya extends Agent {
     private int turns = 0;
     private BlockingScorer scorer;
-    private AlphaBetaSorted myStrategy;
+    private AlphaBetaBlocking myStrategy;
 
     public Shreya() {
 
@@ -42,7 +42,7 @@ public class Shreya extends Agent {
         Move toMake = null;
         if(scorer == null) {
             scorer = new BlockingScorer(this.getPlayer(), this.getMyBoard());
-            myStrategy = new AlphaBetaSorted(this.getPlayer(), scorer, depth);
+            myStrategy = new AlphaBetaBlocking(this.getPlayer(), scorer, depth);
         }
         toMake = myStrategy.findMove(this.getMyBoard(), depth);
         this.update(toMake, this.getPlayer());
