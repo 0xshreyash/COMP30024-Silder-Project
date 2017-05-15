@@ -5,7 +5,7 @@
  * Subject: COMP30024 Artificial Intelligence.
  * Semester 1, 2017.
  */
-package com.teammaxine.agent;
+package com.teammaxine.agents;
 
 import aiproj.slider.Move;
 import aiproj.slider.SliderPlayer;
@@ -168,23 +168,6 @@ public abstract class Agent implements SliderPlayer {
     }
 
     /**
-     * Checks for the edge case when the the horizontal can
-     * go off the board from the right.
-     *
-     * @param cell to consider
-     * @return true if the cell is on the edge and can go off
-     * the right.
-     */
-    public boolean edgeCheck(Cell cell) {
-
-        if(this.player == Board.CELL_HORIZONTAL)
-            return cell.getPos().getX() == (dimension - 1);
-        else if(this.player == Board.CELL_VERTICAL)
-            return cell.getPos().getY() == (dimension - 1);
-        return false;
-    }
-
-    /**
      * The function that initialises the agent, and makes sure
      * we are implementing SliderPlayer right.
      *
@@ -210,12 +193,7 @@ public abstract class Agent implements SliderPlayer {
         this.setLegalDirections();
         this.setMyCells();
         this.moves = myBoard.getLegalMoves(this.player);
-        /*System.out.println("Player");
-        System.out.println(myBoard);
-        System.out.println("Printing legal moves for:" + player);
-        for(Move move: moves) {
-            System.out.println(move);
-        }*/
+        
     }
 
     /**

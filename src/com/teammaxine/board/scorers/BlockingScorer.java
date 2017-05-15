@@ -10,18 +10,19 @@ import com.teammaxine.board.elements.Cell;
 public class BlockingScorer extends Scorer{
 
     private char player;
-    private static int distance_score = 150;
+    private static int distance_score = 100;
     private static int b_blocked_score = 150;
-    private static int other_blocked_score = 60;
-    private static int action_finish_value = 170;
+    private static int other_blocked_score = 90;
+    private static int action_finish_value = 60;
+    private static int originalHCells;
+    private static int originalVCells;
 
-    private static int block_bonus = 8;
-
-    private static Board initialBoard = null;
+    private static int block_bonus = 12;
 
     public BlockingScorer(char player, Board initialBoard) {
         this.player = player;
-        this.initialBoard = initialBoard;
+        originalHCells = initialBoard.getHorizontal().getSize();
+        originalVCells = initialBoard.getVertical().getSize();
     }
     public double scoreBoard(Board b, char currentPlayer, int movesLeft)
     {
@@ -31,8 +32,6 @@ public class BlockingScorer extends Scorer{
         int horizontalDist = 0;
         int numHCells = b.getHorizontal().getSize();
         int numVCells = b.getVertical().getSize();
-        int originalHCells = initialBoard.getHorizontal().getSize();
-        int originalVCells = initialBoard.getVertical().getSize();
         // Find distance, the less the distance the better the score. Consider blocking
         // as well as straight distance from the goal.
         for (Cell c : b.getVertical().getMyCells().values()) {
@@ -40,8 +39,6 @@ public class BlockingScorer extends Scorer{
             verticalDist += distance_score * (boardSize - c.getPos().getY());
 
             int col = c.getPos().getX();
-            int cellRow = c.getPos().getY();
-
             for (int row = c.getPos().getY() + 1; row < boardSize; row++) {
 
                 if (b.getCellValue(row, col) == Board.CELL_BLOCKED) {
@@ -61,7 +58,6 @@ public class BlockingScorer extends Scorer{
 
             horizontalDist += distance_score * (boardSize - c.getPos().getX());
             int row = c.getPos().getY();
-            int cellColumn = c.getPos().getX();
             for (int col = c.getPos().getX() + 1; col < boardSize; col++) {
                 if (b.getCellValue(row, col) == 'B') {
                     horizontalDist += b_blocked_score;

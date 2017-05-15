@@ -1,11 +1,10 @@
-package com.teammaxine.agent;
+package com.teammaxine.agents;
 
 
 
 
 import aiproj.slider.Move;
 import aiproj.slider.SliderPlayer;
-import com.teammaxine.board.elements.Board;
 import com.teammaxine.board.elements.Cell;
 import com.teammaxine.board.helpers.Vector2;
 
