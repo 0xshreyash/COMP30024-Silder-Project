@@ -104,6 +104,36 @@ public abstract class BoardAgent {
     }
 
     public abstract ArrayList<AgentAction> getOptimisticMoves();
+    /*
+    public ArrayList<AgentAction> getOptimisticMoves() {
+        ArrayList<AgentAction> moves = getLegalMoves();
+        ArrayList<AgentAction> finalMoves = new ArrayList<>();
+
+        for(AgentAction m : moves) {
+            if((this instanceof Vertical && m.d == Move.Direction.UP) ||
+               (this instanceof Horizontal && m.d == Move.Direction.RIGHT))
+                finalMoves.add(m);
+        }
+
+        if(finalMoves.size() > 0)
+            return finalMoves;
+        return moves;
+    }
+
+    public ArrayList<AgentAction> getOptimisticMoves(int size) {
+        ArrayList<AgentAction> moves = getLegalMoves();
+        ArrayList<AgentAction> finalMoves = new ArrayList<>();
+
+        for(AgentAction m : moves) {
+            if((this instanceof Vertical && m.d == Move.Direction.UP && m.i != size - 1) ||
+                    (this instanceof Horizontal && m.d == Move.Direction.RIGHT && m.j != size - 1))
+                finalMoves.add(m);
+        }
+        if(finalMoves.size() > 0)
+            return finalMoves;
+        return moves;
+    }
+    */
     /**
      * get all the legal moves possible
      *

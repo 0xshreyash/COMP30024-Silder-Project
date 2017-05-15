@@ -26,12 +26,11 @@ public class Shreyundo extends Agent {
     public Move move() {
         int depth = -1;
         if(this.getMyBoard().getSize() == 5)
-            depth = 11;
+            depth = 20;
         if(this.getMyBoard().getSize() == 6)
             depth = 9;
         if(this.getMyBoard().getSize() == 7)
             depth = 13;
-
         if(turn == 0) {
             random = new Random(System.currentTimeMillis());
             scorer = new AlphaScorer(this.getMyBoard(), depth);
@@ -44,7 +43,7 @@ public class Shreyundo extends Agent {
 
         Move toMake;
 
-//        if(random.nextInt(100) < 50)
+        //if(random.nextInt(100) < 50)
         //if(turn < totalTurn / 2)
             toMake = alphaBeta.findMove(this.getMyBoard(), depth);
         /*else

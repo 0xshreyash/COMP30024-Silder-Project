@@ -327,4 +327,16 @@ public class Board {
             return getHorizontal().getOptimisticMoves();
         return getVertical().getOptimisticMoves();
     }
+
+    public boolean horizontalWon() {
+        return this.getHorizontal().getMyCells().isEmpty();
+    }
+
+    public boolean verticalWon() {
+        return this.getVertical().getMyCells().isEmpty();
+    }
+
+    public char getCellValue(int row, int column) {
+        return this.board[row][column].getValue();
+    }
 }

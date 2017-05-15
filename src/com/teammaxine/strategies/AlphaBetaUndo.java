@@ -3,7 +3,6 @@ package com.teammaxine.strategies;
 import aiproj.slider.Move;
 import com.teammaxine.board.elements.Board;
 import com.teammaxine.board.scorers.AlphaScorer;
-import com.teammaxine.board.scorers.MontyPythonScorer;
 
 import java.util.ArrayList;
 

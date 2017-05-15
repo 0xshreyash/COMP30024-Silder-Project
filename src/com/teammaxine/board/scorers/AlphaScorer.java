@@ -10,29 +10,32 @@ public class AlphaScorer extends Scorer {
 
     // initialBoard is the board we start evaluating from.
     private Board initialBoard;
-    double distance_change_score = 20;
-    double lateral_move_penalty = - 90;
+    double distance_change_score = 200;
+    double lateral_move_penalty = -200;
     double action_finish_value = 50;
     // Scores to evaluate blockedness
-    double b_blocked_score = -20;
-    double blocking_value = 60;
+    double b_blocked_score = -50;
+    double blocking_value = 100;
     int moves;
+    char player;
 
-    public AlphaScorer(Board initialBoard, int depth)
+    public AlphaScorer(Board initialBoard, int depth, char player)
     {
         this.initialBoard = initialBoard;
         //this.lateral_move_penalty = (initialBoard.getSize() + 1) * -10;
         //this.action_finish_value = (initialBoard.getSize()) * 10;
         this.moves = (depth + 1)/2;
+        this.player = player;
     }
 
-    public double scoreBoard(Board board, char playerPiece) {
-        boolean playerIsHorizontal = playerPiece == 'H';
+    public double scoreBoard(Board board, char currentPlayer) {
+        boolean playerIsHorizontal = this.player == 'H';
+        boolean nextIsMyTurn = this.player == currentPlayer;
 
         if (playerIsHorizontal) {
-            return scoreBoardHorizontal(board);
+            return scoreBoardHorizontal(board) - scoreBoardVertical(board);
         } else {
-            return scoreBoardVertical(board);
+            return scoreBoardVertical(board) - scoreBoardHorizontal(board);
         }
     }
 
@@ -49,7 +52,6 @@ public class AlphaScorer extends Scorer {
     double scoreBoardVertical(Board board, int movesLeft) {
         double score = 0;
 
-        int maxDist = board.getSize();
         int count = board.getVertical().getMyCells().size();
         int countBefore = initialBoard.getVertical().getMyCells().size();
 
@@ -60,18 +62,9 @@ public class AlphaScorer extends Scorer {
         int distanceChange = distanceInitialBoard - distanceNewBoard;
         // Higher is better
         score += distanceChange * distance_change_score;
-        //System.out.println(score);
         // Distance change should be the number of forward moves made.
         score += lateral_move_penalty * (moves - distanceChange - movesLeft);
-        //System.out.println(score);
-
         score += action_finish_value * (countBefore - count);
-        //System.out.println(score);
-        double oldBlockedness = verticalMagnitudeOfBlockedness(initialBoard);
-        double changeBlockness = verticalMagnitudeOfBlockedness(board) - oldBlockedness;
-        score += changeBlockness;
-        score += horizontalBlockingValue(board) - horizontalBlockingValue(initialBoard);
-
         return score;
     }
 
@@ -91,10 +84,7 @@ public class AlphaScorer extends Scorer {
         score += distanceChange * distance_change_score;
         score += lateral_move_penalty * (moves - distanceChange - movesLeft);
         score += action_finish_value * (countBefore - count);
-        double oldBlockedness = horizontalMagnitudeOfBlockedness(initialBoard);
-        double changeBlockness = horizontalMagnitudeOfBlockedness(board) - oldBlockedness;
-        score += changeBlockness;
-        score += verticalBlockingValue(board) - verticalBlockingValue(initialBoard);
+
         return score;
     }
 
@@ -164,10 +154,10 @@ public class AlphaScorer extends Scorer {
 
     double verticalBlockingValue(Board b) {
         double score = 0;
-        for(Cell c : b.getVertical().getMyCells().values()) {
-            for(int i = 0; i < c.getPos().getX() - 1; i++) {
+        for (Cell c : b.getVertical().getMyCells().values()) {
+            for (int i = 0; i < c.getPos().getX() - 1; i++) {
                 char value = b.getBoard()[c.getPos().getY()][i].getValue();
-                if(value == Board.CELL_HORIZONTAL) {
+                if (value == Board.CELL_HORIZONTAL) {
                     score += blocking_value;
                 }
             }
