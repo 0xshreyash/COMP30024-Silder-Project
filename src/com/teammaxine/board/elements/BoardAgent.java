@@ -18,18 +18,20 @@ import java.util.HashMap;
  * AI agent in the board
  */
 public abstract class BoardAgent {
+    int size;
     private HashMap<Vector2, Cell> myCells;
     private ArrayList<Move.Direction> legalDirections;
-    int size;
+    private Board board;
 
     /**
      * BoardAgent that plays out the board
      *
      * @param size size of the board the agent is in
      */
-    public BoardAgent(int size) {
+    public BoardAgent(int size, Board board) {
         // cells that agent controls
         this.size = size;
+        this.board = board;
         this.myCells = new HashMap<>(size);
         this.legalDirections = new ArrayList<>();
         this.setAllDirections();
@@ -37,6 +39,7 @@ public abstract class BoardAgent {
 
     public BoardAgent(BoardAgent other) {
         this.size = other.getSize();
+        this.board = other.getBoard();
         this.legalDirections = new ArrayList<>(other.getLegalDirections());
         this.myCells = new HashMap<>(size);
     }
@@ -67,7 +70,7 @@ public abstract class BoardAgent {
      * add a cell that the agent controls
      *
      * @param newCell the new cell belonging to the agent i.e. a cell that
-     * contains the agent's piece.
+     *                contains the agent's piece.
      */
     public void addCell(Cell newCell) {
 
@@ -100,20 +103,7 @@ public abstract class BoardAgent {
         return this.myCells.values().contains(cell);
     }
 
-    public ArrayList<AgentAction> getOptimisticMoves() {
-        ArrayList<AgentAction> moves = getLegalMoves();
-        ArrayList<AgentAction> finalMoves = new ArrayList<>();
-
-        for(AgentAction m : moves) {
-            if((this instanceof Vertical && m.d == Move.Direction.UP) ||
-               (this instanceof Horizontal && m.d == Move.Direction.RIGHT))
-                finalMoves.add(m);
-        }
-
-        if(finalMoves.size() > 0)
-            return finalMoves;
-        return moves;
-    }
+    public abstract ArrayList<AgentAction> getOptimisticMoves();
     /**
      * get all the legal moves possible
      *
@@ -123,7 +113,7 @@ public abstract class BoardAgent {
         ArrayList<AgentAction> moves = new ArrayList<>();
 
         for (Cell myCell : this.myCells.values()) {
-            if(edgeCheck(myCell)) {
+            if (edgeCheck(myCell)) {
                 moves.add(new AgentAction(AgentAction.ActionType.FINISH, myCell.getPos(), getForward()));
             }
             for (Move.Direction legalDirection : this.legalDirections) {
@@ -154,4 +144,8 @@ public abstract class BoardAgent {
     }
 
     public abstract Move.Direction getForward();
+
+    public Board getBoard() {
+        return board;
+    }
 }

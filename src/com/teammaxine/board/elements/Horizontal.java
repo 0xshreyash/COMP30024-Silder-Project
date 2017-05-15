@@ -8,6 +8,10 @@
 package com.teammaxine.board.elements;
 
 import aiproj.slider.Move;
+import com.teammaxine.board.actions.AgentAction;
+import com.teammaxine.board.helpers.Vector2;
+
+import java.util.ArrayList;
 
 /**
  * Horizontal agent of the board
@@ -20,8 +24,8 @@ public class Horizontal extends BoardAgent {
 
     };
 
-    public Horizontal(int size) {
-        super(size);
+    public Horizontal(int size, Board board) {
+        super(size, board);
     }
 
     public Horizontal(Horizontal other) {
@@ -49,6 +53,57 @@ public class Horizontal extends BoardAgent {
     @Override
     public boolean edgeCheck(Cell cell) {
         return cell.getPos().getX() == size - 1;
+    }
+
+    private boolean isBlocking(Move m, int proximity) {
+        int i = m.j;
+        int j = m.i;
+        int curr = 1;
+        while(j > 0 && curr <= proximity) {
+            j--;
+            if(this.getBoard().getBoard()[i][j].getValue() == 'V')
+                return true;
+            else if(this.getBoard().getBoard()[i][j].getValue() == 'B')
+                return false;
+            curr++;
+        }
+
+        return false;
+    }
+
+    @Override
+    public ArrayList<AgentAction> getOptimisticMoves() {
+        ArrayList<AgentAction> moves = getLegalMoves();
+        ArrayList<AgentAction> finalMoves = new ArrayList<>();
+
+        for (AgentAction m : moves) {
+            if (!isBlocking(m, 2)) {
+                if (m.d == Move.Direction.RIGHT) {
+                    finalMoves.add(m);
+                }
+            }
+        }
+
+        if (finalMoves.size() == 0)
+            for (AgentAction m : moves) {
+                if (!isBlocking(m, 1)) {
+                    if (m.d == Move.Direction.RIGHT) {
+                        finalMoves.add(m);
+                    }
+                }
+            }
+
+        // try with less contraints
+        if (finalMoves.size() == 0)
+            for (AgentAction m : moves) {
+                if (m.d == Move.Direction.RIGHT) {
+                    finalMoves.add(m);
+                }
+            }
+
+        if (finalMoves.size() > 0)
+            return finalMoves;
+        return moves;
     }
 
     @Override

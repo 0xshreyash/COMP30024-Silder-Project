@@ -8,6 +8,9 @@
 package com.teammaxine.board.elements;
 
 import aiproj.slider.Move;
+import com.teammaxine.board.actions.AgentAction;
+
+import java.util.ArrayList;
 
 /**
  * Vertical agent of the board
@@ -23,8 +26,8 @@ public class Vertical extends BoardAgent {
             Move.Direction.RIGHT
     };
 
-    public Vertical(int size) {
-        super(size);
+    public Vertical(int size, Board board) {
+        super(size, board);
     }
 
 
@@ -63,5 +66,58 @@ public class Vertical extends BoardAgent {
     @Override
     public String toString() {
         return "Vertical BoardAgent";
+    }
+
+    private boolean isBlocking(Move m, int proximity) {
+        int i = m.j;
+        int j = m.i;
+        int curr = 1;
+
+        while(i > 0 && curr <= proximity) {
+            i--;
+            if(this.getBoard().getBoard()[j][i].getValue() == 'H')
+                return true;
+            else if(this.getBoard().getBoard()[j][i].getValue() == 'B')
+                return false;
+            curr++;
+        }
+
+        return false;
+    }
+
+    @Override
+    public ArrayList<AgentAction> getOptimisticMoves() {
+        ArrayList<AgentAction> moves = getLegalMoves();
+        ArrayList<AgentAction> finalMoves = new ArrayList<>();
+
+
+        for (AgentAction m : moves) {
+            if (!isBlocking(m, 2)) {
+                if (m.d == Move.Direction.UP) {
+                    finalMoves.add(m);
+                }
+            }
+        }
+
+        if (finalMoves.size() == 0)
+            for (AgentAction m : moves) {
+                if (!isBlocking(m, 1)) {
+                    if (m.d == Move.Direction.UP) {
+                        finalMoves.add(m);
+                    }
+                }
+            }
+
+        // try with less contraints
+        if (finalMoves.size() == 0)
+            for (AgentAction m : moves) {
+                if (m.d == Move.Direction.UP) {
+                    finalMoves.add(m);
+                }
+            }
+
+        if (finalMoves.size() > 0)
+            return finalMoves;
+        return moves;
     }
 }

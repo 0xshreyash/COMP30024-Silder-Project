@@ -10,27 +10,24 @@ import com.teammaxine.strategies.Strategy;
  * Created by noxm on 10/05/17.
  */
 public class Xena extends Agent {
-    private Scorer s = null;
+    private Scorer scorer = null;
+    private Strategy myStrategy = null;
 
     public void setScorer(Scorer s) {
-        this.s = s;
+        this.scorer = s;
     }
 
     public Scorer getScorer() {
-        return s;
+        return scorer;
     }
 
     @Override
     public Move move() {
-        Scorer scorer;
-
-        if(s == null) {
+        if(this.scorer == null)
             scorer = new MonteCarloScorer();
-        } else {
-            scorer = s;
-        }
 
-        Strategy myStrategy = new MonteCarlo(getPlayer(), scorer);
+        if(myStrategy == null)
+            myStrategy = new MonteCarlo(getPlayer(), scorer);
 
         Move toMake = myStrategy.findMove(this.getMyBoard(), 500);
         this.update(toMake, this.getPlayer());

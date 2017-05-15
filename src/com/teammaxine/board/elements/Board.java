@@ -47,8 +47,8 @@ public class Board {
     public Board(ArrayList<String> boardMapping) {
         this.size = boardMapping.size();
 
-        vertical = new Vertical(this.size);
-        horizontal = new Horizontal(this.size);
+        vertical = new Vertical(this.size, this);
+        horizontal = new Horizontal(this.size, this);
         board = new Cell[this.size][];
 
         /*
