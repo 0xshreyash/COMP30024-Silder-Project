@@ -66,7 +66,7 @@ public class AlphaBetaCache {
                 else if(beta > (ub = s.getUpperBound())) {
                     beta = ub;
                 }
-                else if(alpha > (score = s.getScore()) && beta <= score) {
+                if(alpha > (score = s.getScore()) && beta <= score) {
                     val = score;
                     if(val > bestVal) {
                         bestVal = val;
@@ -90,6 +90,13 @@ public class AlphaBetaCache {
                 //System.out.println("With move :" + move);
                 //System.out.println(val);
                 bestMove = move;
+            }
+            CompressedBoard compressedBoard = compressor.compress(board);
+            if(cache.get(compressedBoard) == null) {
+                cache.set(compressedBoard, new State(alpha, beta, depth, val));
+            }
+            else if((s = cache.get(compressedBoard)) != null && s.getDepth() < depth) {
+                cache.set(compressedBoard, new State(alpha, beta, depth, val));
             }
             //cache.add(compressor.compress(b))
             board.undoMove(move, myPlayer);
@@ -153,13 +160,20 @@ public class AlphaBetaCache {
                     }
                 }
                 if(alpha >= beta)
-                    return bestVal;
+                    break;
             }
             nodes++;
             board.makeMove(move, myPlayer);
             val = minValue(board, alpha, beta, depth - 1);
             bestVal = Math.max(bestVal, val);
             alpha = Math.max(bestVal, alpha);
+            CompressedBoard compressedBoard = compressor.compress(board);
+            if(cache.get(compressedBoard) == null) {
+                cache.set(compressedBoard, new State(alpha, beta, depth, val));
+            }
+            else if((s = cache.get(compressedBoard)) != null && s.getDepth() < depth) {
+                cache.set(compressedBoard, new State(alpha, beta, depth, val));
+            }
             board.undoMove(move, myPlayer);
             if (alpha >= beta)
                 break;
@@ -207,6 +221,7 @@ public class AlphaBetaCache {
             State s;
             double val;
             if((s = cache.get(compressor.compress(board))) != null && s.getDepth() >= depth) {
+                System.out.println("Inside the cache :" + nodes);
                 double lb, ub, score;
                 if(alpha < (lb = s.getLowerBound())) {
                     alpha = lb;
@@ -228,7 +243,14 @@ public class AlphaBetaCache {
             val = maxValue(board, alpha, beta, depth - 1);
             bestVal = Math.min(bestVal, val);
             beta = Math.min(bestVal, beta);
-            
+            CompressedBoard compressedBoard = compressor.compress(board);
+            if(cache.get(compressedBoard) == null) {
+                cache.set(compressedBoard, new State(alpha, beta, depth, val));
+            }
+            else if((s = cache.get(compressedBoard)) != null && s.getDepth() < depth) {
+                cache.set(compressedBoard, new State(alpha, beta, depth, val));
+            }
+
             board.undoMove(move, otherPlayer);
             if (alpha >= beta)
                 break;
