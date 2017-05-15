@@ -1,10 +1,8 @@
 package com.teammaxine.strategies;
 
 import aiproj.slider.Move;
-import com.sun.org.apache.xpath.internal.SourceTree;
 import com.teammaxine.board.actions.AgentAction;
 import com.teammaxine.board.elements.Board;
-import com.teammaxine.board.scorers.ProximityScorer;
 import com.teammaxine.board.scorers.Scorer;
 
 import java.util.ArrayList;

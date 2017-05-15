@@ -1,13 +1,7 @@
 package com.teammaxine.board.scorers;
 
-import com.sun.media.sound.SimpleSoundbank;
 import com.teammaxine.board.elements.Board;
 import com.teammaxine.board.elements.Cell;
-import com.teammaxine.board.elements.Horizontal;
-import com.teammaxine.board.helpers.Vector2;
-
-import java.util.HashMap;
-import java.util.SimpleTimeZone;
 
 public class EndGameScorer extends Scorer{
 
