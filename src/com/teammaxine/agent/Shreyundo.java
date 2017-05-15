@@ -33,7 +33,7 @@ public class Shreyundo extends Agent {
             depth = 13;
         if(turn == 0) {
             random = new Random(System.currentTimeMillis());
-            scorer = new AlphaScorer(this.getMyBoard(), depth);
+            scorer = new AlphaScorer(this.getMyBoard(), depth, this.getPlayer());
             alphaBeta = new AlphaBetaUndo(this.getPlayer(), scorer);
             monteCarlo = new MonteCarlo(this.getPlayer(), new MonteCarloScorer());
             totalTurn = this.getMyBoard().getSize() * (this.getMyBoard().getSize() - 1);
