@@ -21,8 +21,6 @@ public class ShreyaCache extends Agent {
     @Override
     public Move move() {
         turns++;
-        //Scorer scorer = new BetaScorer(this.getMyBoard());
-
         /*System.out.println("My board before the move:");
         System.out.println(this.getMyBoard());
         for(Cell cell : this.getMyBoard().getCellsOfType(this.getPlayer()).values()) {
@@ -43,7 +41,7 @@ public class ShreyaCache extends Agent {
         Move toMake = null;
         if(scorer == null) {
             scorer = new BlockingScorer(this.getPlayer(), this.getMyBoard());
-            myStrategy = new AlphaBetaCache(this.getPlayer(), scorer, depth, 100000);
+            myStrategy = new AlphaBetaCache(this.getPlayer(), scorer, depth, 100);
         }
         toMake = myStrategy.findMove(this.getMyBoard(), depth);
         this.update(toMake, this.getPlayer());

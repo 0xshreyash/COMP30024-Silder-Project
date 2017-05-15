@@ -92,10 +92,10 @@ public class AlphaBetaCache {
                 bestMove = move;
             }
             CompressedBoard compressedBoard = compressor.compress(board);
-            if(cache.get(compressedBoard) == null) {
+            if(cache.get(compressedBoard) == null && depth <= 4) {
                 cache.set(compressedBoard, new State(alpha, beta, depth, val));
             }
-            else if((s = cache.get(compressedBoard)) != null && s.getDepth() < depth) {
+            else if((s = cache.get(compressedBoard)) != null && s.getDepth() < depth && (depth) <= 4) {
                 cache.set(compressedBoard, new State(alpha, beta, depth, val));
             }
             //cache.add(compressor.compress(b))
@@ -168,10 +168,10 @@ public class AlphaBetaCache {
             bestVal = Math.max(bestVal, val);
             alpha = Math.max(bestVal, alpha);
             CompressedBoard compressedBoard = compressor.compress(board);
-            if(cache.get(compressedBoard) == null) {
+            if(cache.get(compressedBoard) == null && depth <= 4) {
                 cache.set(compressedBoard, new State(alpha, beta, depth, val));
             }
-            else if((s = cache.get(compressedBoard)) != null && s.getDepth() < depth) {
+            else if((s = cache.get(compressedBoard)) != null && s.getDepth() < depth && (depth) <= 4) {
                 cache.set(compressedBoard, new State(alpha, beta, depth, val));
             }
             board.undoMove(move, myPlayer);
@@ -221,7 +221,7 @@ public class AlphaBetaCache {
             State s;
             double val;
             if((s = cache.get(compressor.compress(board))) != null && s.getDepth() >= depth) {
-                System.out.println("Inside the cache :" + nodes);
+                //System.out.println("Inside the cache :" + nodes);
                 double lb, ub, score;
                 if(alpha < (lb = s.getLowerBound())) {
                     alpha = lb;
@@ -244,10 +244,10 @@ public class AlphaBetaCache {
             bestVal = Math.min(bestVal, val);
             beta = Math.min(bestVal, beta);
             CompressedBoard compressedBoard = compressor.compress(board);
-            if(cache.get(compressedBoard) == null) {
+            if(cache.get(compressedBoard) == null && (depth) <= 4) {
                 cache.set(compressedBoard, new State(alpha, beta, depth, val));
             }
-            else if((s = cache.get(compressedBoard)) != null && s.getDepth() < depth) {
+            else if((s = cache.get(compressedBoard)) != null && s.getDepth() < depth && (depth) <= 4) {
                 cache.set(compressedBoard, new State(alpha, beta, depth, val));
             }
 

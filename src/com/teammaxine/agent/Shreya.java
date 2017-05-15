@@ -20,16 +20,7 @@ public class Shreya extends Agent {
     @Override
     public Move move() {
         turns++;
-        //Scorer scorer = new BetaScorer(this.getMyBoard());
 
-        /*System.out.println("My board before the move:");
-        System.out.println(this.getMyBoard());
-        for(Cell cell : this.getMyBoard().getCellsOfType(this.getPlayer()).values()) {
-            System.out.println(cell.getPos());
-        }
-        for(Move move : this.getMyBoard().getLegalMoves(this.getPlayer())) {
-            System.out.println(move);
-        }*/
         int depth = -1;
         int boardSize = getMyBoard().getSize();
         int alphaBetaTurns = (boardSize)*(boardSize - 1);
