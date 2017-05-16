@@ -11,7 +11,9 @@ import aiproj.slider.Move;
 import com.teammaxine.board.helpers.Vector2;
 
 /**
- * Placeholder for part B
+ * Extends the move to give us a bit more information about the move,
+ * i.e. whether it is a normal move or a finish move (a move that
+ * takes a piece off the board.
  */
 public class AgentAction extends Move {
     public enum ActionType {

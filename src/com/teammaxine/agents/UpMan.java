@@ -1,3 +1,10 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
 package com.teammaxine.agents;
 
 import aiproj.slider.Move;
@@ -5,7 +12,9 @@ import com.teammaxine.board.elements.Board;
 import com.teammaxine.board.scorers.Scorer;
 
 /**
- * Created by shreyashpatodia on 10/05/17.
+ * Our second AI, tries to be greedy and move in
+ * the direction of our goal. Surprisingly hard
+ * to beat this AI.
  */
 public class UpMan extends Agent {
     Scorer scorer = new Scorer();

@@ -1,3 +1,10 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
 package com.teammaxine.agents;
 
 import aiproj.slider.Move;
@@ -6,8 +13,11 @@ import com.teammaxine.strategies.AlphaBetaCache;
 
 
 /**
- * Created by noxm on 17/04/17.
- * our main ai
+ * ShreyaCache uses a LRU cache to store states of the board,
+ * the key of the cache is a compressed version of the board
+ * and the value is represented by an object of the state class.
+ * Does not work well due to memory limits set during run-time
+ * for the assignment.
  */
 public class ShreyaCache extends Agent {
     private int turns = 0;
@@ -28,6 +38,7 @@ public class ShreyaCache extends Agent {
         for(Move move : this.getMyBoard().getLegalMoves(this.getPlayer())) {
             System.out.println(move);
         }*/
+        /* Working similar to Shreya */
         int depth = -1;
         int boardSize = getMyBoard().getSize();
         int alphaBetaTurns = (boardSize)*(boardSize - 1);

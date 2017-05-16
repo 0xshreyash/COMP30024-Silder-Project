@@ -85,6 +85,11 @@ public class Vertical extends BoardAgent {
         return false;
     }
 
+    /**
+     * Gets the greedily defined optimistic moves for the player.
+     * See comments.txt for the explanation.
+     * @return An arraylist of moves.
+     */
     @Override
     public ArrayList<AgentAction> getOptimisticMoves() {
         ArrayList<AgentAction> moves = getLegalMoves();

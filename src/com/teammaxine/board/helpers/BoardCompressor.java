@@ -4,8 +4,6 @@ import com.teammaxine.board.elements.Board;
 import com.teammaxine.board.elements.Cell;
 import com.teammaxine.board.elements.CompressedBoard;
 
-import sun.security.x509.CertificatePolicyMap;
-
 /**
  * Created by shreyashpatodia on 12/05/17.
  */

@@ -1,3 +1,11 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
+
 package com.teammaxine.agents;
 
 import aiproj.slider.Move;
@@ -7,7 +15,9 @@ import com.teammaxine.strategies.MonteCarlo;
 import com.teammaxine.strategies.Strategy;
 
 /**
- * Created by noxm on 10/05/17.
+ * AI that uses Monte-Carlo tree search, the nature of the
+ * search allowed us to come up wit the idea of using a
+ * greedy strategy at the start of the game.
  */
 public class Xena extends Agent {
     private Scorer scorer = null;

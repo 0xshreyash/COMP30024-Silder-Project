@@ -1,13 +1,22 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
 package com.teammaxine.board.elements;
 
 import java.util.Arrays;
 import java.util.BitSet;
 
 /**
- * Created by shreyashpatodia on 12/05/17.
+ * Compresses a board into a byte array in order to use space efficiently.
+ * Not used as part of our final submission but talked about in comments.txt
  */
 public class CompressedBoard {
 
+    /** Encoding for each type of cell */
     public static final byte CELL_EMPTY = 0;
     public static final byte CELL_HORIZONTAL = 1;
     public static final byte CELL_VERTICAL = 2;

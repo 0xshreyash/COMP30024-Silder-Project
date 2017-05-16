@@ -1,17 +1,22 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
+
 package com.teammaxine.board.scorers;
 
-/**
- * Created by noxm on 10/05/17.
- */
 import com.teammaxine.board.elements.*;
 
 /**
- * Created by noxm on 17/04/17.
+ * Scorer that used to used in Monte Carlo for additional weighting
+ * We used Machine Learning with the scorer but it still couldn't
+ * beat our minimax agent.
+ *
  */
 public class MonteCarloScorer extends Scorer {
-    // score += cell property * this
-    private boolean showDebug = false;
-
     public MonteCarloScorer() {
 
     }

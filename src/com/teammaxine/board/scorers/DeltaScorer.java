@@ -1,15 +1,25 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
+
 package com.teammaxine.board.scorers;
 
 import com.teammaxine.board.elements.*;
 
 /**
- * Simple scorer for testing purposes.
+ * Simple scorer for testing purposes, did not make
+ * out submission.
  */
 public class DeltaScorer extends Scorer {
     // score += cell property * this
 
     // initialBoard is the board we start evaluating from.
     private Board initialBoard;
+
     double distance_change_score = 10;
     // Scores to evaluate blockedness
     double b_blocked_score = -10;

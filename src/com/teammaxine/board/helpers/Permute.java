@@ -3,13 +3,15 @@ package com.teammaxine.board.helpers;
 /**
  * Created by noxm on 10/05/17.
  */
-// Permute.java -- A class generating all permutations
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.lang.reflect.Array;
 
 /**
+ * Permute
+ * A class generating all permutations
+ * extracted from
  * http://stackoverflow.com/questions/2920315/permutation-of-array
  */
 public class Permute implements Iterator {

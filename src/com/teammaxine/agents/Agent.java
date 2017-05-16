@@ -23,7 +23,8 @@ import java.util.HashMap;
 /**
  * Agent that plays out the board, base for different implementations
  * of our agent. Does the init and update stuff for us, so that we
- * can focus on the move with future implementations.
+ * can focus on the move with future implementations. This is one of
+ * design choices that allowed us to make a very extensible design.
  */
 public abstract class Agent implements SliderPlayer {
 
@@ -38,80 +39,11 @@ public abstract class Agent implements SliderPlayer {
     /** The character of the other player */
     private char otherPlayer;
 
-    public void setMyCells(HashMap<Vector2, Cell> myCells) {
-        this.myCells = myCells;
-    }
-
-    public ArrayList<Move.Direction> getLegalDirections() {
-        return legalDirections;
-    }
-
-    public ArrayList<Move.Direction> getLegalDirections(char player) {
-        if(player == Board.CELL_HORIZONTAL)
-            return new ArrayList(Arrays.asList(HORIZONTAL_DIRECTIONS));
-        return new ArrayList(Arrays.asList(VERTICAL_DIRECTIONS));
-    }
-
-    public void setLegalDirections(ArrayList<Move.Direction> legalDirections) {
-        this.legalDirections = legalDirections;
-    }
-
-    public int getDimension() {
-        return dimension;
-    }
-
-    public void setDimension(int dimension) {
-        this.dimension = dimension;
-    }
-
-    public char getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(char player) {
-        this.player = player;
-    }
-
-    public Board getMyBoard() {
-        return myBoard;
-    }
-
-    public void setMyBoard(Board myBoard) {
-        this.myBoard = myBoard;
-    }
-
-    public ArrayList<? extends Move> getMoves() {
-        return moves;
-    }
-
-    public void setMoves(ArrayList<Move> moves) {
-        this.moves = moves;
-    }
-
-    public static Move.Direction[] getHorizontalDirections() {
-        return HORIZONTAL_DIRECTIONS;
-    }
-
-    public static void setHorizontalDirections(Move.Direction[] horizontalDirections) {
-        HORIZONTAL_DIRECTIONS = horizontalDirections;
-    }
-
-    public static Move.Direction[] getVerticalDirections() {
-        return VERTICAL_DIRECTIONS;
-    }
-
-    public static void setVerticalDirections(Move.Direction[] verticalDirections) {
-        VERTICAL_DIRECTIONS = verticalDirections;
-    }
-
-    public HashMap<Vector2, Cell> getMyCells() {
-        return myCells;
-    }
-
     /** The board representation */
     private Board myBoard;
     /** The possible moves for the player */
     private ArrayList<? extends Move> moves;
+
     /** Legal Directions for the horizontal player */
     private static Move.Direction[] HORIZONTAL_DIRECTIONS = {
             Move.Direction.UP,
@@ -125,6 +57,37 @@ public abstract class Agent implements SliderPlayer {
             Move.Direction.RIGHT
     };
 
+    /**
+     * Getters and setters.
+     */
+    public char getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(char player) {
+        this.player = player;
+    }
+
+    public Board getMyBoard() {
+        return myBoard;
+    }
+
+
+    public ArrayList<? extends Move> getMoves() {
+        return moves;
+    }
+
+    public void setMoves(ArrayList<Move> moves) {
+        this.moves = moves;
+    }
+
+    public HashMap<Vector2, Cell> getMyCells() {
+        return myCells;
+    }
+
+    /**
+     * Constructor
+     */
     public Agent() {
         this.myBoard = null;
         this.player = Board.CELL_UNKNOWN;
@@ -233,46 +196,10 @@ public abstract class Agent implements SliderPlayer {
     }
 
     /**
-     * directions it is allowed to move
-     *
-     * @param direction the direction to be added to the legal directions.
+     * Uppdate from the other player.
+     * @param move A Move object representing the previous move made by the
+     *             opponent, which may be null (indicating a pass).
      */
-    public void addLegalDirection(Move.Direction direction) {
-        this.legalDirections.add(direction);
-    }
-
-    /**
-     * add a cell that the agent controls
-     *
-     * @param newCell the new cell belonging to the agent i.e. a cell that
-     * contains the agent's piece.
-     */
-    public void addCell(Cell newCell) {
-
-        this.myCells.put(newCell.getPos(), newCell);
-
-    }
-
-    /**
-     * remove a cell that agent controls
-     *
-     * @param oldCell the cell that is not longer belonging to the agent.
-     */
-    public void removeCell(Cell oldCell) {
-        this.myCells.remove(oldCell);
-    }
-
-    /**
-     * check if agent controls the cell
-     *
-     * @param cell the cell who's possession is to be checked for the agent
-     * @return true if the cell is being controled by agent
-     */
-    public boolean hasCell(Cell cell) {
-        return this.myCells.values().contains(cell);
-    }
-
-    // Update covers the case where the other player may move to win the game.
     public void update(Move move) {
         if(move != null) {
             this.myBoard.makeMove(move, otherPlayer);
@@ -282,6 +209,12 @@ public abstract class Agent implements SliderPlayer {
         return;
     }
 
+    /**
+     * Update from our move function
+     * @param move A move object representing the previous move made by the
+     *             opponent, which may be null (indicating a pass).
+     * @param type The player type to be updated.
+     */
     public void update(Move move, char type) {
         if(move != null) {
             this.myBoard.makeMove(move, type);

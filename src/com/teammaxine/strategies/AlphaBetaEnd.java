@@ -1,17 +1,23 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
+
 package com.teammaxine.strategies;
 
 import aiproj.slider.Move;
 import com.teammaxine.board.elements.Board;
-import com.teammaxine.board.elements.CompressedBoard;
-import com.teammaxine.board.helpers.BoardCompressor;
-import com.teammaxine.board.helpers.Compresser;
-import com.teammaxine.board.scorers.BlockingScorer;
 import com.teammaxine.board.scorers.EndGameScorer;
 
 import java.util.*;
 
 /**
- * Created by shreyashpatodia on 12/05/17.
+ * Variant that tries to end the game asap, places
+ * more value on making forward moves and finishing
+ * the game than blocking the opponent.
  */
 public class AlphaBetaEnd implements Strategy {
     private char myPlayer;
@@ -38,11 +44,9 @@ public class AlphaBetaEnd implements Strategy {
     }
 
     /**
-     * gb
      * Performs alpha beta search recursively
-     *
-     * @param depth
-     * @return
+     * @param depth the depth of the search
+     * @return the best move found according to search
      */
     private Move alphaBetaSearch(int depth, Board board, double alpha, double beta) {
 
@@ -99,6 +103,14 @@ public class AlphaBetaEnd implements Strategy {
         return bestMove;
     }
 
+    /**
+     * The function performing the moves for the maximizing player
+     * @param board the current board
+     * @param alpha the value of alpha
+     * @param beta the value of beta
+     * @param depth the depth left to travel
+     * @return the value of the best move made.
+     */
     private double maxValue(Board board, double alpha, double beta, int depth) {
 
         if (board.verticalWon()) {
@@ -161,6 +173,14 @@ public class AlphaBetaEnd implements Strategy {
         return bestVal;
     }
 
+    /**
+     * The function performs the move for the minimizing player
+     * @param board the current board
+     * @param alpha the value of alpha
+     * @param beta the value of beta
+     * @param depth the depth still to go
+     * @return the value of the best move according to the minimizing player
+     */
     private double minValue(Board board, double alpha, double beta, int depth) {
         //System.out.println("Min called");
         //System.out.println(board);

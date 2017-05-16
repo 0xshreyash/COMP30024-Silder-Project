@@ -1,10 +1,18 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
+
 package com.teammaxine.board.scorers;
 
 import com.teammaxine.board.elements.*;
 
 /**
  * Taking a two-fold approach to scoring, not just scoring the final board but also
- * scoring the board
+ * scoring the board initial one. Not part of our final solution.
  */
 public class BetaScorer extends Scorer {
     // score += cell property * this
@@ -12,17 +20,21 @@ public class BetaScorer extends Scorer {
     // initialBoard is the board we start evaluating from.
     private Board initialBoard;
     double distance_change_score = 15;
+
     // Scores to evaluate blockedness
     // Take this score off when blocked by B because,
     // B will never move, so we don't want to be in the
     // same line a
     double b_blocked_score = -6;
+
     // Take this score when blocked by other player, still
     // good to move forward in these scenarios since the other
     // player may move (especially if the the opponent does
     // not think about blocking, which I am assuming will be
     // the case most of the time/
+
     double other_blocked_score = -2.5;
+
     // Our piece will probably move forward anyways so, we
     // can be right behind it. This will happen every time there
     // is a B on the board.
@@ -136,12 +148,6 @@ public class BetaScorer extends Scorer {
         return magnitude;
     }
 
-    /**
-     * Functions finds how valuable the board is w.r.t to blocking the other player,
-     * the
-     * @param b
-     * @return
-     */
     double horizontalBlockingValue(Board b) {
         double score = 0;
         for(Cell c : b.getHorizontal().getMyCells().values()) {

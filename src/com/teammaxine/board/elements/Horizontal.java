@@ -71,6 +71,10 @@ public class Horizontal extends BoardAgent {
         return false;
     }
 
+    /**
+     * Gets greedily defined optimistic moves for the horizontal player
+     * @return arraylist of optimisitc moves.
+     */
     @Override
     public ArrayList<AgentAction> getOptimisticMoves() {
         ArrayList<AgentAction> moves = getLegalMoves();

@@ -1,22 +1,29 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
 package com.teammaxine.agents;
-
-
-
 
 import aiproj.slider.Move;
 import aiproj.slider.SliderPlayer;
+
 import com.teammaxine.board.elements.Cell;
 import com.teammaxine.board.helpers.Vector2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by noxm on 17/04/17.
- * Base line AI
- * (dictates everything,
- * fails to fire a missile)
- */
+
+ /**
+  * Our first AI, makes random(-ish) moves.
+  * (dictates everything,
+  * fails to fire a missile)
+  * Modelled after Kim Jong-Un, using the Korean spelling of
+  * his infamous name.
+  */
 public class JungEun extends Agent implements SliderPlayer {
 
 

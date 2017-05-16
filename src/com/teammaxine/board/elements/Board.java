@@ -77,6 +77,10 @@ public class Board {
         }
     }
 
+    /**
+     * Copy Constructor
+     * @param other Other board to copy.
+     */
     public Board(Board other) {
         this.size = other.getSize();
         this.board = new Cell[this.size][];
@@ -259,6 +263,12 @@ public class Board {
         }
     }
 
+    /**
+     * Undoes a move made by function makeMove(). Allows us to use
+     * the same board at all the nodes of our search tree.
+     * @param move The move to be made by the player.
+     * @param player Our player.
+     */
     public void undoMove(Move move, char player) {
 
         this.changeCellValue(move.j, move.i, player);
@@ -300,6 +310,11 @@ public class Board {
         board[x][y].setValue(newValue);
     }
 
+    /**
+     * Creates a board object from a string
+     * @param boardString The string to be turned into a board
+     * @return the board object.
+     */
     public static Board boardFromString(String boardString) {
         String[] splitted = boardString.split("\n");
         ArrayList<String> boardMapping = new ArrayList<>();
@@ -322,20 +337,39 @@ public class Board {
         return '-';
     }
 
+    /**
+     * Gets moves that look good to the player according to a greedy approach.
+     * @param otherPlayer The other player whose move are to be found.
+     * @return An arraylist of optimistically good moves.
+     */
     public ArrayList<? extends Move> getOptimisticMoves(char otherPlayer) {
         if(otherPlayer == 'H')
             return getHorizontal().getOptimisticMoves();
         return getVertical().getOptimisticMoves();
     }
 
+    /**
+     * Checks if horizontal player won or not.
+     * @return true if horizontal won.
+     */
     public boolean horizontalWon() {
         return this.getHorizontal().getMyCells().isEmpty();
     }
 
+    /**
+     * Checks if vertical player won or not.
+     * @return true if vertical won.
+     */
     public boolean verticalWon() {
         return this.getVertical().getMyCells().isEmpty();
     }
 
+    /**
+     * Gets the value of a certain cell.
+     * @param row The row of that cell.
+     * @param column The column of that cell
+     * @return The value +, -, B, H, V of the cell.
+     */
     public char getCellValue(int row, int column) {
         return this.board[row][column].getValue();
     }

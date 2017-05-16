@@ -5,6 +5,7 @@
  * Subject: COMP30024 Artificial Intelligence.
  * Semester 1, 2017.
  */
+
 package com.teammaxine.board.helpers;
 
 /**

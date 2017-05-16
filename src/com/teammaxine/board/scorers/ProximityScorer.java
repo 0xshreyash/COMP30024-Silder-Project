@@ -1,3 +1,11 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
+
 package com.teammaxine.board.scorers;
 
 import com.teammaxine.board.elements.Board;
@@ -5,7 +13,9 @@ import com.teammaxine.board.elements.BoardAgent;
 import com.teammaxine.board.elements.Cell;
 
 /**
- * Created by noxm on 13/05/17.
+ * Scoring function according to each pieces' status,
+ * look around to see how good the board is. Incorporated
+ * elements of this into Blocking and End Scorers.
  */
 public class ProximityScorer extends Scorer {
     public double scoreBoard(Board board, char playerPiece) {

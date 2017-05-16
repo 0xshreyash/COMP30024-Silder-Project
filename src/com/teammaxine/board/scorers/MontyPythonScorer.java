@@ -1,14 +1,22 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
+
 package com.teammaxine.board.scorers;
 
 import aiproj.slider.Move;
 import com.teammaxine.board.actions.AgentAction;
 import com.teammaxine.board.elements.Board;
+
 import com.teammaxine.strategies.MonteCarlo;
 
 import java.util.ArrayList;
 
-/**
- * Created by noxm on 13/05/17.
+/** Scorer that utilizes Monte Carlo search
  */
 public class MontyPythonScorer extends Scorer {
     private static MonteCarlo innerXena = null;
@@ -22,10 +30,11 @@ public class MontyPythonScorer extends Scorer {
     }
 
     public double scoreBoard(Board boardToConsider, char playerPiece) {
+        char enemy = (playerPiece == 'H') ? 'V' : 'H';
+
         Board board = new Board(boardToConsider);
         MonteCarlo xena = getInnerXena(playerPiece);
         ArrayList<AgentAction> moves;
-        char enemy = (playerPiece == 'H') ? 'V' : 'H';
 
         if(enemy == 'V')
             moves = board.getVertical().getOptimisticMoves();

@@ -1,3 +1,11 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
+
 package com.teammaxine.strategies;
 
 import aiproj.slider.Move;
@@ -7,7 +15,9 @@ import com.teammaxine.board.scorers.Scorer;
 import java.util.ArrayList;
 
 /**
- * Created by shreyashpatodia on 12/05/17.
+ * Greedy agent that tries to make the best move from
+ * a pre-defined set of optimistically set of good moves.
+ * Moves fast, allows for better search later on in the game.
  */
 public class AlphaBetaGreedy implements Strategy{
     private char myPlayer;
@@ -27,27 +37,24 @@ public class AlphaBetaGreedy implements Strategy{
         return bestMove;
     }
 
-    /**gb
+    /**
      * Performs alpha beta search recursively
-     * @param depth
+     * @param depth the depth the player is searching to.
      * @param currPlayer the player with the current chance
-     * @return
+     * @return the best move according to search.
      */
     private Move alphaBetaSearch(int depth, Board board, char currPlayer, double alpha, double beta) {
         ArrayList<? extends Move> legalMoves = board.getOptimisticMoves(currPlayer);
-        Move bestMove = null;
+
         // Add terminal state here maybe, don't know if it matters.
         double bestVal = Double.NEGATIVE_INFINITY;
+        Move bestMove = null;
         //System.out.println("++++++++++++++++++++");
         //System.out.println(board);
         //System.out.println("     possibles     ");
         Board newBoard = new Board(board);
         for(Move move : legalMoves) {
             newBoard.makeMove(move, myPlayer);
-//            System.out.println("--------------------");
-//            System.out.println("With move :" + move);
-//            System.out.println("New board\n" + newBoard);
-            // Check if depth - 1 should be here or not
             double val = minValue(newBoard, alpha, beta, depth - 1);
 //            System.out.println("Score for this move would be:" + val);
             //bestVal = Math.max(bestVal, val);
@@ -59,7 +66,7 @@ public class AlphaBetaGreedy implements Strategy{
                 bestMove = move;
             }
             newBoard.undoMove(move, myPlayer);
-            if(bestVal >= beta) {
+            if(alpha >= beta) {
                 return bestMove;
             }
             alpha = Math.max(alpha, bestVal);
@@ -69,6 +76,14 @@ public class AlphaBetaGreedy implements Strategy{
         return bestMove;
     }
 
+    /**
+     * The function performing the moves for the maximizing player
+     * @param board the current board
+     * @param alpha the value of alpha
+     * @param beta the value of beta
+     * @param depth the depth left to travel
+     * @return the value of the best move made.
+     */
     private double maxValue(Board board, double alpha, double beta, int depth) {
 
         ArrayList<? extends Move> legalMoves = board.getOptimisticMoves(this.myPlayer);
@@ -98,6 +113,14 @@ public class AlphaBetaGreedy implements Strategy{
         return bestVal;
     }
 
+    /**
+     * The function performs the move for the minimizing player
+     * @param board the current board
+     * @param alpha the value of alpha
+     * @param beta the value of beta
+     * @param depth the depth still to go
+     * @return the value of the best move according to the minimizing player
+     */
     private double minValue(Board board, double alpha, double beta, int depth) {
         //System.out.println("Min called");
         //System.out.println(board);

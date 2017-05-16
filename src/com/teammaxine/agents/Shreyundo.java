@@ -1,3 +1,11 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
+
 package com.teammaxine.agents;
 
 import aiproj.slider.Move;
@@ -10,8 +18,12 @@ import com.teammaxine.strategies.Strategy;
 import java.util.Random;
 
 /**
- * Created by noxm on 17/04/17.
- * our main ai
+ * The first AI where we started to undo-moves rather than deep copy a board,
+ * this AI allowed us to make our project much faster and thus, go deeper in
+ * the search tree. This was due to the board being extremely big, and containing
+ * a huge amount of information and using the same board allowed us to not have
+ * the overhead of deep copy at multiple levels. For example,
+ * Copy Board -> Copy Horizontal -> Copy each Vector and Copy each cell.
  */
 public class Shreyundo extends Agent {
     private static AlphaScorer scorer = null;

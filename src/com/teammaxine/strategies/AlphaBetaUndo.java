@@ -1,3 +1,11 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
+
 package com.teammaxine.strategies;
 
 import aiproj.slider.Move;
@@ -7,7 +15,9 @@ import com.teammaxine.board.scorers.AlphaScorer;
 import java.util.ArrayList;
 
 /**
- * Created by shreyashpatodia on 12/05/17.
+ * Alpha beta that does not recreate the board but traverse back by undoing moves
+ * This was used by all of the AlphaBeta strategies in our submission, really
+ * helped us become faster.
  */
 public class AlphaBetaUndo implements Strategy{
     private char myPlayer;
@@ -45,13 +55,14 @@ public class AlphaBetaUndo implements Strategy{
         //System.out.println("     possibles     ");
         Board newBoard = new Board(board);
 //        Board bestBoard = null;
+        double val;
         for(Move move : legalMoves) {
             newBoard.makeMove(move, myPlayer);
             //System.out.println("--------------------");
             //System.out.println("With move :" + move);
             //System.out.println("New board\n" + newBoard);
             // Check if depth - 1 should be here or not
-            double val = minValue(newBoard, alpha, beta, depth - 1);
+            val = minValue(newBoard, alpha, beta, depth - 1);
             //System.out.println("Score for this move would be:" + val);
             //bestVal = Math.max(bestVal, val);
             if(val > bestVal) {
@@ -78,6 +89,14 @@ public class AlphaBetaUndo implements Strategy{
         return bestMove;
     }
 
+    /**
+     * The function performing the moves for the maximizing player
+     * @param board the current board
+     * @param alpha the value of alpha
+     * @param beta the value of beta
+     * @param depth the depth left to travel
+     * @return the value of the best move made.
+     */
     private double maxValue(Board board, double alpha, double beta, int depth) {
 
         ArrayList<? extends Move> legalMoves = board.getOptimisticMoves(this.myPlayer);
@@ -107,6 +126,14 @@ public class AlphaBetaUndo implements Strategy{
         return bestVal;
     }
 
+    /**
+     * The function performs the move for the minimizing player
+     * @param board the current board
+     * @param alpha the value of alpha
+     * @param beta the value of beta
+     * @param depth the depth still to go
+     * @return the value of the best move according to the minimizing player
+     */
     private double minValue(Board board, double alpha, double beta, int depth) {
         //System.out.println("Min called");
         //System.out.println(board);

@@ -1,3 +1,11 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
+
 package com.teammaxine.strategies;
 
 import aiproj.slider.Move;
@@ -5,8 +13,11 @@ import com.teammaxine.board.elements.Board;
 import com.teammaxine.board.scorers.Scorer;
 import java.util.ArrayList;
 
+/**
+ * Basic minimax with pruning, our first implementation of alpha beta
+ * pruning.
+ */
 public class AlphaBeta implements Strategy {
-
     private char myPlayer;
     private char otherPlayer;
     private Scorer scorer;
@@ -26,9 +37,9 @@ public class AlphaBeta implements Strategy {
 
     /**gb
      * Performs alpha beta search recursively
-     * @param depth
+     * @param depth depth of search.
      * @param currPlayer the player with the current chance
-     * @return
+     * @return the best move found from search
      */
     private Move alphaBetaSearch(int depth, Board board, char currPlayer, double alpha, double beta) {
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(currPlayer);

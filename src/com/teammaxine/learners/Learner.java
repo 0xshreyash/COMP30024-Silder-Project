@@ -1,24 +1,19 @@
-package com.teammaxine.learners;
-
-/* * * * * * * * *
- * Slider game driver class 'Referee' along with some internal helper classes
- * Note: you should build your own Board representation classes; you will not
- * have access to the Referee.Board class when we test your project after
- * submission
- *
- * created for COMP30024 Artificial Intelligence 2017
- * by Matt Farrugia <matt.farrugia@unimelb.edu.au>
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
  */
+
+package com.teammaxine.learners;
 
 import aiproj.slider.Move;
 import aiproj.slider.SliderPlayer;
 
 /**
- * Referee class: Driver for a board of Slider
- * Run this class on the command line using a command like:
- * java aiproj.slider.Referee 6 your.package.PlayerName your.package.PlayerName
- * to play your program PlayerName against itself on a board of size N=6
- * See the specification for more detialed instructions
+ * Learner class that plays the game and returns resujlts
+ * Most of the contents were copied from referee when it comes to playing the game
  */
 public abstract class Learner {
 

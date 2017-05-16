@@ -1,3 +1,11 @@
+/**
+ * Created by Shreyash Patodia and Max Lee (Ho Suk Lee).
+ * Student numbers: Shreyash - 767336, Max Lee - 719577
+ * Login: Shreyash - spatodia, Max - hol2
+ * Subject: COMP30024 Artificial Intelligence.
+ * Semester 1, 2017.
+ */
+
 package com.teammaxine.strategies;
 
 import aiproj.slider.Move;
@@ -11,7 +19,9 @@ import com.teammaxine.board.scorers.BlockingScorer;
 import java.util.*;
 
 /**
- * Created by shreyashpatodia on 12/05/17.
+ * This version of our AlphaBeta uses an LRU cache to
+ * store the board states. This version is not quick
+ * enough to be part of our final submission.
  */
 public class AlphaBetaCache {
     private char myPlayer;
@@ -40,17 +50,13 @@ public class AlphaBetaCache {
     }
 
     /**
-     * gb
      * Performs alpha beta search recursively
-     *
      * @param depth
      * @return
      */
     private Move alphaBetaSearch(int depth, Board board, double alpha, double beta) {
-
         Move bestMove = null;
         double bestVal = Integer.MIN_VALUE;
-
 
 //       Board bestBoard = null;
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(myPlayer);
@@ -110,6 +116,14 @@ public class AlphaBetaCache {
         return bestMove;
     }
 
+    /**
+     * The function performing the moves for the maximizing player
+     * @param board the current board
+     * @param alpha the value of alpha
+     * @param beta the value of beta
+     * @param depth the depth left to travel
+     * @return the value of the best move made.
+     */
     private double maxValue(Board board, double alpha, double beta, int depth) {
 
         if (board.horizontalWon()) {
@@ -181,6 +195,14 @@ public class AlphaBetaCache {
         return bestVal;
     }
 
+    /**
+     * The function performs the move for the minimizing player
+     * @param board the current board
+     * @param alpha the value of alpha
+     * @param beta the value of beta
+     * @param depth the depth still to go
+     * @return the value of the best move according to the minimizing player
+     */
     private double minValue(Board board, double alpha, double beta, int depth) {
         //System.out.println("Min called");
         //System.out.println(board);
