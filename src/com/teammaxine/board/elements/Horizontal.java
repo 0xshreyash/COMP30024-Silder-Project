@@ -61,9 +61,9 @@ public class Horizontal extends BoardAgent {
         int curr = 1;
         while(j > 0 && curr <= proximity) {
             j--;
-            if(this.getBoard().getBoard()[i][j].getValue() == 'V')
+            if(this.getBoard().getBoard()[i][j].getValue() == Board.CELL_VERTICAL)
                 return true;
-            else if(this.getBoard().getBoard()[i][j].getValue() == 'B')
+            else if(this.getBoard().getBoard()[i][j].getValue() == Board.CELL_BLOCKED)
                 return false;
             curr++;
         }

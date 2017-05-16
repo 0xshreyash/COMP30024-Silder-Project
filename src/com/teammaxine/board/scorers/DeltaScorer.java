@@ -14,13 +14,6 @@ public class DeltaScorer extends Scorer {
     // Scores to evaluate blockedness
     double b_blocked_score = -10;
     double other_blocked_score = 20;
-    double my_blocked_score = -2.5;
-    double distance_score = 10;
-    double count_score = 5;
-    double block_score = 10;
-    double move_side_score = 0;
-    double move_forward_score = 3;
-    //int depth;
 
     public DeltaScorer(Board initialBoard, int depth) {
         this.initialBoard = initialBoard;

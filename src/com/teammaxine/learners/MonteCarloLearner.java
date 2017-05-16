@@ -1,7 +1,7 @@
 package com.teammaxine.learners;
 
 import aiproj.slider.SliderPlayer;
-import com.teammaxine.agent.Xena;
+import com.teammaxine.agents.Xena;
 import com.teammaxine.board.scorers.MonteCarloScorer;
 import com.teammaxine.board.scorers.Scorer;
 

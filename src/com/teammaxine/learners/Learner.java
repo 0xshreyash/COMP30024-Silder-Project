@@ -12,7 +12,6 @@ package com.teammaxine.learners;
 
 import aiproj.slider.Move;
 import aiproj.slider.SliderPlayer;
-import com.teammaxine.agent.Xena;
 
 /**
  * Referee class: Driver for a board of Slider

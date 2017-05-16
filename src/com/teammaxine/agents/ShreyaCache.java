@@ -1,8 +1,7 @@
-package com.teammaxine.agent;
+package com.teammaxine.agents;
 
 import aiproj.slider.Move;
 import com.teammaxine.board.scorers.BlockingScorer;
-import com.teammaxine.strategies.AlphaBetaBlocking;
 import com.teammaxine.strategies.AlphaBetaCache;
 
 

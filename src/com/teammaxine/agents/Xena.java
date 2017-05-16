@@ -1,4 +1,4 @@
-package com.teammaxine.agent;
+package com.teammaxine.agents;
 
 import aiproj.slider.Move;
 import com.teammaxine.board.scorers.MonteCarloScorer;

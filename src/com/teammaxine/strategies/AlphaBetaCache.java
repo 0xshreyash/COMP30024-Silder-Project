@@ -250,7 +250,6 @@ public class AlphaBetaCache {
             else if((s = cache.get(compressedBoard)) != null && s.getDepth() < depth && (depth) <= 4) {
                 cache.set(compressedBoard, new State(alpha, beta, depth, val));
             }
-
             board.undoMove(move, otherPlayer);
             if (alpha >= beta)
                 break;
