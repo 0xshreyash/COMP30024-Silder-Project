@@ -48,8 +48,8 @@ public abstract class Agent implements SliderPlayer {
 
     public ArrayList<Move.Direction> getLegalDirections(char player) {
         if(player == Board.CELL_HORIZONTAL)
-            return new ArrayList(Arrays.asList(HORIZONTAL_DIRECTIONS));
-        return new ArrayList(Arrays.asList(VERTICAL_DIRECTIONS));
+            return new ArrayList<>(Arrays.asList(HORIZONTAL_DIRECTIONS));
+        return new ArrayList<>(Arrays.asList(VERTICAL_DIRECTIONS));
     }
 
     public void setLegalDirections(ArrayList<Move.Direction> legalDirections) {
