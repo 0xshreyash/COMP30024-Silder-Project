@@ -188,4 +188,8 @@ thinking involved creating an LRU Cache instead of a standard hash table, and in
 optimise memory usage but sadly we couldn't get the memory usage of a large enough size cache to be low enough to
 include in our final submission.
 
-Sorting one level
+Sorting one level deep:
+
+We also tried looking one level deeper in the tree in order to sort the moves according to the value of the board at
+the next level. But this lead to a decrease in speed and didn't allow us to look any deeper so we ended up not using
+this idea.
