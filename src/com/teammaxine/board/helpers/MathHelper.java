@@ -1,12 +1,11 @@
 package com.teammaxine.board.helpers;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by noxm on 10/05/17.
+ * Bunch of helper methods
  */
 public class MathHelper {
     public static Integer[] cutArray(Integer[] arr, int start, int size) {
@@ -70,9 +69,8 @@ public class MathHelper {
         return i;
     }
 
+    // http://stackoverflow.com/questions/1678690/what-is-a-good-way-to-implement-choose-notation-in-java
     public static double choose(int x, int y) {
-        // from http://stackoverflow.com/questions/1678690/what-is-a-good-way-to-implement-choose-notation-in-java
-        // by mob
 
         if (y < 0 || y > x) return 0;
         if (y > x/2) {

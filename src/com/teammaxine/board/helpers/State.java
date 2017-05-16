@@ -1,7 +1,5 @@
 package com.teammaxine.board.helpers;
 
-import com.teammaxine.board.elements.CompressedBoard;
-
 /**
  * Created by shreyashpatodia on 15/05/17.
  */

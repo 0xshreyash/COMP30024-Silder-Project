@@ -12,17 +12,21 @@ public class BetaScorer extends Scorer {
     // initialBoard is the board we start evaluating from.
     private Board initialBoard;
     double distance_change_score = 15;
+
     // Scores to evaluate blockedness
     // Take this score off when blocked by B because,
     // B will never move, so we don't want to be in the
     // same line a
     double b_blocked_score = -6;
+
     // Take this score when blocked by other player, still
     // good to move forward in these scenarios since the other
     // player may move (especially if the the opponent does
     // not think about blocking, which I am assuming will be
     // the case most of the time/
+
     double other_blocked_score = -2.5;
+
     // Our piece will probably move forward anyways so, we
     // can be right behind it. This will happen every time there
     // is a B on the board.

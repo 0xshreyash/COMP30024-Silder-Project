@@ -6,6 +6,8 @@ import com.teammaxine.board.scorers.MonteCarloScorer;
 import com.teammaxine.board.scorers.Scorer;
 
 /**
+ * Plays game with various settings of Monte Carlo scorer to find the most
+ * optimial setting.
  * Created by noxm on 10/05/17.
  */
 public class MonteCarloLearner extends Learner {

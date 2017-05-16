@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * Scorer base class. Can be as-is for simple testing
  * Created by noxm on 17/04/17.
  */
 public class Scorer {

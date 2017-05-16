@@ -9,13 +9,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
+ * Monte Carlo search, with slight variations
  * Created by noxm on 10/05/17.
  */
 public class MonteCarlo implements Strategy {
     private char player;
     private Scorer scorer;
     private Random random;
-    private static final int TRIES = 5000000;
+    private static final int TRIES = 5000000; // tries to make per move
     private static final int MAX_DEPTH = 20;
 
     private static Move prevMove;
@@ -70,6 +71,7 @@ public class MonteCarlo implements Strategy {
                     localMin = score;
             }
 
+            // update with average score
             double avg = sum / TRIES;
 
             if((avg >= maxScore) && (prevMove == null || !oppositeMove(prevMove).toString().equals(m.toString()))) {
@@ -90,6 +92,15 @@ public class MonteCarlo implements Strategy {
         return toMake;
     }
 
+    /**
+     * Recursively randomly traverse down the tree
+     * @param board
+     * @param m
+     * @param depth
+     * @param turn
+     * @param player
+     * @return
+     */
     public double randomTraverse(Board board, Move m, int depth, char turn, char player) {
         if(m != null)
             board.makeMove(m, turn);
@@ -99,10 +110,13 @@ public class MonteCarlo implements Strategy {
                 (board.getHorizontal().getLegalMoves().size() == 0 && board.getVertical().getLegalMoves().size() == 0)) {
             char winner = board.getWinner();
             if(winner == '-') {
+                // draw
                 return 0;//Math.tanh(scorer.scoreBoard(board, player)) + 2*Math.tanh(proximity.scoreBoard(board, player));
             } else if(winner == player) {
+                // win
                 return 1;
             }
+            // lose
             return -1;
         }
 

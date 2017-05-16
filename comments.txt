@@ -1,6 +1,6 @@
 /******************************************************************************************************************/
                               Submission by: Max Lee and Shreyash Patodia.
-                              Student Number: and 767336
+                              Student Number: 719577 and 767336
                                           File: comments.txt
 /******************************************************************************************************************/
                                             Introduction:
@@ -105,6 +105,7 @@ to how a monte-carlo search would work). Our other two implementations AlphaBeta
 are close to being pure alpha beta but third one also counts lateral moves made by our player
 in order to send them to the EndGameScorer to penalise those moves (lateral moves are bad!).
 
+
 Early Game Policy (uses AlphaBetaGreedy and BlockingScorer):
 
 Early on in the game, we know that both agents are going to make forward moves (move right if we are H and 
@@ -137,6 +138,7 @@ Our heuristic function in this part of the does not value taking a piece off a b
 with more pieces and it also doesn't penalise lateral moves made. This strategy slightly contrasts our end game policy
 as we will explain in the next paragraph.
 
+
 End-Game Policy (uses AlphaBetaEnd and EndGameScorer):
 
 At the end of the game, making lateral moves in order to block someone because it could be the difference between
@@ -157,6 +159,7 @@ reflect in the scorer through the blocking value in our scorers, allowing us to 
 our of forward moves. We also use the information from the root node of the search to count how many moves we have taken
 off the board in order to value that to a higher extent.
 
+
 Other creative aspects:
 
 If we ever reach a terminal state where we win the game then we return INT_MAX - max_depth + depth, meaning that
@@ -172,9 +175,21 @@ One last point for this section is that we don't really ever create a new copy o
 the game, we make moves on a board and undo them before returning form the sections saving us a significant amount of
 memory (this memory would have been required if we chose to deep copy the board).
 
+------------------------------------------------------------------------------------------------------------------------
+
 Things we tried that didn't make it to our final submission:
 
 Monte-Carlo Search and Machine Learning:
+
+Monte Carlo search was utilized in early versions of the AI agent. It essentially counted number of wins, loss and draws
+after certain number of random branches deep down are visited. This strategy was highly effective in the early stages of
+our development however it was quickly over-taken by smart heuristics and we ended up purely using Minimax with Alpha
+Beta pruning. Potential improvement here can be made such that it does not play 'random' games but instead make logical 
+choices.
+
+Learner class was developed to tweak Monte Carlo agent by playing against itself or other agent however we ended up not
+doing this due to time contraints
+
 
 Iterative Deepening and Transposition Tables:
 

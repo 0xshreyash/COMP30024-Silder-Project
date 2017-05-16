@@ -10,6 +10,7 @@ public class DeltaScorer extends Scorer {
 
     // initialBoard is the board we start evaluating from.
     private Board initialBoard;
+
     double distance_change_score = 10;
     // Scores to evaluate blockedness
     double b_blocked_score = -10;

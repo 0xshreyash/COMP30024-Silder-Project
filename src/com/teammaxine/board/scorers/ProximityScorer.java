@@ -5,6 +5,7 @@ import com.teammaxine.board.elements.BoardAgent;
 import com.teammaxine.board.elements.Cell;
 
 /**
+ * Scoring function according to each pieces' status
  * Created by noxm on 13/05/17.
  */
 public class ProximityScorer extends Scorer {

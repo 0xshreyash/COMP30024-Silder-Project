@@ -11,6 +11,8 @@ import com.teammaxine.board.scorers.EndGameScorer;
 import java.util.*;
 
 /**
+ * Variant that tries to end the game asap
+ * Similar to Greedy but slightly less intelligent
  * Created by shreyashpatodia on 12/05/17.
  */
 public class AlphaBetaEnd implements Strategy {

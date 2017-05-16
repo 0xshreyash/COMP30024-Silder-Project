@@ -1,17 +1,12 @@
 package com.teammaxine.board.scorers;
 
-/**
- * Created by noxm on 10/05/17.
- */
 import com.teammaxine.board.elements.*;
 
 /**
+ * Scorer that used to used in Monte Carlo for additional weighting
  * Created by noxm on 17/04/17.
  */
 public class MonteCarloScorer extends Scorer {
-    // score += cell property * this
-    private boolean showDebug = false;
-
     public MonteCarloScorer() {
 
     }

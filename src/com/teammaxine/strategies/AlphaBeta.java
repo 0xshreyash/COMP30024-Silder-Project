@@ -5,8 +5,10 @@ import com.teammaxine.board.elements.Board;
 import com.teammaxine.board.scorers.Scorer;
 import java.util.ArrayList;
 
+/**
+ * Basic minimax with pruning
+ */
 public class AlphaBeta implements Strategy {
-
     private char myPlayer;
     private char otherPlayer;
     private Scorer scorer;

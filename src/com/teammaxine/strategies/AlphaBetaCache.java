@@ -40,17 +40,13 @@ public class AlphaBetaCache {
     }
 
     /**
-     * gb
      * Performs alpha beta search recursively
-     *
      * @param depth
      * @return
      */
     private Move alphaBetaSearch(int depth, Board board, double alpha, double beta) {
-
         Move bestMove = null;
         double bestVal = Integer.MIN_VALUE;
-
 
 //       Board bestBoard = null;
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(myPlayer);

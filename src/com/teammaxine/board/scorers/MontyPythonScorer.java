@@ -8,6 +8,7 @@ import com.teammaxine.strategies.MonteCarlo;
 import java.util.ArrayList;
 
 /**
+ * Scorer that utilizes Monte Carlo search
  * Created by noxm on 13/05/17.
  */
 public class MontyPythonScorer extends Scorer {
@@ -22,10 +23,11 @@ public class MontyPythonScorer extends Scorer {
     }
 
     public double scoreBoard(Board boardToConsider, char playerPiece) {
+        char enemy = (playerPiece == 'H') ? 'V' : 'H';
+
         Board board = new Board(boardToConsider);
         MonteCarlo xena = getInnerXena(playerPiece);
         ArrayList<AgentAction> moves;
-        char enemy = (playerPiece == 'H') ? 'V' : 'H';
 
         if(enemy == 'V')
             moves = board.getVertical().getOptimisticMoves();

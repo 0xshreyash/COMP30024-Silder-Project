@@ -7,6 +7,7 @@ import com.teammaxine.board.scorers.AlphaScorer;
 import java.util.ArrayList;
 
 /**
+ * Alpha beta that does not recreate the board but traverse back by undoing moves
  * Created by shreyashpatodia on 12/05/17.
  */
 public class AlphaBetaUndo implements Strategy{

@@ -15,16 +15,15 @@ import com.teammaxine.strategies.Strategy;
  * our main ai <3
  */
 public class Shreya extends Agent {
-    private boolean switched[] = {false, false};
     private int turns = 0;
-    private Strategy myStrategy;
 
     @Override
     public Move move() {
-        int depth = -1;
+        int depth;
         int boardSize = getMyBoard().getSize();
         int blockingTurns = (boardSize) * (boardSize - 1);
 
+        // adjust depth with pre-defined values
         if (boardSize == 5 && turns % 10 == 0)
             depth = 11;
         else if(boardSize == 5)
@@ -43,17 +42,18 @@ public class Shreya extends Agent {
         Move toMake;
         char player = this.getPlayer();
         Board board = this.getMyBoard();
+        Strategy myStrategy;
 
-
+        // swap strategy according to the situation
         if(turns >= blockingTurns) {
             EndGameScorer endGameScorer = new EndGameScorer(player, board);
             myStrategy = new AlphaBetaEnd(player, endGameScorer, depth);
-        }
-        else if ((turns > (boardSize - 1))|| boardSize == 5) {
+
+        } else if ((turns > (boardSize - 1)) || boardSize == 5) {
             BlockingScorer bscorer = new BlockingScorer(player, board);
             myStrategy = new AlphaBetaBlocking(player, bscorer, depth);
-        }
-        else {
+
+        } else {
             BlockingScorer bscorer = new BlockingScorer(player, board);
             myStrategy = new AlphaBetaGreedy(player, bscorer);
             depth -= 3;
@@ -61,6 +61,7 @@ public class Shreya extends Agent {
 
         toMake = myStrategy.findMove(board, depth);
         this.update(toMake, player);
+
         turns++;
         return toMake;
     }

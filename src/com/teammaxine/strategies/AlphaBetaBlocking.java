@@ -10,6 +10,7 @@ import com.teammaxine.board.scorers.BlockingScorer;
 import java.util.*;
 
 /**
+ * Alpha beta search variant that tries to block the opponent
  * Created by shreyashpatodia on 12/05/17.
  */
 public class AlphaBetaBlocking implements Strategy{
@@ -17,7 +18,6 @@ public class AlphaBetaBlocking implements Strategy{
     private char otherPlayer;
     private BlockingScorer scorer;
     private int maxDepth;
-    private int nodes;
 
     public AlphaBetaBlocking(char player, BlockingScorer scorer, int maxDepth) {
         this.myPlayer = player;
@@ -33,23 +33,19 @@ public class AlphaBetaBlocking implements Strategy{
         return bestMove;
     }
 
-    /**gb
+    /**
      * Performs alpha beta search recursively
      * @param depth
      * @return
      */
     private Move alphaBetaSearch(int depth, Board board, double alpha, double beta) {
-
         Move bestMove = null;
         double bestVal = Integer.MIN_VALUE;
 
-
-//       Board bestBoard = null;
         ArrayList<? extends Move> legalMoves = board.getLegalMoves(myPlayer);
         for(Move move : legalMoves) {
             board.makeMove(move, myPlayer);
 
-            nodes++;
             //System.out.println("--------------------");
             //System.out.println("With move :" + move);
             //System.out.println("New board\n" + newBoard);
@@ -77,8 +73,6 @@ public class AlphaBetaBlocking implements Strategy{
     }
 
     private double maxValue(Board board, double alpha, double beta, int depth) {
-
-
         if(board.horizontalWon()) {
             if(this.myPlayer == 'H')
                 return Integer.MAX_VALUE - maxDepth + depth;
@@ -108,7 +102,6 @@ public class AlphaBetaBlocking implements Strategy{
             return minValue(board, alpha, beta, depth);
 
         for(Move move : legalMoves) {
-            nodes++;
             board.makeMove(move, myPlayer);
             bestVal = Math.max(bestVal, minValue(board, alpha, beta, depth - 1));
             alpha = Math.max(bestVal, alpha);
@@ -155,8 +148,8 @@ public class AlphaBetaBlocking implements Strategy{
         if(legalMoves.size() == 0)
             return Integer.MAX_VALUE;
         //Board newBoard = new Board(board);
+
         for(Move move : legalMoves) {
-            nodes++;
             board.makeMove(move, otherPlayer);
             bestVal = Math.min(bestVal, maxValue(board, alpha, beta, depth - 1));
             beta = Math.min(bestVal, beta);
@@ -166,62 +159,4 @@ public class AlphaBetaBlocking implements Strategy{
         }
         return bestVal;
     }
-
-   /* public ArrayList<Move> sortMoves(Board board, char player) {
-        ArrayList<? extends Move> legalMoves = board.getLegalMoves(player);
-        ArrayList<MoveValuePair> moveValuePairs = new ArrayList<>();
-
-        for(Move move : legalMoves) {
-            board.makeMove(move, player);
-            int score = moveEvaluation(move, player);
-            if(player == this.myPlayer)
-                moveValuePairs.add(new MoveValuePair(move, score));
-            board.undoMove(move, player);
-        }
-
-        Collections.sort(moveValuePairs, new MoveComparator());
-        ArrayList<Move> orderedMoves = new ArrayList<>();
-
-        for(MoveValuePair pair : moveValuePairs) {
-            orderedMoves.add(pair.move);
-            System.out.println(pair.move.d);
-        }
-        return orderedMoves;
-    }
-
-
-    public class MoveValuePair {
-        Move move;
-        int score;
-
-        public MoveValuePair(Move move, int score) {
-            this.move = move;
-            this.score = score;
-        }
-
-    }
-
-    private int moveEvaluation(Move move, char player) {
-        int forwardValue = 100;
-        int badLateralValue = 50;
-        int betterLateralValue = 75;
-        if(player == 'H' && move.d == Move.Direction.RIGHT ||
-                player == 'V' && move.d == Move.Direction.UP)
-            return forwardValue;
-        else if(player == 'H' && move.d == Move.Direction.DOWN ||
-                player == 'V' && move.d == Move.Direction.LEFT)
-            return betterLateralValue;
-        else
-            return badLateralValue;
-    }
-
-    public class MoveComparator implements Comparator<MoveValuePair> {
-
-        public int compare(MoveValuePair one, MoveValuePair two) {
-            return -Integer.compare(one.score, two.score);
-        }
-    }
-    */
-
-
 }

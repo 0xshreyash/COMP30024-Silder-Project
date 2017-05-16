@@ -7,6 +7,7 @@ import com.teammaxine.board.scorers.Scorer;
 import java.util.ArrayList;
 
 /**
+ * Greedy agent that tries to end the game as soon as possible
  * Created by shreyashpatodia on 12/05/17.
  */
 public class AlphaBetaGreedy implements Strategy{
@@ -27,7 +28,7 @@ public class AlphaBetaGreedy implements Strategy{
         return bestMove;
     }
 
-    /**gb
+    /**
      * Performs alpha beta search recursively
      * @param depth
      * @param currPlayer the player with the current chance
