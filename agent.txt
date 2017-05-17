@@ -1,1 +1,1 @@
-com.teammaxine.agent.Shreya
+com.teammaxine.agents.Shreya
