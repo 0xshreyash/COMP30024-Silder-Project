@@ -38,19 +38,19 @@ public class Shreya extends Agent {
         // overhead still stays within the limits of the game and
         // gives us a better peek at the future.
         if (boardSize == 5 && turns % 10 == 0)
-            depth = 11;
+            depth = 10;
         else if(boardSize == 5)
-            depth = 10;
+            depth = 9;
         else if (boardSize == 6 && turns % 4 == 0)
-            depth = 10;
+            depth = 9;
         else if(boardSize == 6)
-            depth = 9;
+            depth = 8;
         else if (boardSize == 7 && turns < 14)
-            depth = 9;
+            depth = 8;
         else if (boardSize == 7)
-            depth = 8;
+            depth = 7;
         else
-            depth = 8;
+            depth = 7;
 
         Move toMake;
         char player = this.getPlayer();
